@@ -13,31 +13,56 @@
     <style >
         .card-login
         {
-            max-width:580px;
+            width:780px;
+            height:400px;
         }
-        .form-label-group > input,
-        .form-label-group > label {
-            padding: var(--input-padding-y) var(--input-padding-x);
-            height: auto;
+        
+        .champs1
+        {
+            width:350px;
+            display: inline;
+            margin-left:40px;   
+        }
+        .champs
+        {
+            width:350px;
+            display: inline;
+            margin-left:15px;   
+        }
+        .checkbox
+        {
+            margin-left:260px;
+        }
+        .soumis
+        {
+            margin-left:260px;
         }
     </style>
     </head>
     <body class="bg-dark" >
+        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <h2><em>Feuilles de Service</em></h2>
+	    </div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+		<span class="navbar-toggler-icon"></span>
+	    </button>
+        </nav>
         <div class="container">
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header ">Connexion</div>
                 <div class="card-body">
                     <form method="post" action="#">
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <div class="form-label-group">
-                                <label for="inputEmail">Identifiant :</label>
-                                <input type="email" name="inputEmail" class="form-control" placeholder="id ou adresse mail" required="required" autofocus="autofocus" >  
+                                <label for="inputEmail"><strong>Identifiant :</strong></label>
+                                <input type="email" name="inputEmail" class="form-control champs1" placeholder="id ou adresse mail" required="required" autofocus="autofocus" >  
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <div class="form-label-group">
-                                <label for="inputPassword">Mot de passe :</label>
-                                <input type="password" name="inputPassword" class="form-control" placeholder="Mot de passe" required="required" >
+                                <label for="inputPassword"><strong>Mot de passe :</strong></label>
+                                <input type="password" name="inputPassword" class="form-control champs" placeholder="Mot de passe" required="required" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,10 +73,12 @@
                                 </label>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary btn-block" name="envoyer" value="Se connecter" />
+                        <div class="soumis">
+                        <input type="submit" class="btn btn-primary" name="envoyer" value="Se connecter" />
+                        </div> 
                     </form>
-                    <div class="text-center">
-                        <a class="d-block small" href="mot_de_passe_oublie.php">Mot de passe oublié ?</a>
+                    <div >
+                    <a class="soumis" href="mot_de_passe_oublie.php">Mot de passe oublié ?</a>
                     </div>
                 </div>
             </div>
