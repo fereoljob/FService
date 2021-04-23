@@ -13,7 +13,10 @@ class ChangeUserTable extends Migration
      */
     public function up()
     {
-        $table->unique('nom', 'unique_email     ');
+        Schema::table('users', function (Blueprint $table) {
+            $table->unique('nom','prenom');
+        });
+        
     }
 
     /**

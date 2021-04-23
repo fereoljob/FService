@@ -18,8 +18,8 @@ class CreateProfesseursTable extends Migration
             $table->string("nom_professeur");
             $table->string("prenom_professeur");
             $table->integer("service");
-            $table->integer("id_statut");
-            $table->integer("id_departement");
+            $table->UnsignedInteger("id_statut");
+            $table->UnsignedInteger("id_departement");
         });
     }
 

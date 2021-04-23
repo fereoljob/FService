@@ -15,8 +15,8 @@ class CreatePartiesTable extends Migration
     {
         Schema::create('parties', function (Blueprint $table) {
             $table->increments("id_partie");
-            $table->integer("id_matiere");
-            $table->integer("type_enseignement");
+            $table->UnsignedInteger("id_matiere");
+            $table->UnsignedInteger("type_enseignement");
             $table->integer("nbre_heure");
             $table->integer("nbre_groupe");
         });

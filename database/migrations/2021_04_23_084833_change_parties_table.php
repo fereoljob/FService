@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartementsTable extends Migration
+class ChangePartiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateDepartementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departements', function (Blueprint $table) {
-            $table->increments("id_departement");
-            $table->string("nom_departement");
-            $table->UnsignedInteger("responsable_departement");
+        Schema::table('parties', function (Blueprint $table) {
+            $table->foreign('id_matiere')->references("id_matiere")->on("matieres");
+            $table->foreign('type_enseignement')->references("id_type_enseignement")->on("type_enseignements");
         });
     }
 
@@ -27,6 +26,6 @@ class CreateDepartementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departements');
+        //
     }
 }

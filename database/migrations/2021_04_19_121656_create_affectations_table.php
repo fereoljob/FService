@@ -15,8 +15,8 @@ class CreateAffectationsTable extends Migration
     {
         Schema::create('affectations', function (Blueprint $table) {
             $table->increments("id_affectation");
-            $table->integer("id_partie");
-            $table->integer("id_professeur");
+            $table->UnsignedInteger("id_partie");
+            $table->UnsignedInteger("id_professeur");
             $table->string("nbre_groupe_prof");
         });
     }

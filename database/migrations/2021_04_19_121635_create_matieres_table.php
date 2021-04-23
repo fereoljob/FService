@@ -16,9 +16,9 @@ class CreateMatieresTable extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->increments("id_matiere");
             $table->string("nom_matiere");
-            $table->integer("id_semestre");
-            $table->integer("responsable_matiere");
-            $table->integer("id_departement");
+            $table->UnsignedInteger("id_semestre");
+            $table->UnsignedInteger("responsable_matiere");
+            $table->UnsignedInteger("id_departement");
         });
     }
 
