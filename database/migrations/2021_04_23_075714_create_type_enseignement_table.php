@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangesSemestresTables extends Migration
+class CreateTypeEnseignementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class ChangesSemestresTables extends Migration
      */
     public function up()
     {
-        Schema::table('semestres', function (Blueprint $table) {
-            $table->foreign("id_niv")->references("id_niv")->on("niv_etudes");
+        Schema::create('type_enseignement', function (Blueprint $table) {
+            $table->increments("id_type_enseignement");
+            $table->string("nom_type_enseignement");
+            $table->integer("coefficient");
         });
     }
 
@@ -25,8 +27,6 @@ class ChangesSemestresTables extends Migration
      */
     public function down()
     {
-        Schema::table('semestres', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('type_enseignement');
     }
 }

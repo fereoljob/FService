@@ -14,9 +14,10 @@ class CreateNivEtudesTable extends Migration
     public function up()
     {
         Schema::create('niv_etudes', function (Blueprint $table) {
-            $table->increments("id_niv");
-            $table->string("intitule_niv");
+            $table->increments("id_niveau");
+            $table->string("nom_niveau");
             $table->string("categorie");
+            $table->integer("responsable_annee");
         });
     }
 

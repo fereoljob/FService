@@ -14,14 +14,11 @@ class CreateMatieresTable extends Migration
     public function up()
     {
         Schema::create('matieres', function (Blueprint $table) {
-            $table->increments("id_mat");
-            $table->string("intitule_mat");
-            $table->string("description");
-            $table->string("type_mat");
-            $table->integer("nbre_heure");
-            $table->integer("nbre_gr");
-            $table->integer("coef");
+            $table->increments("id_matiere");
+            $table->string("nom_matiere");
             $table->integer("id_semestre");
+            $table->integer("responsable_matiere");
+            $table->integer("id_departement");
         });
     }
 

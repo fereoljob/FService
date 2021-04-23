@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatutsTable extends Migration
+class CreatePartiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateStatutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuts', function (Blueprint $table) {
-            $table->increments("id_statut");
-            $table->string("nom_statut");
+        Schema::create('parties', function (Blueprint $table) {
+            $table->increments("id_partie");
+            $table->integer("id_matiere");
+            $table->integer("type_enseignement");
             $table->integer("nbre_heure");
-            $table->integer("nbre_heure_max");
+            $table->integer("nbre_groupe");
         });
     }
 
@@ -28,6 +29,6 @@ class CreateStatutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuts');
+        Schema::dropIfExists('parties');
     }
 }

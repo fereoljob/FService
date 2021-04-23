@@ -14,12 +14,12 @@ class CreateProfesseursTable extends Migration
     public function up()
     {
         Schema::create('professeurs', function (Blueprint $table) {
-            $table->increments("id_prof");
-            $table->string("nom");
-            $table->string("prenom");
+            $table->increments("id_professeur");
+            $table->string("nom_professeur");
+            $table->string("prenom_professeur");
             $table->integer("service");
             $table->integer("id_statut");
-            $table->integer("id_dep");
+            $table->integer("id_departement");
         });
     }
 

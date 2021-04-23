@@ -14,10 +14,10 @@ class CreateAffectationsTable extends Migration
     public function up()
     {
         Schema::create('affectations', function (Blueprint $table) {
-            $table->increments("id_affect");
-            $table->integer("id_mat");
-            $table->integer("id_prof");
-            $table->string("nbre_grp");
+            $table->increments("id_affectation");
+            $table->integer("id_partie");
+            $table->integer("id_professeur");
+            $table->string("nbre_groupe_prof");
         });
     }
 
