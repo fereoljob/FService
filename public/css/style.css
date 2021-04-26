@@ -1,7 +1,7 @@
 .card-login
         {
             width:780px;
-            height:350px;
+            height:370px;
             margin-top:110px;
         }
         .titre
@@ -33,3 +33,7 @@
         {
             margin-left:260px;
         }
+.tete
+{
+    height: 60px;
+}

@@ -15,6 +15,7 @@ class ChangeProfesseursTable extends Migration
     {
         Schema::table('professeurs', function (Blueprint $table) {
             $table->foreign('id_statut')->references("id_statut")->on("statuts");
+            $table->unique(["nom_professeur","prenom_professeur"]);
             $table->foreign('id_departement')->references("id_departement")->on("departements");
 
         });

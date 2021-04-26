@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControleurConnexion;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[ControleurConnexion::class,'connexion'])->middleware("dejaConnecte");
+Route::post('Connecter',[ControleurConnexion::class,'login'])->name('Connex.verif');
+Route::get('profile',[ControleurConnexion::class,'profile'])->middleware("estConnecte");
+Route::get('logout',[ControleurConnexion::class,'logout']);

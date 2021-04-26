@@ -21,17 +21,27 @@
             <div class="card card-login mx-auto">
                 <div class="card-header ">Connexion</div>
                 <div class="card-body">
-                    <form method="post" action="#">
+                <form method="post" action="{{ route('Connex.verif') }}">
+                    @csrf
+                    <div class="resultats" >
+                        @if(Session::get('Echec'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('Echec') }}
+                            </div>
+                        @endif
+                    </div>
                         <div class="form-group text-center">
                             <div class="form-label-group">
                                 <label for="inputEmail"><strong>Identifiant :</strong></label>
-                                <input type="email" name="inputEmail" class="form-control champs1" placeholder="id ou adresse mail" required="required" autofocus="autofocus" >  
+                                <input type="email" name="inputEmail" class="form-control champs1" placeholder="Adresse mail" required="required" autofocus="autofocus" > 
+                                <span class="text-danger">@error('inputEmail') {{ $message }} @enderror</span> 
                             </div>
                         </div>
                         <div class="form-group text-center">
                             <div class="form-label-group">
                                 <label for="inputPassword"><strong>Mot de passe :</strong></label>
                                 <input type="password" name="inputPassword" class="form-control champs" placeholder="Mot de passe" required="required" >
+                                <span class="text-danger">@error('password') {{ $message }} @enderror</span>
                             </div>
                         </div>
                         <div class="form-group">
