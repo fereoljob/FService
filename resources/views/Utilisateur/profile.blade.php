@@ -26,6 +26,10 @@
             <div class="Licences col-md-12">
                 <div class="row text-center">
                     <h2 class="titresect"><span class="contenu">Licences</span> </h2>
+                    
+                    <div class="aff">
+
+                    </div>
                 </div>
             </div>
             <div class="Masteres col-md-12">
@@ -39,6 +43,5 @@
                 </div>
             </div>
         </div>
-        <div class="corentin">bonjour</div>
     </body>
 </html>
