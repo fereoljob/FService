@@ -1,39 +1,56 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+  }
 .card-login
-        {
-            width:780px;
-            height:370px;
-            margin-top:110px;
-        }
-        .titre
-        {
-            color:white;
-            margin-top:100px;
-            font-size:60px;
-            font-weight:bold;
-            font-family:Cursive;
-        }
+{
+    width:780px;
+    height:370px;
+    margin-top:110px;
+}
+.titre
+{
+    color:white;
+    margin-top:100px;
+    font-size:60px;
+    font-weight:bold;
+    font-family:Cursive;
+}
         
-        .champs1
-        {
-            width:350px;
-            display: inline;
-            margin-left:40px;   
-        }
-        .champs
-        {
-            width:350px;
-            display: inline;
-            margin-left:15px;   
-        }
-        .checkbox
-        {
+.champs1
+{
+  width:350px;
+  display: inline;
+   margin-left:40px;   
+}
+.champs 
+{
+    width:350px;
+    display: inline;
+    margin-left:15px;   
+}
+.checkbox
+{
             margin-left:260px;
-        }
-        .soumis
-        {
+}
+.soumis
+{
             margin-left:260px;
-        }
+}
 .tete
 {
     height: 60px;
+}
+.titresect
+{
+    padding:5px;
+    border-bottom: 5px solid black;
+    width: 2000px;
+    text-align: left;
+}
+.contenu
+{
+    background-color:cornflowerblue;
+    padding:6px;
 }

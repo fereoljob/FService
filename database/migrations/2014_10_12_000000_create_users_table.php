@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string("type_user");
             $table->string('password');
+            $table->boolean('admin');
+            $table->boolean('supadmin');
         });
     }
 
