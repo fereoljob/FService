@@ -54,3 +54,14 @@ html,body{
     background-color:cornflowerblue;
     padding:6px;
 }
+.troiscol
+{
+    width: 400px;
+}
+.filtre
+{
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-size: large;
+    font-weight:bold;
+}

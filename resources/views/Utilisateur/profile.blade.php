@@ -26,20 +26,104 @@
             <div class="Licences col-md-12">
                 <div class="row text-center">
                     <h2 class="titresect"><span class="contenu">Licences</span> </h2>
-                    
-                    <div class="aff">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="licences"><span class="filtre"> Niveau licence :</span></label>
+                            <select class="btn btn-secondary" name="licences">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="Semestres"><span class="filtre"> Semestres :</span></label>
+                            <select class="btn btn-secondary" name="Semestres">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="vue"><span class="filtre"> Affichage :</span></label>
+                            <select class="btn btn-secondary" name="vue">
+                                <option value="Global ">Global</option>
+                                <option value="Personnalisé">Personnalisé</option>
+                            </select>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="affichage">
+                            
+                        </div>
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid padding mt-5">
             <div class="Masteres col-md-12">
                 <div class="row text-center ">
                     <h2 class="titresect"><span class="contenu">Mastères</span> </h2>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="licences"><span class="filtre"> Niveau licence :</span></label>
+                            <select class="btn btn-secondary" name="licences">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="Semestres"><span class="filtre"> Semestres :</span></label>
+                            <select class="btn btn-secondary" name="Semestres">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="vue"><span class="filtre"> Affichage :</span></label>
+                            <select class="btn btn-secondary" name="vue">
+                                <option value="Global ">Global</option>
+                                <option value="Personnalisé">Personnalisé</option>
+                            </select>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="affichage">
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid padding mt-5">
             <div class="AutresServices col-md-12">
                 <div class="row  text-center">
                     <h2 class="titresect"><span class="contenu">Autres Services</span></h2>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="licences"><span class="filtre"> Niveau licence :</span></label>
+                            <select class="btn btn-secondary" name="licences">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="Semestres"><span class="filtre"> Semestres :</span></label>
+                            <select class="btn btn-secondary" name="Semestres">
+                            </select>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-6 col-md-4 troiscol">
+                            <label for="vue"><span class="filtre"> Affichage :</span></label>
+                            <select class="btn btn-secondary" name="vue">
+                                <option value="Global ">Global</option>
+                                <option value="Personnalisé">Personnalisé</option>
+                            </select>
+                        </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="affichage">
+                            
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
