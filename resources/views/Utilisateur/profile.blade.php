@@ -42,5 +42,6 @@
         <div class="corentin">bonjour</div>
         <div class="fer"></div>
         <div class="cor"></div>
+        <div class="vane"></div>
     </body>
 </html>
