@@ -17,7 +17,7 @@ class CreateNiveauEtudesTable extends Migration
             $table->increments("id_niveau");
             $table->string("nom_niveau");
             $table->string("categorie");
-            $table->UnsignedInteger("responsable_annee");
+            $table->UnsignedInteger("responsable_annee")->nullable();
         });
     }
 

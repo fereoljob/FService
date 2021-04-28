@@ -16,7 +16,7 @@ class CreateSemestresTable extends Migration
         Schema::create('semestres', function (Blueprint $table) {
             $table->increments("id_semestre");
             $table->string("nom_semestre");
-            $table->UnsignedInteger("id_niveau");
+            $table->UnsignedInteger("id_niveau")->nullable();
         });
     }
 
