@@ -30,16 +30,20 @@
                         <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
+                                <select class="btn btn-secondary" name="licences" id="licences">
+                                    <option value = "Tout" selected> Licences </option>
+                                    <option value="Licence1"> Licence 1</option>
+                                    <option value="Licence2" > Licence 2 </option>
+                                    <option value="Licence3">Licence 3</option>
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue">
@@ -51,7 +55,7 @@
                     </div>
                     <div class="row">
                         <div class="affichage">
-                            
+
                         </div>
 
                     </div>
@@ -69,13 +73,13 @@
                                 <select class="btn btn-secondary" name="licences">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue">
@@ -105,13 +109,13 @@
                                 <select class="btn btn-secondary" name="licences">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue">
@@ -123,7 +127,7 @@
                     </div>
                     <div class="row">
                         <div class="affichage">
-                            
+
                         </div>
 
                     </div>
