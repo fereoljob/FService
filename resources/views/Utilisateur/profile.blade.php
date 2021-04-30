@@ -29,53 +29,31 @@
                     <div class="row">
                         <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
+                                <label for="licences"><span class="filtre"> Catégorie :</span></label>
+                                <select class="btn btn-secondary" name="Categorie">
+                                    <option value="Tout" selected> Tous </option>
+                                    <option value="Licence"> Licence </option>
+                                    <option value="Master" > Master</option>
+                                    <option value="Autres">Autres Services</option>
                                 </select>
                             </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="vue"><span class="filtre"> Affichage :</span></label>
-                                <select class="btn btn-secondary" name="vue">
-                                    <option value="Global ">Global</option>
-                                    <option value="Personnalisé">Personnalisé</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="row">
-                        <div class="affichage">
-                            
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid padding mt-5">
-            <div class="Masteres col-md-12">
-                <div class="row text-center ">
-                    <h2 class="titresect"><span class="contenu">Mastères</span> </h2>
-                    <div class="row">
-                        <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
+                                <label for="licences"><span class="filtre"> Niveau d'Etudes :</span></label>
+                                <select class="btn btn-secondary" name="Licences">
+                                    <option value="Tout" selected> Tous </option>
+                                    <option value="Licence1"> Licence 1</option>
+                                    <option value="Licence2" > Licence 2 </option>
+                                    <option value="Licence3">Licence 3</option>
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue">
@@ -88,42 +66,6 @@
                     <div class="row">
                         <div class="affichage">
 
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid padding mt-5">
-            <div class="AutresServices col-md-12">
-                <div class="row  text-center">
-                    <h2 class="titresect"><span class="contenu">Autres Services</span></h2>
-                    <div class="row">
-                        <form action="#" class="form-inline lefiltre">
-                            <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="vue"><span class="filtre"> Affichage :</span></label>
-                                <select class="btn btn-secondary" name="vue">
-                                    <option value="Global ">Global</option>
-                                    <option value="Personnalisé">Personnalisé</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="row">
-                        <div class="affichage">
-                            
                         </div>
 
                     </div>
