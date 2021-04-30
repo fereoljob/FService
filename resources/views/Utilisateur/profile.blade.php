@@ -31,8 +31,7 @@
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="Categorie">
-                                    <option value="Tout" selected> Tous </option>
-                                    <option value="Licence"> Licence </option>
+                                    <option value="Licence" selected> Licence </option>
                                     <option value="Master" > Master</option>
                                     <option value="Autres">Autres Services</option>
                                 </select>
