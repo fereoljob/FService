@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
+use App\Models\Departement;
 
 class ControleurConnexion extends Controller
 {
@@ -54,8 +55,10 @@ class ControleurConnexion extends Controller
         if(session()->has('LoggedUser'))
         {
             $user = User::where('id_user','=',session('LoggedUser'))->first();
-            $data=['infoConnexionUser'=>$user];
+            $dep = Departement::where('id_departement', '=', '2') ->first();
+            $data=['infoConnexionUser'=>$user, 'depart'=>$dep];
         }
         return view('Utilisateur/profile',$data);
     }
+
 }
