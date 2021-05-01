@@ -73,3 +73,55 @@ html,body{
 {
     height: 100px;
 }
+
+
+.aside,.one
+{
+    height: 100px;
+    border-radius:10px;
+}
+.aside
+{
+    height: 610px;
+}
+.admin
+{
+    background-color:darkgray;
+}
+.perso
+{
+    border-bottom: 2px solid white;
+    padding-top:7px;
+    padding-bottom:7px;
+}
+.uliste
+{
+    list-style-type:none;
+    font-size: 20px;
+}
+.uliste a{
+    border:1px solid white;
+    display: block;
+    color:white;
+    text-decoration: none;   
+}
+.uliste a:hover
+{
+    background-color:darkslategray;
+    padding:4px;
+}
+.card-form input
+{
+    display: inline;
+    width: 350px;
+}
+.card-form select
+{
+    display: inline;
+    width: 350px;
+}
+.card-form table
+{
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}

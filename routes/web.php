@@ -18,6 +18,4 @@ Route::get('/',[ControleurConnexion::class,'connexion'])->middleware("dejaConnec
 Route::post('Connecter',[ControleurConnexion::class,'login'])->name('Connex.verif');
 Route::get('profile',[ControleurConnexion::class,'profile'])->middleware("estConnecte");
 Route::get('logout',[ControleurConnexion::class,'logout']);
-Route::get('/admin',function(){
-    return view('Administration/SupAdmin');
-});
+Route::get('/admin',[ControleurAdmin::class,'Admin']);
