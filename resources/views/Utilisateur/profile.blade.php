@@ -121,6 +121,36 @@
             </div>
         </div>
 
+        <table>
+            <thead>
+                <tr>
+                    <th>Professeur</th>
+                    <th>Categories</th>
+                    <th>Niveau Etude</th>
+                    <th>Semestre</th>
+                    <th>Type d'enseignement</th>
+                    <th>Matiere</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> a </td>
+                    <td> b </td>
+                    <td> c </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </tfoot>
+        </table>
         <script>
              document.getElementById('categorie').addEventListener('change', function() {
             console.log('You selected: ', this.value)
