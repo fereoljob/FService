@@ -19,7 +19,7 @@
         </div>
         <div class="container">
             <div class="card card-login mx-auto">
-                <div class="card-header ">Connexion</div>
+                <div class="card-header "><h3>Connexion</h3></div>
                 <div class="card-body">
                 <form method="post" action="{{ route('Connex.verif') }}">
                     @csrf
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="soumis">
-                        <input type="submit" class="btn btn-primary" name="envoyer" value="Se connecter" />
+                            <input type="submit" class="btn btn-primary" name="envoyer" value="Se connecter" />
                         </div> 
                     </form>
                     <div >

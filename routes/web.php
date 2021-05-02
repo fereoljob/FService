@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ControleurAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControleurConnexion;
 
@@ -18,4 +19,12 @@ Route::get('/',[ControleurConnexion::class,'connexion'])->middleware("dejaConnec
 Route::post('Connecter',[ControleurConnexion::class,'login'])->name('Connex.verif');
 Route::get('profile',[ControleurConnexion::class,'profile'])->middleware("estConnecte");
 Route::get('logout',[ControleurConnexion::class,'logout']);
-Route::get('/admin',[ControleurAdmin::class,'Admin']);
+Route::get('/admin',[ControleurConnexion::class,'Admin']);
+Route::get('Ajout',[ControleurAdmin::class,'ajouter']);
+Route::get('Supp',[ControleurAdmin::class,'Supprimer']);
+Route::get('Modi',[ControleurAdmin::class,'Modifier']);
+Route::post('listeAdm',[ControleurAdmin::class,'listing']);
+Route::get('feuille',[ControleurConnexion::class,'feuille']);
+Route::post('AjoutEnvoi',[ControleurAdmin::class,'AjoutEnvoi']);
+Route::post('SuppEnvoi',[ControleurAdmin::class,'SuppEnvoi']);
+Route::post('ModiEnvoi',[ControleurAdmin::class,'ModiEnvoi']);

@@ -18,8 +18,8 @@
                     <div class=" col-sm-3 col-md-3 mt-4 text-center" style="border-bottom: thick double white; border-right:thick double white"><i class=""></i><span class="adm">Administration</span></div>
                     <div class="col-sm-9 col-md-9 mt-4" style="border-bottom:thick double white">
                         <div class="row">
-                            <div class="col-md-6 text-center"><i class="fa fa-user "></i> nom prenom</div>
-                            <div class="col-md-6"><a href=#><button class="btn btn-primary" >Deconnexion</button></a></div>
+                            <div class="col-md-6 text-center"><i class="fa fa-user "></i> {{$infoConnexionUser->nom }}  {{ $infoConnexionUser->prenom }}</div>
+                            <div class="col-md-6"><a href="logout"><button class="btn btn-primary" >Deconnexion</button></a></div>
                         </div>
                         
                     </div>
@@ -28,18 +28,17 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3 aside bg-dark" style="color:white">
-                        <h3 class="mt-3 perso">Gestion Super Administrateur</h3>
+                        <h3 class="mt-3 perso">Gestion Admin/Super Admin</h3>
                         <ul class="uliste text-center mt-4" >
-                            <li><a href=#>Ajouter</a></li>
-                            <li><a href=#>Suppression</a></li>
-                            <li><a href=#>Modifier/Maj</a></li>
+                            <li><a href="Ajout">Ajouter</a></li>
+                            <li><a href="Supp">Suppression</a></li>
+                            <li><a href="Modi">Modifier</a></li>
                         </ul>
-                        <br/>
-                        <h3 class="mt-3 perso">Gestion Administrateur</h3>
-                        <ul class="uliste text-center" >
-                            <li><a href=#>Ajouter</a></li>
-                            <li><a href=#>Suppression</a></li>
-                            <li><a href=#>Modifier/Maj</a></li>
+                        <h3 class="mt-3 perso">Gestion Départements</h3>
+                        <ul class="uliste text-center mt-4" >
+                            <li><a href="Ajout">Ajouter</a></li>
+                            <li><a href="Supp">Suppression</a></li>
+                            <li><a href="Modi">Modifier</a></li>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -51,20 +50,21 @@
             </div>
             <div class="container mt-5 aff">
                 <p style="font-size: 25px;font-weight:bold;">Selectionner la liste que vous voulez afficher et cliquez sur le bouton 'Afficher' pour avoir une vue sur son contenu</p>
-                <form action=# method="GET">
+                <form action="listeAdm" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <label for="table"><span style="font-size: 2rem">Liste</span></label>
+                        <label for="table"><span style="font-size: 2rem; font-weight:bold;">Liste</span></label>&nbsp;&nbsp;
                         <select name="table" class="form-control col-md-4   ">
-                            <option value="Admin">Administrateur</option>
-                            <option value="SuperAdmin">Super Administrateur</option>
+                            <option value="admin">Administrateur</option>
+                            <option value="supadmin">Super Administrateur</option>
                         </select>
                     </div>
-                    <input type="submit" value="Afficher" name="consulter" class="btn btn-primary"/>
+                    <button type="submit" class="btn btn-primary">Afficher</button>
                 </form>
             </div>
             <div class="container">
-                <div class="contenu2">
-
+                <div id="contenu2" class="contenu2">
+                    @yield('contenu2')
                 </div>
             </div>
         </div>

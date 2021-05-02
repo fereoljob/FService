@@ -84,15 +84,12 @@ html,body{
 {
     height: 610px;
 }
-.admin
-{
-    background-color:darkgray;
-}
 .perso
 {
     border-bottom: 2px solid white;
     padding-top:7px;
     padding-bottom:7px;
+    text-align: center;
 }
 .uliste
 {
@@ -110,7 +107,7 @@ html,body{
     background-color:darkslategray;
     padding:4px;
 }
-.card-form input
+.form-control
 {
     display: inline;
     width: 350px;
@@ -124,4 +121,59 @@ html,body{
 {
     border-collapse: separate;
     border-spacing: 0 15px;
+}
+.card-form
+{
+    border-bottom: 2px solid gray;
+    border-left:  2px solid gray;
+}
+.card-header
+{
+    background-color: gray;
+    color:white;
+}
+.contenu2 td,th 
+{
+    width:200px;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+.panneau a
+{
+    display: block;
+    background-color: gray;
+    color:white;
+    border-radius: 25% 10%;
+    text-decoration: none;
+    padding:40px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.panneau a:hover
+{
+    background-color: darkgray;
+    padding:50px;
+}
+.a1
+{
+    float:right;   
+}
+.a2
+{
+    float:left;
+}
+.lien
+{
+    font-size:25px;
+    font-weight: bold;
+}
+.gen h1
+{
+    margin-top: 150px;
+    color:white;
+}
+.general
+{
+    margin-top:100px;
 }

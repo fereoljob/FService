@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
@@ -48,6 +47,10 @@ class ControleurConnexion extends Controller
             session()->pull('LoggedUser');
             return redirect('/');
         }
+        else
+        {
+            return redirect('/');
+        }
     }
     function profile()
     {
@@ -55,7 +58,32 @@ class ControleurConnexion extends Controller
         {
             $user = User::where('id_user','=',session('LoggedUser'))->first();
             $data=['infoConnexionUser'=>$user];
+            if($user->admin==1 || $user->supadmin==1)
+            {
+                return view('Connexion/panneau',$data);
+            }
+            else
+            {
+                return view('Utilisateur/profile',$data);
+            }
         }
-        return view('Utilisateur/profile',$data);
+    }
+    function feuille()
+    {
+        if(session()->has('LoggedUser'))
+        {
+            $user = User::where('id_user','=',session('LoggedUser'))->first();
+            $data=['infoConnexionUser'=>$user];
+            return view('Utilisateur/profile',$data);
+        }
+    }
+    function Admin()
+    {
+        if(session()->has('LoggedUser'))
+        {
+            $user = User::where('id_user','=',session('LoggedUser'))->first();
+            $data=['infoConnexionUser'=>$user];
+             return view('Administration/Admin',$data);
+        }
     }
 }
