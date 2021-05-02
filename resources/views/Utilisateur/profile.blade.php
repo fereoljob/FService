@@ -30,7 +30,7 @@
                         <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
-                                <select class="btn btn-secondary" name="Categorie">
+                                <select class="btn btn-secondary" name="categorie" id="categorie">
                                     @foreach ($categoriesnom as $categorie )
                                     <option value="{{$categorie->categorie}}"> {{$categorie->categorie}} </option>
                                     @endforeach
@@ -39,11 +39,28 @@
 
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Niveau d'Etudes :</span></label>
-                                <select class="btn btn-secondary" name="Licences">
-                                    <option value="Tout" selected> Tous </option>
-                                    <option value="Licence1"> Licence 1</option>
-                                    <option value="Licence2" > Licence 2 </option>
-                                    <option value="Licence3">Licence 3</option>
+                                <select class="btn btn-secondary" name="licence" id="licence">
+                                    <option value="Tout"> Tout </option>
+                                    @foreach ($licences as $licence){
+                                        <option value="{{$licence->nom_niveau}}"> {{$licence->nom_niveau}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="master" id="master" >
+                                    <option value="Tout"> Tout </option>
+                                    @foreach ($masters as $master){
+                                        <option value="{{$master->nom_niveau}}"> {{$master->nom_niveau}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="autre" id="autre">
+                                    <option value="Tout"> Tout </option>
+                                    @foreach ($autres as $autre){
+                                        <option value="{{$autre->nom_niveau}}"> {{$autre->nom_niveau}} </option>
+                                    }
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -71,5 +88,27 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            document.getElementById('categorie').addEventListener('change', function() {
+            console.log('You selected: ', this.value);
+
+            if(this.value == 'Licences'){
+                document.getElementById('licence').classList.remove("d-none");
+                document.getElementById('master').classList.add("d-none");
+                document.getElementById('autre').classList.add("d-none");
+            }
+            if(this.value == 'Masters'){
+                document.getElementById('licence').classList.add("d-none");
+                document.getElementById('autre').classList.add("d-none");
+                document.getElementById('master').classList.remove("d-none");
+            }
+            if(this.value == 'Autres Services'){
+                document.getElementById('master').classList.add("d-none");
+                document.getElementById('licence').classList.add("d-none");
+                document.getElementById('autre').classList.remove("d-none");
+            }
+            });
+       </script>
     </body>
 </html>
