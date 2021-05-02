@@ -66,7 +66,39 @@
 
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres">
+                                <select class="btn btn-secondary" name="Semestres" id="licence1">
+                                    @foreach ($licence1 as $l1 ){
+                                        <option value = "{{$l1->nom_semestre}}"> {{$l1->nom_semestre}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="Semestres" id="licence2">
+                                    @foreach ($licence2 as $l2 ){
+                                        <option value = "{{$l2->nom_semestre}}"> {{$l2->nom_semestre}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="Semestres" id="licence3">
+                                    @foreach ($licence3 as $l3 ){
+                                        <option value = "{{$l3->nom_semestre}}"> {{$l3->nom_semestre}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="Semestres" id="master1">
+                                    @foreach ($master1 as $m1 ){
+                                        <option value = "{{$m1->nom_semestre}}"> {{$m1->nom_semestre}} </option>
+                                    }
+                                    @endforeach
+                                </select>
+
+                                <select class="btn btn-secondary d-none" name="Semestres" id="master2">
+                                    @foreach ($master2 as $m2 ){
+                                        <option value = "{{$m2->nom_semestre}}"> {{$m2->nom_semestre}} </option>
+                                    }
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -90,9 +122,8 @@
         </div>
 
         <script>
-            document.getElementById('categorie').addEventListener('change', function() {
-            console.log('You selected: ', this.value);
-
+             document.getElementById('categorie').addEventListener('change', function() {
+            console.log('You selected: ', this.value)
             if(this.value == 'Licences'){
                 document.getElementById('licence').classList.remove("d-none");
                 document.getElementById('master').classList.add("d-none");
@@ -109,6 +140,62 @@
                 document.getElementById('autre').classList.remove("d-none");
             }
             });
+            document.getElementById('licence').addEventListener('change', function(){
+                console.log('You selected: ', this.value)
+                if(this.value == 'Tout'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+                if(this.value == 'L1 MPCIE'){
+                    document.getElementById('licence1').classList.remove("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+                if(this.value == 'L2 MPCIE'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.remove("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+                if(this.value == 'L3 Informatique'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.remove("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+            });
+            document.getElementById('master').addEventListener('change', function(){
+                console.log('You selected: ', this.value)
+                if(this.value == 'Tout'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+                if(this.value == 'M1 Informatique'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.remove("d-none");
+                    document.getElementById('master2').classList.add("d-none");
+                }
+                if(this.value == 'M2 Informatique'){
+                    document.getElementById('licence1').classList.add("d-none");
+                    document.getElementById('licence2').classList.add("d-none");
+                    document.getElementById('licence3').classList.add("d-none");
+                    document.getElementById('master1').classList.add("d-none");
+                    document.getElementById('master2').classList.remove("d-none");
+                }
+            });
+
        </script>
     </body>
 </html>

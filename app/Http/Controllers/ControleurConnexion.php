@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Departement;
 use App\Models\NiveauEtude;
+use App\Models\Semestre;
 
 class ControleurConnexion extends Controller
 {
@@ -60,9 +61,20 @@ class ControleurConnexion extends Controller
             $licences = NiveauEtude::where('categorie', '=','Licences')->get();
             $masters = NiveauEtude::where('categorie', '=','Masters')->get();
             $autres = NiveauEtude::where('categorie', '=','Autres Services')->get();
+            $licence1 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->where('niveau_etudes.nom_niveau', '=', 'L1 MPCIE')->get();
+            $licence2 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->where('niveau_etudes.nom_niveau', '=', 'L2 MPCIE')->get();
+            $licence3 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->where('niveau_etudes.nom_niveau', '=', 'L3 Informatique')->get();
+            $master1 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->where('niveau_etudes.nom_niveau', '=', 'M1 Informatique')->get();
+            $master2 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->where('niveau_etudes.nom_niveau', '=', 'M2 Informatique')->get();
             $data=['infoConnexionUser'=>$user, 'categoriesnom'=>$categories,
-                    'licences'=>$licences, 'masters'=> $masters,
-                    'autres' => $autres];
+                    'licences'=>$licences, 'masters'=> $masters,'autres' => $autres,
+                    'licence1'=> $licence1, 'licence2'=> $licence2, 'licence3'=> $licence3,
+                    'master1'=> $master1, 'master2'=> $master2];
         }
         return view('Utilisateur/profile',$data);
     }
