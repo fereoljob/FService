@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Departement;
+use App\Models\NiveauEtude;
 
 class ControleurConnexion extends Controller
 {
@@ -55,8 +56,13 @@ class ControleurConnexion extends Controller
         if(session()->has('LoggedUser'))
         {
             $user = User::where('id_user','=',session('LoggedUser'))->first();
-            $dep = Departement::where('id_departement', '=', '2') ->first();
-            $data=['infoConnexionUser'=>$user, 'depart'=>$dep];
+            $categories = NiveauEtude::DISTINCT()->get(['categorie']);
+            $licences = NiveauEtude::where('categorie', '=','Licences')->get();
+            $masters = NiveauEtude::where('categorie', '=','Masters')->get();
+            $autres = NiveauEtude::where('categorie', '=','Autres Services')->get();
+            $data=['infoConnexionUser'=>$user, 'categoriesnom'=>$categories,
+                    'licences'=>$licences, 'masters'=> $masters,
+                    'autres' => $autres];
         }
         return view('Utilisateur/profile',$data);
     }

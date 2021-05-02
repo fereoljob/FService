@@ -14,7 +14,7 @@
     <body>
         <div class="container-fluid bg-dark padding tete">
             <div class="btn-group open mt-3">
-                <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> {{ $infoConnexionUser->nom }} {{ $infoConnexionUser->prenom }} {{ $depart->nom_departement }}</a>
+                <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> {{ $infoConnexionUser->nom }} {{ $infoConnexionUser->prenom }}</a>
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                 </a>
                 <ul class="dropdown-menu">
@@ -31,9 +31,9 @@
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="Categorie">
-                                    <option value="Licence" selected> Licence </option>
-                                    <option value="Master" > Master</option>
-                                    <option value="Autres">Autres Services</option>
+                                    @foreach ($categoriesnom as $categorie )
+                                    <option value="{{$categorie->categorie}}"> {{$categorie->categorie}} </option>
+                                    @endforeach
                                 </select>
                             </div>
 
