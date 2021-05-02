@@ -15,8 +15,8 @@ class PagesTableUsers extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            [
+       /* DB::table('users')->insert([
+           [
                 'nom' => 'Genest',
                 'prenom' => 'David',
                 'email' => 'Genset.David@etud.univ-angers.fr',
@@ -29,6 +29,6 @@ class PagesTableUsers extends Seeder
                 'type_user' => 'Professeur',
                 'password' => '1234'
             ]
-        ]);
+        ]);*/
     }
 }
