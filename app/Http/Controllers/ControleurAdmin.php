@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\Professeur;
 
 class ControleurAdmin extends Controller
 {
@@ -12,20 +12,22 @@ class ControleurAdmin extends Controller
     {
         if(session()->has('LoggedUser'))
         {
-            $user= User::where('id_user','=',session('LoggedUser'))->first();
+            $user= Professeur::where('id_professeur','=',session('LoggedUser'))->first();
             return $user;
         }
     }
     function ajouter()
     {
         $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
+        $data=['prof'=>$user];
         return view('Administration/FormAjouAdm',$data);
     }
     function Supprimer()
     {
         $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
+        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->get();
+        $data=['prof'=>$user,'admins'=>$admins];
         return view('Administration/FormSuppAdm',$data);
     }
     function Modifier()

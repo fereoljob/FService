@@ -14,7 +14,7 @@
     <body>
         <div class="container-fluid bg-dark padding tete">
             <div class="btn-group open mt-3">
-                <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> {{ $infoConnexionUser->nom }} {{ $infoConnexionUser->prenom}}</a>
+                <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> {{ $prof->nom_professeur }} {{ $prof->prenom_professeur }}</a>
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                 </a>
                 <ul class="dropdown-menu">

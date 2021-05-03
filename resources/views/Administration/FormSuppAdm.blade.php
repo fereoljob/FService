@@ -15,57 +15,34 @@
                     </div>
                 @endif
             </div>
+            <table>
             <div class="form-group">
-                <label for="id"><strong>id</strong> </label>&nbsp; &nbsp;
-                <input type="text" name="id" class="form-control" placeholder="id utilisateur" autofocus/>
-                <span class="text-danger">@error('id') {{ $message }} @enderror</span>
+                <tr>
+                    <td><label for="type"><strong>Role</strong></label></td>
+                    <td><select class="form-control" name="type">
+                        <option value="admin" selected>Admin</option>
+                        <option value="supadmin">Super Admin</option>
+                    </select></td>
+                </tr>
+                <span class="text-danger">@error('type') {{ $message }} @enderror</span>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" >Soumettre</button>
+                <tr>
+                    <td><label for="prof"><strong>Nom et prenom</strong></label></td>
+                    <td><select class="form-control" name="prof">
+                        @foreach($admins as $admin)
+                            <option value={{ $admin->id_professeur }}>{{ $admin->nom_professeur }} {{ $admin->prenom_professeur }}</option>
+                        @endforeach
+                    </select></td>
+                </tr>
+                <span class="text-danger">@error('prof') {{ $message }} @enderror</span>
+            </div>
+            <div class="form-group">
+                <tr>
+                    <td><button type="submit" class="btn btn-primary" >Supprimer</button></td>
+                </tr>
             </div>
         </form>
     </div>
 </div>
-@php
-    $fic="FormSuppAdm";
-@endphp
-<h3 class="mt-5">(voir liste  plus bas pour l'id)</h3>
 @endsection
-
-@section('contenu1')
-<p style="font-size: 25px;font-weight:bold;">Selectionner la liste que vous voulez afficher et cliquez sur le bouton 'Afficher' pour avoir une vue sur son contenu</p>
-<form action="listeAdm" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="table"><span style="font-size: 2rem; font-weight:bold;">Liste</span></label>&nbsp;&nbsp;
-        <select name="table" class="form-control col-md-4   ">
-            <option value="admin">Administrateur</option>
-            <option value="supadmin">Super Administrateur</option>
-        </select>
-        <input type="hidden" name="fic" value={{ $fic }} />
-    </div>
-    <button type="submit" class="btn btn-primary">Afficher</button>
-</form>
-@endsection
-
-@if (isset($liste))
-@section('contenu2')
-    <table class="text-center mt-3" style="font-size:20px">
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Prenom</th>
-        <th>Email</th>
-        <th>Type d'utilisateur</th>
-        @foreach ($liste as $item)
-            <tr>
-                @foreach ($item as $key=>$ite)
-                @if ($key!='password' && $key!='admin' && $key!='supadmin')
-                    <td>{{$ite}}</td>
-                @endif
-                @endforeach
-            </tr>
-        @endforeach
-    </table>
-@endsection
-    
-@endif

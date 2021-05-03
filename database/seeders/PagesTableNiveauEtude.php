@@ -14,7 +14,7 @@ class PagesTableNiveauEtude extends Seeder
      */
     public function run()
     {
-        DB::table('niveau_etudes')->insert([
+        /*DB::table('niveau_etudes')->insert([
             [
                 'nom_niveau' => 'Licence 1',
                 'categorie' => 'Licences',
@@ -40,6 +40,6 @@ class PagesTableNiveauEtude extends Seeder
                 'categorie' => 'Masters',
                 'responsable_annee' => null
             ]
-        ]);
+        ]);*/
     }
 }

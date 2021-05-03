@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
+use App\Models\Professeur;
 
 class ControleurConnexion extends Controller
 {
@@ -27,7 +28,7 @@ class ControleurConnexion extends Controller
         {
             if($requete->inputPassword==$user->password)
             {
-                $requete->session()->put('LoggedUser',$user->id_user);
+                $requete->session()->put('LoggedUser',$user->id_professeur);
                 return redirect('profile');
             }
             else
@@ -56,8 +57,9 @@ class ControleurConnexion extends Controller
     {
         if(session()->has('LoggedUser'))
         {
-            $user = User::where('id_user','=',session('LoggedUser'))->first();
-            $data=['infoConnexionUser'=>$user];
+            $user = User::where('id_professeur','=',session('LoggedUser'))->first();
+            $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
+            $data=['infoConnexionUser'=>$user,'prof'=>$prof];
             if($user->admin==1 || $user->supadmin==1)
             {
                 return view('Connexion/panneau',$data);
@@ -72,8 +74,8 @@ class ControleurConnexion extends Controller
     {
         if(session()->has('LoggedUser'))
         {
-            $user = User::where('id_user','=',session('LoggedUser'))->first();
-            $data=['infoConnexionUser'=>$user];
+            $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
+            $data=['prof'=>$prof];
             return view('Utilisateur/profile',$data);
         }
     }
@@ -81,9 +83,9 @@ class ControleurConnexion extends Controller
     {
         if(session()->has('LoggedUser'))
         {
-            $user = User::where('id_user','=',session('LoggedUser'))->first();
-            $data=['infoConnexionUser'=>$user];
-             return view('Administration/Admin',$data);
+            $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
+            $data=['prof'=>$prof];
+            return view('Administration/supadmin',$data);
         }
     }
     function admin()

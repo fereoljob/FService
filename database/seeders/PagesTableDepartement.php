@@ -15,10 +15,10 @@ class PagesTableDepartement extends Seeder
      */
     public function run()
     {
-        DB::table('departements')->insert([
+        /*DB::table('departements')->insert([
             [
                 'nom_departement' => 'Informatique'
             ]
-        ]);
+        ]);*/
     }
 }

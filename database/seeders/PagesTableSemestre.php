@@ -15,7 +15,7 @@ class PagesTableSemestre extends Seeder
      */
     public function run()
     {
-        DB::table('semestres')->insert([
+       /* DB::table('semestres')->insert([
             [
                 'nom_semestre' => 'Semestre 1',
                 'id_niveau' => null
@@ -35,6 +35,6 @@ class PagesTableSemestre extends Seeder
                 'nom_semestre' => 'Semestre 6',
                 'id_niveau' => null
             ]
-        ]);
+        ]);*/
     }
 }

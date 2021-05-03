@@ -18,7 +18,7 @@
                     <div class=" col-sm-3 col-md-3 mt-4 text-center" style="border-bottom: thick double white; border-right:thick double white"><i class=""></i><span class="adm">Administration</span></div>
                     <div class="col-sm-9 col-md-9 mt-4" style="border-bottom:thick double white">
                         <div class="row">
-                            <div class="col-md-6 text-center"><i class="fa fa-user "></i> {{$infoConnexionUser->nom }}  {{ $infoConnexionUser->prenom }}</div>
+                            <div class="col-md-6 text-center"><i class="fa fa-user "></i> {{$prof->nom_professeur }}  {{ $prof->prenom_professeur }}</div>
                             <div class="col-md-6"><a href="logout"><button class="btn btn-primary" >Deconnexion</button></a></div>
                         </div>
                         
@@ -45,20 +45,6 @@
                         <div class="container">
                             @yield('contenu')
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid mt-5 aff">
-                <div class="row col-md-12">
-                    <div class="col-md-12 contenu1">
-                        @yield('contenu1')
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row col-md-12">
-                    <div class="col-md-12 contenu2">
-                        @yield('contenu2')
                     </div>
                 </div>
             </div>
