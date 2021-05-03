@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
-class ChangeUserTable extends Migration
+class ChangeUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +15,9 @@ class ChangeUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unique(['nom','prenom']);
+            $table->foreign('id_professeur')->references("id_professeur")->on("professeurs");  
         });
-        
+        DB::statement('ALTER TABLE users ADD CONSTRAINT chk_type CHECK (type_user in ("Professeur","Membre_administratif"));');
     }
 
     /**

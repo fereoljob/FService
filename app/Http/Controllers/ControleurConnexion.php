@@ -77,7 +77,7 @@ class ControleurConnexion extends Controller
             return view('Utilisateur/profile',$data);
         }
     }
-    function Admin()
+    function supadmin()
     {
         if(session()->has('LoggedUser'))
         {
@@ -85,5 +85,9 @@ class ControleurConnexion extends Controller
             $data=['infoConnexionUser'=>$user];
              return view('Administration/Admin',$data);
         }
+    }
+    function admin()
+    {
+        return "En cours de developpement";
     }
 }

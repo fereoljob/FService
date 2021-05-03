@@ -36,9 +36,9 @@
                         </ul>
                         <h3 class="mt-3 perso">Gestion Départements</h3>
                         <ul class="uliste text-center mt-4" >
-                            <li><a href="Ajout">Ajouter</a></li>
-                            <li><a href="Supp">Suppression</a></li>
-                            <li><a href="Modi">Modifier</a></li>
+                            <li><a href="AjoutDep">Ajouter</a></li>
+                            <li><a href="SuppDep">Suppression</a></li>
+                            <li><a href="ModiDep">Modifier</a></li>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -48,23 +48,18 @@
                     </div>
                 </div>
             </div>
-            <div class="container mt-5 aff">
-                <p style="font-size: 25px;font-weight:bold;">Selectionner la liste que vous voulez afficher et cliquez sur le bouton 'Afficher' pour avoir une vue sur son contenu</p>
-                <form action="listeAdm" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="table"><span style="font-size: 2rem; font-weight:bold;">Liste</span></label>&nbsp;&nbsp;
-                        <select name="table" class="form-control col-md-4   ">
-                            <option value="admin">Administrateur</option>
-                            <option value="supadmin">Super Administrateur</option>
-                        </select>
+            <div class="container-fluid mt-5 aff">
+                <div class="row col-md-12">
+                    <div class="col-md-12 contenu1">
+                        @yield('contenu1')
                     </div>
-                    <button type="submit" class="btn btn-primary">Afficher</button>
-                </form>
+                </div>
             </div>
-            <div class="container">
-                <div id="contenu2" class="contenu2">
-                    @yield('contenu2')
+            <div class="container-fluid">
+                <div class="row col-md-12">
+                    <div class="col-md-12 contenu2">
+                        @yield('contenu2')
+                    </div>
                 </div>
             </div>
         </div>

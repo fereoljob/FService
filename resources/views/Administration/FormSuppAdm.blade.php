@@ -1,12 +1,35 @@
 @extends('baseAdmin')
 
 @section('contenu')
-	<div class="mt-5">
-		<h1> Cliquez sur l'action à executer dans le panneau à gauche pour faire apparaitre un formulaire</h1>
-	</div>
-	@php
-    	$fic="Admin";
-	@endphp
+<div class="card card-form mt-5 ">
+    <div class="card-header">
+        <h3><strong>Formulaire :</strong> Suppression <span class="target">(Admins/Super Admins)</span></h3>
+    </div>
+    <div class="card-body">
+        <form action="SuppEnvoi" method="POST">
+            @csrf
+            <div class="resultats">
+                @if (Session::get('Echec'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('Echec') }}
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="id"><strong>id</strong> </label>&nbsp; &nbsp;
+                <input type="text" name="id" class="form-control" placeholder="id utilisateur" autofocus/>
+                <span class="text-danger">@error('id') {{ $message }} @enderror</span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" >Soumettre</button>
+            </div>
+        </form>
+    </div>
+</div>
+@php
+    $fic="FormSuppAdm";
+@endphp
+<h3 class="mt-5">(voir liste  plus bas pour l'id)</h3>
 @endsection
 
 @section('contenu1')
@@ -40,7 +63,9 @@
                     <td>{{$ite}}</td>
                 @endif
                 @endforeach
+            </tr>
         @endforeach
+    </table>
 @endsection
     
 @endif

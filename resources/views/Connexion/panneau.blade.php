@@ -23,10 +23,10 @@
                             <a href="feuille" class="a1">{{ $infoConnexionUser->type_user }}</a>
                         </div>
                        <div class="col-md-6">
-                            <a href="admin" class="a2">@if ($infoConnexionUser->admin==1)
-                                Administrateur
+                           @if($infoConnexionUser->admin==1)
+                                <a href="admin" class="a2">Administrateur</a>
                             @else
-                                Super Administrateur
+                                <a href="supadmin" class="a2" >Super Administrateur</a>
                             @endif
                             </a>
                        </div>
