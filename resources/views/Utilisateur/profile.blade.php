@@ -25,7 +25,7 @@
         <div class="container-fluid padding mt-5">
             <div class="Licences col-md-12">
                 <div class="row text-center">
-                    <h2 class="titresect"><span class="contenu">Licences</span> </h2>
+
                     <div class="row">
                         <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
@@ -119,38 +119,26 @@
                     </div>
                 </div>
             </div>
+            <hr class="separation"/>
         </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Professeur</th>
-                    <th>Categories</th>
-                    <th>Niveau Etude</th>
-                    <th>Semestre</th>
-                    <th>Type d'enseignement</th>
-                    <th>Matiere</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td> a </td>
-                    <td> b </td>
-                    <td> c </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="table-wrapper mt-5">
+            <table class="table_licence_gene" cellspacing="1" cellpadding="1" >
+                <tbody>
+                    <tr>
+                        <th style="text-align:center"; >Tableau des services</th>
+                        @foreach ($licences as $licence )
+                            <th colspan="">{{$licence->nom_niveau}}</th>
+                        @endforeach
+                    </tr>
+                    <tr>
+                        <th style="text-align:center"; ></th>
+                        @foreach ($licence1 as $l1 )
+                            <th colspan="">{{$l1->nom_semestre}}</th>
+                        @endforeach
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <script>
              document.getElementById('categorie').addEventListener('change', function() {
             console.log('You selected: ', this.value)

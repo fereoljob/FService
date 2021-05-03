@@ -72,7 +72,7 @@ class ControleurConnexion extends Controller
                         ->where('niveau_etudes.nom_niveau', '=', 'M1 Informatique')->get();
             $master2 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
                         ->where('niveau_etudes.nom_niveau', '=', 'M2 Informatique')->get();
-                        
+
             $data=['infoConnexionUser'=>$user, 'categoriesnom'=>$categories,
                     'licences'=>$licences, 'masters'=> $masters,'autres' => $autres,
                     'licence1'=> $licence1, 'licence2'=> $licence2, 'licence3'=> $licence3,

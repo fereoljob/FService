@@ -17,18 +17,18 @@ html,body{
     font-weight:bold;
     font-family:Cursive;
 }
-        
+
 .champs1
 {
   width:350px;
   display: inline;
-   margin-left:40px;   
+   margin-left:40px;
 }
-.champs 
+.champs
 {
     width:350px;
     display: inline;
-    margin-left:15px;   
+    margin-left:15px;
 }
 .checkbox
 {
@@ -72,4 +72,32 @@ html,body{
 .mescols
 {
     height: 100px;
+}
+
+.table-wrapper{
+    overflow-x: auto;
+    border: 1px solid black;
+}
+.table-wrapper table{
+    border: 0;
+}
+.table-wrapper tbody>tr:first-child>*{
+    border-top: 0;
+}
+.table-wrapper th{
+    border: 1px solid black;
+    padding: 8px 12px;
+}
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+
+}
+tbody{
+    display: table-row-group;
+    vertical-align: middle;
+}
+.separation{
+    border-bottom: 3px solid black;
 }
