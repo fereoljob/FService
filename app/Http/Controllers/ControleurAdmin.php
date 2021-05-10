@@ -18,49 +18,42 @@ class ControleurAdmin extends Controller
     }
     function ajouter()
     {
-        $user=$this->verification();
-        $data=['prof'=>$user];
+       $user=$this->verification();
+        $admins = DB::table('professeurs')->get();
+        $data=['prof'=>$user,'admins'=>$admins];
         return view('Administration/FormAjouAdm',$data);
     }
     function Supprimer()
     {
         $user=$this->verification();
         $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->get();
-        $data=['prof'=>$user,'admins'=>$admins];
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
+        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
+        $data=['prof'=>$user,'admins'=>$admins,'supadmins'=>$supadmins];
         return view('Administration/FormSuppAdm',$data);
     }
     function Modifier()
     {
         $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
+        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
+        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
+        $data=['prof'=>$user,'admins'=>$admins,'supadmins'=>$supadmins];
         return view('Administration/FormModAdm',$data);
     }
-    
-    function listing(Request $requete)
-    {
-            $userC=$this->verification();
-            $val= $requete->table;
-            $user = DB::table('users')->where($val,'1')->get();
-            $fic = $requete->fic;
-            return view('Administration/'.$fic,['liste'=>$user,'infoConnexionUser'=>$userC]);
-    }
-
     function AjoutEnvoi(Request $requete)
     {
-        $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
         //validation de la requete
         $requete->validate([
-            "nom"=>"Required",
-            "prenom"=>"Required",
+            "prof"=>"Required",
             "email"=>"Required|email",
             "mdp"=>"Required",
             "admin"=>"Required"
         ]);
         //traitement post validation
-        $nom = $requete->nom;
-        $prenom = $requete->prenom;
+        $prof=$requete->prof;
         $email = $requete->email;
         $mdp = $requete->mdp;
         $type = $requete->type;
@@ -74,13 +67,14 @@ class ControleurAdmin extends Controller
             $admin=0;
             $admin2 = 1;
         }
-        $data = ['nom'=>$nom,'prenom'=>$prenom,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
-        $util = DB::table('users')->insert($data);
+        $donnees = ['id_professeur'=>$prof,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
+        $util = DB::table('users')->insert($donnees);
         if($util)
         {
             echo "<script type='text/javascript' >alert('insertion Reussie');</script>";
             $user=$this->verification();
-            $data=['infoConnexionUser'=>$user];
+            $admins = DB::table('professeurs')->get();
+            $data=['prof'=>$user,'admins'=>$admins];
             return view('Administration/FormAjouAdm',$data);
         }
         else
@@ -91,105 +85,65 @@ class ControleurAdmin extends Controller
     }
     function SuppEnvoi(Request $requete)
     {
-        $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
+        $user=$this->verification();
         //validation de la requete
         $requete->validate([
-            'id'=>'Required'
+            'prof'=>'Required'
         ]);
         //traitement post validation
-        $util = DB::table('users')->where('id_user',$requete->id)->first();
-        if(empty($util))
+        $util2 = DB::table('users')->where('id_professeur',$requete->prof)->delete();
+        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
+        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
+        $data=['prof'=>$user,'admins'=>$admins,'supadmins'=>$supadmins];
+        if($util2)
         {
-            back()->with('Echec',"Un utilisateur de type admin ou super admin avec l'id entré");
-        }
-        else if($util->admin == 0 && $util->supadmin==0)
-        {   
-            back()->with('Echec',"L'id specifier n'appartient pas a un admin ou un super admin");
+            echo "<script type='text/javascript' >alert('Suppression Reussie');</script>";
+            return view('Administration/FormSuppAdm',$data);
         }
         else
         {
-            $util2 = DB::table('users')->where('id_user',$requete->id)->delete();
-            if($util2)
-            {
-                echo "<script type='text/javascript' >alert('Suppression Reussie');</script>";
-                return view('Administration/FormSuppAdm',$data);
-            }
-            else
-            {
-                back()->with('Echec',"Echec de la suppression");
-            }
+            back()->with('Echec',"Echec de la suppression");
         }
     }
     function ModiEnvoi(Request $requete)
     {
         $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
         //validation de la requete
         $requete->validate([
-            "id"=>"Required",
-            "nom"=>"Required",
-            "prenom"=>"Required",
-            "email"=>"Required|email",
-            "mdp"=>"Required",
+            "prof"=>'Required'
         ]);
         //traitement post validation
-        $util = DB::table('users')->where('id_user',$requete->id)->first();
-        if(empty($util))
-        {
-            back()->with('Echec',"Un utilisateur de type admin ou super admin avec l'id entré");
-        }
-        else if($util->admin == 0 && $util->supadmin==0)
-        {   
-            back()->with('Echec',"L'id specifier n'appartient pas a un admin ou un super admin");
-        }
-        else
-        {
-            $id= $requete->id;
-            $nom = $requete->nom;
-            $prenom = $requete->prenom;
-            $email = $requete->email;
-            $mdp = $requete->mdp;
-            $type = $requete->type;
-            if($requete->admin=="Admin")
-            {
-                $admin = 1;
-                $admin2 = 0;
-            }
-            else
-            {
-                $admin=0;
-                $admin2 = 1;
-            }
-            $util2 = DB::table('users')->where('id_user',$id)->update(['nom'=>$nom,'prenom'=>$prenom,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2]);
-            if($util2)
-            {
-                echo "<script type='text/javascript' >alert('Mise à jour Reussie');</script>";
-                return view('Administration/FormModAdm',$data);
-            }
-            else
-            {
-                back()->with('Echec',"Echec de la mise à jour");
-            }
-        }
+        $tab = DB::table('users')->where('id_professeur',$requete->prof)->first();
+        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
+        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
+        $data=['prof'=>$user,'tab'=>$tab,'admins'=>$admins,'supadmins'=>$supadmins];
+        return view('Administration/FormModAdm',$data);
     }
-    function listeDep(Request $requete)
+    function ValidationMod(Request $requete)
     {
-            $userC=$this->verification();
-            $val= $requete->table;
-            if($val=="Departement")
-            {
-                $table = DB::table('departements')->get();
-                $intable = "Departements";
-            }
-             
-            else
-            {
-                $table= DB::table('professeurs')->get();
-                $intable= "Professeurs";
-            }
-            $fic = $requete->fic;
-            return view('Administration/'.$fic,['liste'=>$table,'infoConnexionUser'=>$userC,'infotable'=>$intable]);
+        $user = $this->verification();
+        //validation de la requete
+        $requete->validate([
+            "email"=>'Required|email',
+        ]);
+        //traitement de la requete
+        $email = $requete->email;
+        $mdp = $requete->Mdp;
+        $admin = $requete->admin;
+        $supadmin = $requete->supadmin;
+        $id_professeur = $requete->id_professeur;
+        $resultat = DB::table('users')->where('id_professeur',$id_professeur)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'
+        supadmin'=>$supadmin]);
+        if($resultat)
+        {
+            echo "<script type='text/javascript' >alert('Mise à jour Reussie');</script>";
+            back()->with('bien','mise a jour reussie');
+        }
+
     }
     function AjoutDep(Request $requete)
     {

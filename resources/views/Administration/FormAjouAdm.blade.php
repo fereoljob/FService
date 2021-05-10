@@ -1,7 +1,7 @@
 @extends('baseAdmin')
 
 @section('contenu')
-<div class="card card-form mt-5 ">
+<div class="card card-form mt-4 ">
     <div class="card-header">
         <h3><strong>Formulaire :</strong> Ajout <span class="target">(Admins/Super Admins)</span></h3>
     </div>
@@ -16,20 +16,17 @@
                 @endif
             </div>
             <table>
-            <div class="form-group">
-                <tr>
-                    <td><label for="nom"><strong>Nom </strong></label></td>
-                    <td><input type="text" name="nom" class="form-control" placeholder="Nom" required autofocus/></td>
-                </tr>
-                <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
-            </div>
-            <div class="form-group">
-                <tr>
-                    <td><label for="prenom"><strong>Prenom</strong></label></td>
-                    <td><input type="text" name="prenom" class="form-control" placeholder="Prénom" required/></td>
-                </tr>
-                <span class="text-danger">@error('prenom') {{ $message }} @enderror</span>
-            </div>
+                <div class="form-group">
+                    <tr>
+                        <td><label for="prof"><strong>Nom et prénom</strong></label></td>
+                        <td><select class="form-control" name="prof">
+                            @foreach($admins as $admin)
+                                <option value={{ $admin->id_professeur }}>{{ $admin->nom_professeur }} {{ $admin->prenom_professeur }}</option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <span class="text-danger">@error('prof') {{ $message }} @enderror</span>
+                </div>
             <div class="form-group">
                 <tr>
                     <td><label for="email"><strong>Email</strong></label></td>

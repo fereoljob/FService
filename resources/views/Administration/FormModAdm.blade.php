@@ -1,7 +1,7 @@
 @extends('baseAdmin')
 
 @section('contenu')
-<div class="card card-form mt-5 ">
+<div class="card card-form mt-4 ">
     <div class="card-header">
         <h3><strong>Formulaire :</strong> Modification  <span class="target">(Admins/Super Admins)</span></h3>
     </div>
@@ -18,98 +18,119 @@
             <table>
                 <div class="form-group">
                     <tr>
-                        <td><label for="id"><strong>id</strong> </label></td>
-                        <td><input type="text" name="id" class="form-control" placeholder="id utilisateur" autofocus/></td>
+                        <td><label for="type"><strong>Role</strong></label></td>
+                        <td><select id="sele" class="form-control" name="type">
+                            <option value="admin" selected>Admin</option>
+                            <option value="supadmin">Super Admin</option>
+                        </select></td>
                     </tr>
-                    <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
+                    <span class="text-danger">@error('type') {{ $message }} @enderror</span>
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td><label for="nom"><strong>Nom </strong></label></td>
-                        <td><input type="text" name="nom" class="form-control" placeholder="Nom" autofocus/></td>
+                        <td><label for="prof"><strong>Nom et prénom</strong></label></td>
+                        <td><select id="sele2" class="form-control" name="prof">
+                            @foreach($admins as $admin)
+                                <option value={{ $admin->id_professeur }}>{{ $admin->nom_professeur }} {{ $admin->prenom_professeur }}</option>
+                            @endforeach
+                        </select></td>
                     </tr>
-                    <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
+                    <span class="text-danger">@error('prof') {{ $message }} @enderror</span>
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td><label for="prenom"><strong>Prenom</strong></label></td>
-                        <td><input type="text" name="prenom" class="form-control" placeholder="Prénom"/></td>
-                    </tr>
-                    <span class="text-danger">@error('prenom') {{ $message }} @enderror</span>
-                </div>
-                <div class="form-group">
-                    <tr>
-                        <td><label for="email"><strong>Email</strong></label></td>
-                        <td><input type="email" name="email" class="form-control" placeholder="Email" /></td>
-                    </tr>
-                    <span class="text-danger">@error('email') {{ $message }} @enderror</span>
-                </div>
-                <div class="form-group">
-                    <tr>
-                        <td><label for="mdp" ><strong>Mot de passe</strong></label></td>
-                        <td><input type="password" name="mdp" class="form-control" placeholder="Mot de passe" /></td>
-                    </tr>
-                    <span class="text-danger">@error('mdp') {{ $message }} @enderror</span>
-                </div>
-                <div class="form-group">
-                    <tr>
-                        <td><label for="type"><strong>Type d'utilisateur</strong></label></td>
-                        <td><select name="type" class="form-control">
-                                <option value="Professeur" selected>Professeur</option>
-                                <option value="membre_Administratif">Membre Administratif</option>
-                                <option value="Chef_departement">Chef département</option>
-                                <option value="responsable_matiere">Responsable matiere</option>
-                                <option value="responsable_annee">Responsable année</option>
-                            </select></td>
+                        <td colspan="2" class="text-center"><button type="submit" class="btn btn-primary" >Modifier</button></td>
                     </tr>
                 </div>
-                <tr>
-                    <td colspan="2" class="text-center"><button type="submit" class="btn btn-primary">Soumettre</button></td>
-                </tr>
-            </table>
+                </table>
         </form>
     </div>
 </div>
-@php
-    $fic = "FormModAdm";
-@endphp
-<h3 class="mt-5">(voir liste  plus bas pour l'id)</h3>
-@endsection
-
+@if(isset($tab))
 @section('contenu1')
-<p style="font-size: 25px;font-weight:bold;">Selectionner la liste que vous voulez afficher et cliquez sur le bouton 'Afficher' pour avoir une vue sur son contenu</p>
-<form action="listeAdm" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="table"><span style="font-size: 2rem; font-weight:bold;">Liste</span></label>&nbsp;&nbsp;
-        <select name="table" class="form-control col-md-4   ">
-            <option value="admin">Administrateur</option>
-            <option value="supadmin">Super Administrateur</option>
-        </select>
-        <input type="hidden" name="fic" value={{ $fic }} />
-    </div>
-    <button type="submit" class="btn btn-primary">Afficher</button>
+<h4> Cliquez dans les colonnes pour editer leur contenu et modifier les champs</h4>
+<form action="Modifier" method="post" id="formmodif">
+<table class="mt-3">
+    <th>Email</th>
+    <th>Mot de passe</th>
+    <th>Admin</th>
+    <th>Super Admin</th>
+        <tr>
+            <td><input type='text' name='email' value={{ $tab->email }}  /></td>
+            <td><input type="text" name="Mdp" value = {{ $tab->password }}  /></td>
+            <td><input type='number' name="admin" max='1' min='0' value= {{ $tab->admin }}  /></td>
+            <td><input type='number' max='1' name="supadmin" min='0' value= {{ $tab->supadmin }} /></td>
+            <input type="hidden" name="id_professeur" value={{ $tab->id_professeur }} />
+        </tr>
+</table>
+<br/>
+<button type="submit" class='btn btn-primary'>Valider</button>
+<button type="button" class='btn btn-danger' id="modifi" style="display: none">Annuler</button>
 </form>
-@endsection
-
-@if (isset($liste))
-@section('contenu2')
-    <table class="text-center mt-3" style="font-size:20px">
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Prenom</th>
-        <th>Email</th>
-        <th>Type d'utilisateur</th>
-        @foreach ($liste as $item)
-            <tr>
-                @foreach ($item as $key=>$ite)
-                @if ($key!='password' && $key!='admin' && $key!='supadmin')
-                    <td>{{$ite}}</td>
-                @endif
-                @endforeach
-            </tr>
-        @endforeach
-    </table>
-@endsection
-    
+@endsection    
 @endif
+
+<div class="contenu1 text-center mt-3">
+    @yield('contenu1')
+</div>
+@php
+    echo "<script>";
+    echo "let liste =";
+    echo json_encode($admins);
+    echo ";let liste2=";
+    echo json_encode($supadmins);
+    echo "</script>";
+@endphp
+<script>
+    let monselect = document.querySelector("#sele");
+    let monselect2 = document.querySelector("#sele2");
+
+    function listing()
+    {
+        let monselect = document.querySelector("#sele");
+        let monselect2 = document.querySelector("#sele2");
+        let valeur = monselect.options[monselect.selectedIndex].value;
+        let enfants = monselect2.childNodes;
+        for(var enf of enfants) if(enf.nodeName=="OPTION") enf.parentNode.removeChild(enf);
+        if(valeur=='admin')
+        {
+            for(var enf of enfants) if(enf.nodeName=="OPTION") enf.parentNode.removeChild(enf);
+            for(var li of liste)
+            {
+                if(li instanceof Object)
+                {
+                    let opt = document.createElement("option");
+                    opt.value = li.id_professeur;
+                    opt.innerHTML = li.nom_professeur+" "+li.prenom_professeur;
+                    monselect2.appendChild(opt);
+                }
+                
+            }
+        }
+        if(valeur=='supadmin')
+        {
+            for(var enf of enfants) if(enf.nodeName=="OPTION") enf.parentNode.removeChild(enf);
+            for(var li of liste2)
+            {
+                if(li instanceof Object)
+                {
+                    let opt = document.createElement("option");
+                    opt.value = li.id_professeur;
+                    opt.innerHTML = li.nom_professeur+" "+li.prenom_professeur;
+                    monselect2.appendChild(opt);
+                }
+                
+            }
+        }
+    }
+    monselect.addEventListener('change',listing);
+    let formmod = document.querySelectorAll("#formmodif input");
+    for(var enf of formmod)
+    {
+        enf.addEventListener('change',function(){
+            let bumodi = document.querySelector("#modifi");
+            bumodi.style.display="inline";
+        });
+    }
+</script>
+@endsection

@@ -36,3 +36,4 @@ Route::post('listeDep',[ControleurAdmin::class,'listeDep']);
 Route::post('AjouDepForm',[ControleurAdmin::class,'AjouDepForm']);
 Route::post('SuppDepForm',[ControleurAdmin::class,'SuppDepForm']);
 Route::post('ModDepForm',[ControleurAdmin::class,'ModDepForm']);
+Route::post('ValidationMod',[ControleurAdmin::class,'ValidationMod']);

@@ -133,9 +133,9 @@ html,body{
     background-color: gray;
     color:white;
 }
-.contenu2 td,th 
+.contenu1 td,th 
 {
-    width:200px;
+    width: 250px;
     border: 2px solid black;
     border-collapse: collapse;
 }
