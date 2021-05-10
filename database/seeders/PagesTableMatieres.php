@@ -14,7 +14,7 @@ class PagesTableMatieres extends Seeder
      */
     public function run()
     {
-        /*DB::table('matieres')->insert([
+        DB::table('matieres')->insert([
             [
                 'nom_matiere' => 'Algorithme et structure de données 1',
                 'id_semestre' => 1,
@@ -151,6 +151,6 @@ class PagesTableMatieres extends Seeder
                 'responsable_matiere' => null,
                 'id_departement' => 1
             ]
-        ]);*/
+        ]);
     }
 }

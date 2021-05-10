@@ -15,7 +15,7 @@ class PagesTableStatut extends Seeder
      */
     public function run()
     {
-        /*DB::table('statuts')->insert([
+        DB::table('statuts')->insert([
             [
                 'nom_statut' => 'PR',
                 'nbre_heure' => '192',
@@ -45,6 +45,6 @@ class PagesTableStatut extends Seeder
                 'nbre_heure' => '0',
                 'nbre_heure_max' => '96'
             ]
-        ]);*/
+        ]);
     }
 }
