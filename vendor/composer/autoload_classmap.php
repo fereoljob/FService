@@ -22,6 +22,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Middleware\\dejaConnecte' => $baseDir . '/app/Http/Middleware/dejaConnecte.php',
     'App\\Http\\Middleware\\verifAuthentification' => $baseDir . '/app/Http/Middleware/verifAuthentification.php',
+    'App\\Models\\Professeur' => $baseDir . '/app/Models/Professeur.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

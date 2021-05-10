@@ -48,7 +48,7 @@
 @php
     echo "<script>";
     echo "let liste =";
-    echo json_encode($admins);
+    echo json_encode($Admins);
     echo ";let liste2=";
     echo json_encode($supadmins);
     echo "</script>";

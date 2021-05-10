@@ -16,7 +16,7 @@ class CreateNiveauEtudesTable extends Migration
         Schema::create('niveau_etudes', function (Blueprint $table) {
             $table->increments("id_niveau");
             $table->string("nom_niveau");
-            $table->string("categorie");
+            $table->UnsignedInteger("id_categorie")->nullable();
             $table->UnsignedInteger("responsable_annee")->nullable();
         });
     }
