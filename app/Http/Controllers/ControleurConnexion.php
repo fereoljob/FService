@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Departement;
 use App\Models\NiveauEtude;
 use App\Models\Semestre;
+use App\Models\Matiere;
 
 class ControleurConnexion extends Controller
 {
@@ -59,7 +60,11 @@ class ControleurConnexion extends Controller
         {
             $user = User::where('id_user','=',session('LoggedUser'))->first();
             $categories = NiveauEtude::DISTINCT()->get(['categorie']);
-            $licences = NiveauEtude::where('categorie', '=','Licences')->get();
+            $licences = DB::table('niveau_etudes')->join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')->select('niveau_etudes.nom_niveau', DB::raw('COUNT(semestres.nom_semestre) as val') )
+            ->where('categorie', '=','Licences')->groupBy('niveau_etudes.nom_niveau')->get();
+            $lic_sem = DB::table('semestres')->join('niveau_etudes', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
+                        ->select('semestres.nom_semestre')->where('niveau_etudes.categorie', '=', 'Licences')->orderBy('niveau_etudes.nom_niveau') ->get();
+            $lic_mat = DB::table('semestres')->join('matieres', 'semestres.id_semestre');
             $masters = NiveauEtude::where('categorie', '=','Masters')->get();
             $autres = NiveauEtude::where('categorie', '=','Autres Services')->get();
             $licence1 = NiveauEtude::join('semestres', 'niveau_etudes.id_niveau','=', 'semestres.id_niveau')
@@ -76,7 +81,8 @@ class ControleurConnexion extends Controller
             $data=['infoConnexionUser'=>$user, 'categoriesnom'=>$categories,
                     'licences'=>$licences, 'masters'=> $masters,'autres' => $autres,
                     'licence1'=> $licence1, 'licence2'=> $licence2, 'licence3'=> $licence3,
-                    'master1'=> $master1, 'master2'=> $master2];
+                    'master1'=> $master1, 'master2'=> $master2, 'lic_sem'=>$lic_sem,
+                    ];
         }
         return view('Utilisateur/profile',$data);
     }
