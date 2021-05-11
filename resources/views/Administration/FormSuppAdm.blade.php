@@ -19,15 +19,18 @@
                 <tr>
                     <td><label for="type"><strong>Role</strong></label></td>
                     <td><select id="sele" class="form-control" name="type">
-                        <option value="admin" selected>Admin</option>
+                        <option value="Tous" selected >Tous</option>
+                        <option value="Professeur" >Professeur</option>
+                        <option value="admin" >Admin</option>
                         <option value="supadmin">Super Admin</option>
+                        <option value="Membre_administratif">Membre Administratif</option>
                     </select></td>
                 </tr>
                 <span class="text-danger">@error('type') {{ $message }} @enderror</span>
             </div>
             <div class="form-group">
                 <tr>
-                    <td><label for="prof"><strong>Nom et prénom</strong></label></td>
+                    <td><label for="prof"><strong>Professeur</strong></label></td>
                     <td><select id="sele2" class="form-control" name="prof">
                         @foreach($admins as $admin)
                             <option value={{ $admin->id_professeur }}>{{ $admin->nom_professeur }} {{ $admin->prenom_professeur }}</option>
@@ -79,7 +82,7 @@
                 
             }
         }
-        if(valeur=='supadmin')
+        else if(valeur=='supadmin')
         {
             for(var enf of enfants) if(enf.nodeName=="OPTION") enf.parentNode.removeChild(enf);
             for(var li of liste2)
@@ -93,6 +96,10 @@
                 }
                 
             }
+        }
+        else
+        {
+            for(var enf of enfants) if(enf.nodeName=="OPTION") enf.parentNode.removeChild(enf);
         }
     }
     monselect.addEventListener('change',listing);

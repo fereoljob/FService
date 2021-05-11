@@ -16,6 +16,7 @@ class ChangeNiveauEtudesTable extends Migration
     {
         Schema::table('niveau_etudes', function (Blueprint $table) {
             $table->foreign('responsable_annee')->references("id_professeur")->on("professeurs");
+            $table->foreign('id_categorie')->references("id_categorie")->on("categories");
 
         });
     }

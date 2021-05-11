@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3 aside bg-dark" style="color:white">
-                        <h3 class="mt-3 perso">Gestion Admin/Super Admin</h3>
+                        <h3 class="mt-3 perso">Gestion Utilisateurs</h3>
                         <ul class="uliste text-center mt-4" >
                             <li><a href="Ajout">Ajouter</a></li>
                             <li><a href="Supp">Suppression</a></li>
