@@ -37,49 +37,13 @@
                                 <select class="btn btn-secondary" name="licences">
                                 </select>
                             </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="vue"><span class="filtre"> Affichage :</span></label>
-                                <select class="btn btn-secondary" name="vue">
-                                    <option value="Global ">Global</option>
-                                    <option value="Personnalisé">Personnalisé</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="row">
-                        <div class="affichage">
-                            
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid padding mt-5">
-            <div class="Masteres col-md-12">
-                <div class="row text-center ">
-                    <h2 class="titresect"><span class="contenu">Mastères</span> </h2>
-                    <div class="row">
-                        <form action="#" class="form-inline lefiltre">
-                            <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
-                                </select>
-                            </div>
-                           
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres">
                                 </select>
                             </div>
-                           
+
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue">
@@ -94,45 +58,84 @@
 
                         </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid padding mt-5">
-            <div class="AutresServices col-md-12">
-                <div class="row  text-center">
-                    <h2 class="titresect"><span class="contenu">Autres Services</span></h2>
-                    <div class="row">
-                        <form action="#" class="form-inline lefiltre">
-                            <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau licence :</span></label>
-                                <select class="btn btn-secondary" name="licences">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres">
-                                </select>
-                            </div>
-                           
-                            <div class="form-group troiscol">
-                                <label for="vue"><span class="filtre"> Affichage :</span></label>
-                                <select class="btn btn-secondary" name="vue">
-                                    <option value="Global ">Global</option>
-                                    <option value="Personnalisé">Personnalisé</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="row">
-                        <div class="affichage">
-                            
-                        </div>
+    <table class="table_licence_gene d-none" cellspacing="1" cellpadding="1" id="table_master" >
+    </table>
+</div>
+<script>
+    document.getElementById('categorie').addEventListener('change', function() {
+   console.log('You selected: ', this.value)
+   if(this.value == 'Licences'){
+       document.getElementById('licence').classList.remove("d-none");
+       document.getElementById('table_lic').classList.remove("d-none");
+       document.getElementById('master').classList.add("d-none");
+       document.getElementById('autre').classList.add("d-none");
+   }
+   if(this.value == 'Masters'){
+       document.getElementById('licence').classList.add("d-none");
+       document.getElementById('autre').classList.add("d-none");
+       document.getElementById('master').classList.remove("d-none");
+   }
+   if(this.value == 'Autres Services'){
+       document.getElementById('master').classList.add("d-none");
+       document.getElementById('licence').classList.add("d-none");
+       document.getElementById('autre').classList.remove("d-none");
+   }
+   });
+   document.getElementById('licence').addEventListener('change', function(){
+       console.log('You selected: ', this.value)
+       if(this.value == 'Tout'){
+           document.getElementById('licence1').classList.remove("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+       if(this.value == 'L1 MPCIE'){
+           document.getElementById('licence1').classList.remove("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+       if(this.value == 'L2 MPCIE'){
+           document.getElementById('licence1').classList.add("d-none");
+           document.getElementById('licence2').classList.remove("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+       if(this.value == 'L3 Informatique'){
+           document.getElementById('licence1').classList.add("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.remove("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+   });
+   document.getElementById('master').addEventListener('change', function(){
+       console.log('You selected: ', this.value)
+       if(this.value == 'Tout'){
+           document.getElementById('licence1').classList.remove("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+       if(this.value == 'M1 Informatique'){
+           document.getElementById('licence1').classList.add("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.remove("d-none");
+           document.getElementById('master2').classList.add("d-none");
+       }
+       if(this.value == 'M2 Informatique'){
+           document.getElementById('licence1').classList.add("d-none");
+           document.getElementById('licence2').classList.add("d-none");
+           document.getElementById('licence3').classList.add("d-none");
+           document.getElementById('master1').classList.add("d-none");
+           document.getElementById('master2').classList.remove("d-none");
+       }
+   });
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+</script>
+@endsection
