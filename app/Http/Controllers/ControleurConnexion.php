@@ -28,7 +28,10 @@ class ControleurConnexion extends Controller
         {
             if($requete->inputPassword==$user->password)
             {
-                $requete->session()->put('LoggedUser',$user->id_professeur);
+                if($user->type_user=="Professeur")
+                    $requete->session()->put('LoggedUser',$user->id_professeur);
+                else
+                    $requete->session()->put('LoggedUser',"000");
                 return redirect('profile');
             }
             else
@@ -59,13 +62,21 @@ class ControleurConnexion extends Controller
         {
             $user = User::where('id_professeur','=',session('LoggedUser'))->first();
             $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
-            $data=['infoConnexionUser'=>$user,'prof'=>$prof];
-            if($user->admin==1 || $user->supadmin==1)
+            if($user)
             {
-                return view('Connexion/panneau',$data);
+                $data=['infoConnexionUser'=>$user,'prof'=>$prof];
+                if($user->admin==1 || $user->supadmin==1)
+                {
+                    return view('Connexion/panneau',$data);
+                }
+                else
+                {
+                    return view('Utilisateur/profile',$data);
+                }
             }
             else
             {
+                $data = ['infoConnexionUser'=>'null'];
                 return view('Utilisateur/profile',$data);
             }
         }
