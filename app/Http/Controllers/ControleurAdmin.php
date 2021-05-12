@@ -5,9 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Professeur;
+use App\Models\User;
 
 class ControleurAdmin extends Controller
 {
+    function donnees()
+    {
+        $user=$this->verification();
+        $professeurs  = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur','users.email')
+        ->where('type_user','Professeur')->get();
+        $membres = DB::table('users')->whereNull('id_professeur')->get();
+        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
+        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
+        $data=['prof'=>$user,'admins'=>$admins,'supadmins'=>$supadmins,'membres'=>$membres,'professeurs'=>$professeurs];
+        return $data;
+    }
     function verification()
     {
         if(session()->has('LoggedUser'))
@@ -19,67 +34,68 @@ class ControleurAdmin extends Controller
     function ajouter()
     {
        $user=$this->verification();
-        $admins = DB::table('professeurs')->get();
-        $data=['prof'=>$user,'admins'=>$admins];
-        return view('Administration/FormAjouAdm',$data);
+        $utilisateurs = DB::table('professeurs')->whereNotExists(function($query){
+            $query->select('*')->from('users')->whereColumn('users.id_professeur','professeurs.id_professeur');
+        })->get();
+        $data=['prof'=>$user,'utilisateurs'=>$utilisateurs];
+        return view('Administration/FormAjouUser',$data);
     }
     function Supprimer()
     {
-        $user=$this->verification();
-        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->orWhere('users.supadmin','1')->get();
-        $Admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
-        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
-        $data=['prof'=>$user,'admins'=>$admins,'Admins'=>$Admins,'supadmins'=>$supadmins];
-        return view('Administration/FormSuppAdm',$data);
+        $data = $this->donnees();
+        return view('Administration/FormSuppUser',$data);
     }
     function Modifier()
     {
-        $user=$this->verification();
-        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->orWhere('users.supadmin','1')->get();
-        $Admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
-        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
-        $data=['prof'=>$user,'admins'=>$admins,'Admins'=>$Admins,'supadmins'=>$supadmins];
-        return view('Administration/FormModAdm',$data);
+        $data = $this->donnees();
+        return view('Administration/FormModUser',$data);
     }
     function AjoutEnvoi(Request $requete)
     {
         //validation de la requete
         $requete->validate([
-            "prof"=>"Required",
+            "type"=>"Required",
             "email"=>"Required|email",
-            "mdp"=>"Required",
-            "admin"=>"Required"
+            "mdp"=>"Required"
         ]);
         //traitement post validation
-        $prof=$requete->prof;
         $email = $requete->email;
         $mdp = $requete->mdp;
         $type = $requete->type;
-        if($requete->admin=="Admin")
+        if(isset($requete->admin))
         {
-            $admin = 1;
-            $admin2 = 0;
+            if($requete->admin=="Admin")
+            {
+                $admin = 1;
+                $admin2 = 0;
+            }
+            else
+            {
+                $admin=0;
+                $admin2 = 1;
+            }
         }
         else
         {
             $admin=0;
-            $admin2 = 1;
+            $admin2 = 0;
         }
-        $donnees = ['id_professeur'=>$prof,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
+        if($type=="Professeur")
+        {
+            $prof = $requete->prof;
+            $donnees = ['id_professeur'=>$prof,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
+        }
+        else
+        {
+            $donnees = ['email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
+        }
         $util = DB::table('users')->insert($donnees);
         if($util)
         {
-            echo "<script type='text/javascript' >alert('insertion Reussie');</script>";
             $user=$this->verification();
             $admins = DB::table('professeurs')->get();
-            $data=['prof'=>$user,'admins'=>$admins];
-            return view('Administration/FormAjouAdm',$data);
+            $data=['prof'=>$user,'admins'=>$admins,'succes'=>$util];
+            return view('Administration/FormAjouUser',$data);
         }
         else
         {
@@ -89,24 +105,17 @@ class ControleurAdmin extends Controller
     }
     function SuppEnvoi(Request $requete)
     {
-        $user=$this->verification();
         //validation de la requete
         $requete->validate([
             'prof'=>'Required'
         ]);
         //traitement post validation
-        $util2 = DB::table('users')->where('id_professeur',$requete->prof)->delete();
-        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->orWhere('users.supadmin','1')->get();
-        $Admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
-        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
-        $data=['prof'=>$user,'admins'=>$admins,'Admins'=>$Admins,'supadmins'=>$supadmins];
+        $util2 = DB::table('users')->where('email',$requete->prof)->delete();
+        $data = $this->donnees();
+        $data["succes"] = $util2; 
         if($util2)
         {
-            echo "<script type='text/javascript' >alert('Suppression Reussie');</script>";
-            return view('Administration/FormSuppAdm',$data);
+            return view('Administration/FormSuppUser',$data);
         }
         else
         {
@@ -121,15 +130,10 @@ class ControleurAdmin extends Controller
             "prof"=>'Required'
         ]);
         //traitement post validation
-        $tab = DB::table('users')->where('id_professeur',$requete->prof)->first();
-        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->orWhere('users.supadmin','1')->get();
-        $Admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
-        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
-        $data=['prof'=>$user,'tab'=>$tab,'admins'=>$admins,'Admins'=>$Admins,'supadmins'=>$supadmins];
-        return view('Administration/FormModAdm',$data);
+        $tab = DB::table('users')->where('email',$requete->prof)->first();
+        $data = $this->donnees();
+        $data['tab']=$tab;
+        return view('Administration/FormModUser',$data);
     }
     function ValidationMod(Request $requete)
     {
@@ -143,8 +147,8 @@ class ControleurAdmin extends Controller
         $mdp = $requete->Mdp;
         $admin = $requete->admin;
         $supadmin = $requete->supadmin;
-        $id_professeur = $requete->id_professeur;
-        $resultat = DB::table('users')->where('id_professeur',$id_professeur)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'
+        $id_user = $requete->id_user;
+        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'
         supadmin'=>$supadmin]);
         if($resultat)
         {
