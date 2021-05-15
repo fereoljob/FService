@@ -64,6 +64,13 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <table class="table_licence_gene d-none" cellspacing="1" cellpadding="1" id="table_master" >
+                    <tr id="niv">
+                        <th> Scolarité </th>
+                    </tr>
+                </table>
+            </div>
             @yield('contenu')
         </div>
     </body>

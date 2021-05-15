@@ -1,11 +1,6 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
-    <table class="table_licence_gene d-none" cellspacing="1" cellpadding="1" id="table_master" >
-        <tr id="niv">
-            <th> Scolarité </th>
-        </tr>
-    </table>
-</div>
+
 <script type="text/javascript">
     $('#categorie').change(function(){
         var categorieID = $(this).val();

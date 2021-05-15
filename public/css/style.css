@@ -182,3 +182,31 @@ html,body{
 {
     float:right;
 }
+
+.table-wrapper{
+    overflow-x: auto;
+    border: 1px solid black;
+}
+.table-wrapper table{
+    border: 0;
+}
+.table-wrapper tbody>tr:first-child>*{
+    border-top: 0;
+}
+.table-wrapper th, td{
+    border: 1px solid black;
+    padding: 8px 12px;
+}
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+
+}
+tbody{
+    display: table-row-group;
+    vertical-align: middle;
+}
+.separation{
+    border-bottom: 3px solid black;
+}
