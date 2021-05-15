@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Professeur;
+use App\Models\Categorie;
 
 class ControleurConnexion extends Controller
 {
@@ -62,9 +63,10 @@ class ControleurConnexion extends Controller
         {
             $user = User::where('id_professeur','=',session('LoggedUser'))->first();
             $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
+            $categories = DB::table("categories")->pluck("nom_categorie","id_categorie");
             if($user)
             {
-                $data=['infoConnexionUser'=>$user,'prof'=>$prof];
+                $data=['infoConnexionUser'=>$user,'prof'=>$prof, 'categories' => $categories];
                 if($user->admin==1 || $user->supadmin==1)
                 {
                     return view('Connexion/panneau',$data);
@@ -76,7 +78,7 @@ class ControleurConnexion extends Controller
             }
             else
             {
-                $data = ['infoConnexionUser'=>'null'];
+                $data = ['infoConnexionUser'=>'null', 'categories' => $categories];
                 return view('Utilisateur/profile',$data);
             }
         }
@@ -102,6 +104,18 @@ class ControleurConnexion extends Controller
     function admin()
     {
         return "En cours de developpement";
+    }
+
+    public function niveauEtudes(Request $request){
+        $niveau_etudes = DB::table("niveau_etudes")->where("id_categorie", $request->id_categorie)
+        ->pluck("nom_niveau", "id_niveau");
+        return response()->json($niveau_etudes);
+    }
+
+    public function semestres(Request $request){
+        $semestres = DB::table("semestres")->where("id_niveau", $request->id_niveau)
+        ->pluck("nom_semestre", "id_semestre");
+        return response()->json($semestres);
     }
 
 }

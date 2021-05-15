@@ -1,83 +1,57 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
     <table class="table_licence_gene d-none" cellspacing="1" cellpadding="1" id="table_master" >
+        <tr id="niv">
+            <th> Scolarité </th>
+        </tr>
     </table>
 </div>
-<script>
-    document.getElementById('categorie').addEventListener('change', function() {
-   console.log('You selected: ', this.value)
-   if(this.value == 'Licences'){
-       document.getElementById('licence').classList.remove("d-none");
-       document.getElementById('table_lic').classList.remove("d-none");
-       document.getElementById('master').classList.add("d-none");
-       document.getElementById('autre').classList.add("d-none");
-   }
-   if(this.value == 'Masters'){
-       document.getElementById('licence').classList.add("d-none");
-       document.getElementById('autre').classList.add("d-none");
-       document.getElementById('master').classList.remove("d-none");
-   }
-   if(this.value == 'Autres Services'){
-       document.getElementById('master').classList.add("d-none");
-       document.getElementById('licence').classList.add("d-none");
-       document.getElementById('autre').classList.remove("d-none");
-   }
-   });
-   document.getElementById('licence').addEventListener('change', function(){
-       console.log('You selected: ', this.value)
-       if(this.value == 'Tout'){
-           document.getElementById('licence1').classList.remove("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-       if(this.value == 'L1 MPCIE'){
-           document.getElementById('licence1').classList.remove("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-       if(this.value == 'L2 MPCIE'){
-           document.getElementById('licence1').classList.add("d-none");
-           document.getElementById('licence2').classList.remove("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-       if(this.value == 'L3 Informatique'){
-           document.getElementById('licence1').classList.add("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.remove("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-   });
-   document.getElementById('master').addEventListener('change', function(){
-       console.log('You selected: ', this.value)
-       if(this.value == 'Tout'){
-           document.getElementById('licence1').classList.remove("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-       if(this.value == 'M1 Informatique'){
-           document.getElementById('licence1').classList.add("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.remove("d-none");
-           document.getElementById('master2').classList.add("d-none");
-       }
-       if(this.value == 'M2 Informatique'){
-           document.getElementById('licence1').classList.add("d-none");
-           document.getElementById('licence2').classList.add("d-none");
-           document.getElementById('licence3').classList.add("d-none");
-           document.getElementById('master1').classList.add("d-none");
-           document.getElementById('master2').classList.remove("d-none");
-       }
-   });
-
+<script type="text/javascript">
+    $('#categorie').change(function(){
+        var categorieID = $(this).val();
+        if(categorieID){
+            $.ajax({
+                type:"GET",
+                url:"{{url('niveauEtudes')}}?id_categorie="+categorieID,
+                success: function(res){
+                    if(res){
+                        $("#niveau").empty();
+                        $("#niveau").append('<option>Niveau </option>');
+                        $.each(res, function(key,value){
+                            $("#niveau").append('<option value="'+key+'">'+value+'</option>');
+                            $("#niv").append('<th>'+value+'</th>');
+                        });
+                    }else{
+                        $("#niveau").empty();
+                    }
+                }
+            });
+        }else{
+            $("#niveau").empty();
+            $("#semestre").empty();
+        }
+    });
+    $('#niveau').on('change',function(){
+        var niveauID = $(this).val();
+        if(niveauID){
+            $.ajax({
+                type:"GET",
+                url:"{{url('semestres')}}?id_niveau="+niveauID,
+                success: function(res){
+                    if(res){
+                        $("#semestre").empty();
+                        $("#semestre").append('<option>Semestre</option>');
+                        $.each(res,function(key,value){
+                            $("#semestre").append('<option value="'+key+'">'+value+'</option>');
+                        });
+                    }else{
+                        $("#semestre").empty();
+                    }
+                }
+            });
+        }else{
+            $("#semestre").empty();
+        }
+    });
 </script>
 @endsection

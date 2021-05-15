@@ -34,74 +34,22 @@
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="categorie" id="categorie">
-                                    @foreach ($categoriesnom as $categorie )
-                                    <option value="{{$categorie->categorie}}"> {{$categorie->categorie}} </option>
+                                    <option value="" selected disabled> Categories </option>
+                                    @foreach($categories as $id=> $categorie )
+                                    <option value="{{$id}}"> {{$categorie}} </option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Niveau d'Etudes :</span></label>
-                                <select class="btn btn-secondary" name="licence" id="licence">
-                                    <option value="Tout"> Tout </option>
-                                    @foreach ($licences as $licence){
-                                        <option value="{{$licence->nom_niveau}}"> {{$licence->nom_niveau}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="master" id="master" >
-                                    <option value="Tout"> Tout </option>
-                                    @foreach ($masters as $master){
-                                        <option value="{{$master->nom_niveau}}"> {{$master->nom_niveau}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="autre" id="autre">
-                                    <option value="Tout"> Tout </option>
-                                    @foreach ($autres as $autre){
-                                        <option value="{{$autre->nom_niveau}}"> {{$autre->nom_niveau}} </option>
-                                    }
-                                    @endforeach
+                                <select class="btn btn-secondary" name="licence" id="niveau">
                                 </select>
                             </div>
 
                             <div class="form-group troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
-                                <select class="btn btn-secondary" name="Semestres" id="licence1">
-                                    @foreach ($licence1 as $l1 ){
-                                        <option value = "{{$l1->nom_semestre}}"> {{$l1->nom_semestre}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="Semestres" id="licence2">
-                                    @foreach ($licence2 as $l2 ){
-                                        <option value = "{{$l2->nom_semestre}}"> {{$l2->nom_semestre}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="Semestres" id="licence3">
-                                    @foreach ($licence3 as $l3 ){
-                                        <option value = "{{$l3->nom_semestre}}"> {{$l3->nom_semestre}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="Semestres" id="master1">
-                                    @foreach ($master1 as $m1 ){
-                                        <option value = "{{$m1->nom_semestre}}"> {{$m1->nom_semestre}} </option>
-                                    }
-                                    @endforeach
-                                </select>
-
-                                <select class="btn btn-secondary d-none" name="Semestres" id="master2">
-                                    @foreach ($master2 as $m2 ){
-                                        <option value = "{{$m2->nom_semestre}}"> {{$m2->nom_semestre}} </option>
-                                    }
-                                    @endforeach
+                                <select class="btn btn-secondary" name="Semestres" id="semestre">
                                 </select>
                             </div>
 
