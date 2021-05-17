@@ -37,6 +37,6 @@ Route::post('AjouDepForm',[ControleurAdmin::class,'AjouDepForm']);
 Route::post('SuppDepForm',[ControleurAdmin::class,'SuppDepForm']);
 Route::post('ModDepForm',[ControleurAdmin::class,'ModDepForm']);
 Route::post('ValidationMod',[ControleurAdmin::class,'ValidationMod']);
-Route::get('niveauEtudes', [ControleurConnexion::class, 'niveauEtudes'])->name('niveauEtudes');
+Route::get('niveauEtudes', [ControleurConnexion::class, 'niveauEtudes']);
 Route::get('semestres', [ControleurConnexion::class, 'semestres'])->name('semestres');
 

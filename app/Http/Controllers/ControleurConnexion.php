@@ -108,8 +108,18 @@ class ControleurConnexion extends Controller
 
     public function niveauEtudes(Request $request){
         $niveau_etudes = DB::table("niveau_etudes")->where("id_categorie", $request->id_categorie)
-        ->pluck("nom_niveau", "id_niveau");
-        return response()->json($niveau_etudes);
+        ->pluck("nom_niveau");
+        $semestres = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->where("id_categorie", $request->id_categorie)
+        ->pluck("semestres.nom_semestre");
+        $nbr_sem = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->where("id_categorie", $request->id_categorie);
+        $matieres = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
+        ->where("id_categorie", $request->id_categorie)->pluck("matieres.nom_matiere");
+        $reponse = [
+            'niveau_etudes'=> $niveau_etudes,
+            'semestres'=> $semestres,
+            'matieres'=>$matieres
+        ];
+        return response()->json($reponse);
     }
 
     public function semestres(Request $request){
