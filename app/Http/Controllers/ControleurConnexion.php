@@ -111,7 +111,7 @@ class ControleurConnexion extends Controller
         ->pluck("nom_niveau");
         $semestres = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->where("id_categorie", $request->id_categorie)
         ->pluck("semestres.nom_semestre");
-        $nbr_sem = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->where("id_categorie", $request->id_categorie);
+        $nbr_sem = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->select(db::raw(''))->where("id_categorie", $request->id_categorie);
         $matieres = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->where("id_categorie", $request->id_categorie)->pluck("matieres.nom_matiere");
         $reponse = [
