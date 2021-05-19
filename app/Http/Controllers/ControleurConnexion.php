@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\DB;
-
 use App\Models\User;
+
 use App\Models\Professeur;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ControleurConnexion extends Controller
 {
@@ -95,12 +95,36 @@ class ControleurConnexion extends Controller
         if(session()->has('LoggedUser'))
         {
             $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
-            $data=['prof'=>$prof];
-            return view('Administration/supadmin',$data);
+            $utilisateurs = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
+            ->get();
+            $membres = DB::table('users')->where('type_user',"Membre_administratif")->get();
+            $departements = DB::table('departements')->join('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
+            ->get();
+            $data =['prof'=>$prof,'membres'=>$membres,'utilisateurs'=>$utilisateurs,'departements'=>$departements];
+            return view('Administration/supadminspage/supadmin',$data);
         }
     }
     function admin()
     {
-        return "En cours de developpement";
+        $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
+        $status = DB::table('statuts')->get();
+        $professeurs = DB::table('professeurs')->leftJoin('statuts','professeurs.id_statut','=','statuts.id_statut')
+        ->leftJoin('departements','professeurs.id_departement','=','departements.id_departement')->get();
+        $niv_etudes = DB::table('niveau_etudes')->leftJoin('categories','niveau_etudes.id_categorie','=','categories.id_categorie')
+        ->leftJoin('professeurs','niveau_etudes.responsable_annee','=','professeurs.id_professeur')->get();
+        $categories = DB::table('categories')->get();
+        $semestre = DB::table('semestres')->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')->get();
+        $matieres = DB::table('matieres')->leftJoin('semestres','matieres.id_semestre','=','semestres.id_semestre')
+        ->leftJoin('professeurs','matieres.responsable_matiere','=','professeurs.id_professeur')
+        ->leftJoin('departements','matieres.id_departement','=','departements.id_departement')->get();
+        $type_enseignements = DB::table('type_enseignements')->get();
+        $parties = DB::table('parties')->leftJoin('matieres','parties.id_matiere','=','matieres.id_matiere')
+        ->leftJoin('type_enseignements','parties.type_enseignement','=','type_enseignements.id_type_enseignement')->get();
+        $afffectations = DB::table('affectations')
+        ->leftJoin('parties','affectations.id_partie','=','parties.id_partie')->leftJoin('professeurs','affectations.id_professeur','=','professeurs.id_professeur')->get();
+        $data=['prof'=>$prof,'status'=>$status,'professeurs'=>$professeurs,
+        'niv_etudes'=>$niv_etudes,'categories'=>$categories,'semestres'=>$semestre,'matieres'=>$matieres,
+        'type_enseignements'=>$type_enseignements,'parties'=>$parties,'affectations'=>$afffectations];
+        return view('Administration/adminspage/admin',$data);
     }
 }

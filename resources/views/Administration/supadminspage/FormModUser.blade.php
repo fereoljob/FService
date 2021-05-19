@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td colspan="2" class="text-center"><button type="submit" id="bouton" class="btn btn-primary" >Modifier</button></td>
+                        <td colspan="2" class="text-center"><button type="submit" id="bouton" class="btn btn-success" >Modifier</button></td>
                     </tr>
                 </div>
                 </table>
@@ -55,7 +55,8 @@
 @if(isset($tab))
 @section('contenu1')
 <h4> Changez la valeur des informations à modifier</h4>
-<form action="ValidationMod" method="post" id="formmodif">
+<form action="ValidationMod" method="post" >
+    @csrf
 <table class="mt-3">
     <th>Email</th>
     <th>Mot de passe</th>

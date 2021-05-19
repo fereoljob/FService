@@ -38,17 +38,17 @@ class ControleurAdmin extends Controller
             $query->select('*')->from('users')->whereColumn('users.id_professeur','professeurs.id_professeur');
         })->get();
         $data=['prof'=>$user,'utilisateurs'=>$utilisateurs];
-        return view('Administration/FormAjouUser',$data);
+        return view('Administration/supadminspage/FormAjouUser',$data);
     }
     function Supprimer()
     {
         $data = $this->donnees();
-        return view('Administration/FormSuppUser',$data);
+        return view('Administration/supadminspage/FormSuppUser',$data);
     }
     function Modifier()
     {
         $data = $this->donnees();
-        return view('Administration/FormModUser',$data);
+        return view('Administration/supadminspage/FormModUser',$data);
     }
     function AjoutEnvoi(Request $requete)
     {
@@ -93,13 +93,15 @@ class ControleurAdmin extends Controller
         if($util)
         {
             $user=$this->verification();
-            $admins = DB::table('professeurs')->get();
-            $data=['prof'=>$user,'admins'=>$admins,'succes'=>$util];
-            return view('Administration/FormAjouUser',$data);
+        $utilisateurs = DB::table('professeurs')->whereNotExists(function($query){
+            $query->select('*')->from('users')->whereColumn('users.id_professeur','professeurs.id_professeur');
+        })->get();
+        $data=['prof'=>$user,'utilisateurs'=>$utilisateurs,'succes'=>$util];
+            return view('Administration/supadminspage/FormAjouUser',$data);
         }
         else
         {
-            back()->with('Echec',"Echec de l'insertion");
+            return back()->with('Echec',"Echec de l'insertion");
         }
         
     }
@@ -115,11 +117,11 @@ class ControleurAdmin extends Controller
         $data["succes"] = $util2; 
         if($util2)
         {
-            return view('Administration/FormSuppUser',$data);
+            return view('Administration/supadminspage/FormSuppUser',$data);
         }
         else
         {
-            back()->with('Echec',"Echec de la suppression");
+            return back()->with('Echec',"Echec de la suppression");
         }
     }
     function ModiEnvoi(Request $requete)
@@ -133,7 +135,7 @@ class ControleurAdmin extends Controller
         $tab = DB::table('users')->where('email',$requete->prof)->first();
         $data = $this->donnees();
         $data['tab']=$tab;
-        return view('Administration/FormModUser',$data);
+        return view('Administration/supadminspage/FormModUser',$data);
     }
     function ValidationMod(Request $requete)
     {
@@ -148,110 +150,132 @@ class ControleurAdmin extends Controller
         $admin = $requete->admin;
         $supadmin = $requete->supadmin;
         $id_user = $requete->id_user;
-        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'
-        supadmin'=>$supadmin]);
+        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$supadmin]);
+        $data = $this->donnees();
+        $data["succes"] = $resultat; 
         if($resultat)
         {
-            back()->with('bien','mise a jour reussie');
+            return view('Administration/supadminspage/FormModUser',$data);
         }
-
+        else
+        {
+           return  back()->with('Echec',"Echec de la Mise à jour");
+        }
     }
-    function AjoutDep(Request $requete)
+    function AjoutDep()
     {
         $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
-        return view('Administration/FormAjouDep',$data);
-    }
-    function SuppDep(Request $requete)
-    {
-        $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
-        return view('Administration/FormSuppDep',$data);
-    }
-    function ModiDep(Request $requete)
-    {
-        $user=$this->verification();
-        $data=['infoConnexionUser'=>$user];
-        return view('Administration/FormModDep',$data);
+        $responsables = DB::table('professeurs')->whereNotExists(function($query){
+            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
+        })->get();
+        $data=['prof'=>$user,'responsables'=>$responsables];
+        return view('Administration/supadminspage/FormAjouDep',$data);
     }
     function AjouDepForm(Request $requete)
     {
-        $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
         //validation de la requete
         $requete->validate([
             "nom"=>"Required"
         ]);
         //traitement post validation
         $nom_dep = $requete->nom;
-        $dat = ['nom_departement'=>$nom_dep];
-        $resul = DB::table('departements')->insert($dat);
+        $id_responsable = $requete->responsable;
+        $champs = ['nom_departement'=>$nom_dep,'responsable_departement'=>$id_responsable];
+        $resul = DB::table('departements')->insert($champs);
         if($resul)
         {
-            echo "<script type='text/javascript' >alert('Insertion Reussie');</script>";
-            return view('Administration/FormAjouDep',$data);
+            $user=$this->verification();
+            $responsables = DB::table('professeurs')->whereNotExists(function($query){
+            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
+            })->get();
+            $data=['prof'=>$user,'responsables'=>$responsables,'succes'=>$resul];   
+            return view('Administration/supadminspage/FormAjouDep',$data);
         }
         else
         {
-           back()->with('Echec',"Echec de l'insertion");
+           return back()->with('Echec',"Echec de l'insertion");
         }
+    }
+    function SuppDep()
+    {
+        $user=$this->verification();
+        $departements = DB::table('departements')->get();
+        $data=['prof'=>$user,'departements'=>$departements];
+        return view('Administration/supadminspage/FormSuppDep',$data);
     }
     function SuppDepForm(Request $requete)
     {
-        $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
+        
         //validation de la requete
         $requete->validate([
             'id'=>'Required'
         ]);
         //traitement post validation
-        $dep = DB::table('departements')->where('id_departement',$requete->id)->first();
-        if(empty($dep))
+        $resul = DB::table('departements')->where('id_departement',$requete->id)->delete();
+        if($resul)
         {
-            back()->with('Echec',"Un département avec pour id: $requete->id n'existe pas");
+            $user=$this->verification();
+            $departements = DB::table('departements')->get();
+            $data=['prof'=>$user,'departements'=>$departements];
+            $data['succes']=$resul;
+            return view('Administration/supadminspage/FormSuppDep',$data);
         }
         else
-        {   
-            $resul = DB::table('departements')->where('id_departement',$requete->id)->delete();
-            if($resul)
-            {
-                echo "<script type='text/javascript' >alert('Suppression Reussie');</script>";
-                return view('Administration/FormSuppDep',$data);
-            }
-            else
-            {
-                back()->with('Echec',"Echec de la suppression");
-            }
+        {
+            return back()->with('Echec',"Echec de la suppression");
         }
     }
+    function ModiDep()
+    {
+        $user=$this->verification();
+        $departements = DB::table('departements')->get();
+        $data=['prof'=>$user,'departements'=>$departements];
+        return view('Administration/supadminspage/FormModDep',$data);
+    }
+    
     function ModDepForm(Request $requete)
     {
-        $user = $this->verification();
-        $data=['infoConnexionUser'=>$user];
+        $user=$this->verification();
+        $departements = DB::table('departements')->get();
+        $data=['prof'=>$user,'departements'=>$departements];
         //validation de la requete
         $requete->validate([
-            'id'=>'Required',
-            'nom'=>'Required'
+            'id'=>'Required'
         ]);
         //traitement post validation
-        $resul = DB::table('departements')->where('id_departement',$requete->id)->first();
-        if(empty($resul))
+        $responsables = DB::table('professeurs')->whereNotExists(function($query){
+            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
+        })->get();
+        $tab = DB::table('departements')->join('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
+        ->select('departements.id_departement','professeurs.nom_professeur','departements.nom_departement','departements.responsable_departement','professeurs.prenom_professeur')
+        ->where('departements.id_departement',$requete->id)->get();
+        $data['responsables']=$responsables;
+        $data['tab']=$tab;
+        return view('Administration/supadminspage/FormModDep',$data);
+    }
+    function ModificationDep(Request $requete)
+    {
+        $user = $this->verification();
+        //validation de la requete
+        $requete->validate([
+            "nom"=>'Required'
+        ]);
+        //traitement de la requete
+        $nom = $requete->nom;
+        $id_respo = $requete->responsable;
+        $id_departement = $requete->id_departement;
+        $resultat = DB::table('departements')->where('id_departement',$id_departement)->update(['nom_departement'=>$nom,'responsable_departement'=>$id_respo]);
+        $user=$this->verification();
+        $departements = DB::table('departements')->get();
+        $data=['prof'=>$user,'departements'=>$departements];
+        $data["succes"] = $resultat; 
+        if($resultat)
         {
-            back()->with('Echec',"Aucun département avec l'id entré, réessayez! ");
+            return view('Administration/supadminspage/FormModDep',$data);
         }
         else
         {
-            $departement = $requete->nom;
-            $depart = DB::table('departements')->where('id_departement',$requete->id)->update(['nom_departement'=>$departement]);
-            if($depart)
-            {
-                echo "<script type='text/javascript' >alert('Mise à jour reussie');</script>";
-                return view('Administration/FormModDep',$data);
-            }
-            else
-            {
-                back()->with('Echec',"Echec de la mise à jour");
-            }
+            return back()->with('Echec',"Echec de la Mise à jour");
         }
     }
 }

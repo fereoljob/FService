@@ -14,7 +14,7 @@
     <body class="bg-dark" >
         <div class="container">
             <div class="text-center">
-                <h1 class="titre">Feuilles de Service</h1>
+                <h1 class="titre">Feuilles de Services</h1>
             </div>
         </div>
         <div class="container">

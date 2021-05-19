@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <tr>
-                    <td colspan="2" class="text-center"><button type="submit" class="btn btn-primary" >Supprimer</button></td>
+                    <td colspan="2" class="text-center"><button type="submit" class="btn btn-danger" >Supprimer</button></td>
                 </tr>
             </div>
             </table>

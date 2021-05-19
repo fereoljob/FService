@@ -55,6 +55,8 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'dejaConnecte' => \App\Http\Middleware\dejaConnecte::class,
         'estConnecte' => \App\Http\Middleware\verifAuthentification::class,
+        'estsupadmin' => \App\Http\Middleware\verifSupadmin::class,
+        'estadmin' => \App\Http\Middleware\verifAdmin::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

@@ -15,8 +15,8 @@
         <div class="wrapper">
             <div class="container-fluid">
                 <div class="row bg-dark one" style="color:white; font-size:25px;">
-                    <div class=" col-sm-3 col-md-3 mt-4 text-center" style="border-bottom: thick double white; border-right:thick double white"><i class=""></i><span class="adm">Administration</span></div>
-                    <div class="col-sm-9 col-md-9 mt-4" style="border-bottom:thick double white">
+                    <div class=" col-sm-3 col-md-2 mt-4 text-center acc" style="border-bottom: thick double white; border-right:thick double white"><a href=supadmin ><span class="adm">Administration</span></a></div>
+                    <div class="col-sm-9 col-md-10 mt-4" style="border-bottom:thick double white">
                         <div class="row">
                             <div class="col-md-6 text-center"><i class="fa fa-user "></i> {{$prof->nom_professeur }}  {{ $prof->prenom_professeur }}</div>
                             <div class="col-md-6"><a href="logout"><button class="btn btn-primary" >Deconnexion</button></a></div>
@@ -27,22 +27,22 @@
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 aside bg-dark" style="color:white">
-                        <h3 class="mt-3 perso">Gestion Utilisateurs</h3>
+                    <div class="col-md-2 aside bg-dark" style="color:white">
+                        <h5 class="mt-3 perso">Gestion Utilisateurs</h5>
                         <ul class="uliste text-center mt-4" >
                             <li><a href="Ajout">Ajouter</a></li>
                             <li><a href="Supp">Suppression</a></li>
                             <li><a href="Modi">Modifier</a></li>
                         </ul>
-                        <h3 class="mt-3 perso">Gestion Départements</h3>
+                        <h5 class="mt-3 perso">Gestion Départements</h5>
                         <ul class="uliste text-center mt-4" >
                             <li><a href="AjoutDep">Ajouter</a></li>
                             <li><a href="SuppDep">Suppression</a></li>
                             <li><a href="ModiDep">Modifier</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-9">
-                        <div class="container">
+                    <div class="col-md-10">
+                        <div class="container-fluid">
                             @yield('contenu')
                         </div>
                     </div>

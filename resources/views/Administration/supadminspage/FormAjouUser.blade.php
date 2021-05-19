@@ -26,6 +26,17 @@
                             </select></td>
                     </tr>
                 </div>
+                <div class="form-group">
+                    <tr>
+                        <td><label for="prof"><strong>Professeur</strong></label></td>
+                        <td><select class="form-control" id="sele2" name="prof">
+                            @foreach($utilisateurs as $utilisateur)
+                                <option value={{ $utilisateur->id_professeur }}>{{ $utilisateur->nom_professeur }} {{ $utilisateur->prenom_professeur }}</option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <span class="text-danger">@error('prof') {{ $message }} @enderror</span>
+                </div>
             <div class="form-group">
                 <tr>
                     <td><label for="email"><strong>Email</strong></label></td>
@@ -39,17 +50,6 @@
                     <td><input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required/></td>
                 </tr>
                 <span class="text-danger">@error('mdp') {{ $message }} @enderror</span>
-            </div>
-            <div class="form-group">
-                <tr>
-                    <td><label for="prof"><strong>Professeur</strong></label></td>
-                    <td><select class="form-control" id="sele2" name="prof">
-                        @foreach($utilisateurs as $utilisateur)
-                            <option value={{ $utilisateur->id_professeur }}>{{ $utilisateur->nom_professeur }} {{ $utilisateur->prenom_professeur }}</option>
-                        @endforeach
-                    </select></td>
-                </tr>
-                <span class="text-danger">@error('prof') {{ $message }} @enderror</span>
             </div>
             <div class="form-groupe">
                 <tr><td>
@@ -65,7 +65,7 @@
                 <span class="text-danger">@error('admin') {{ $message }} @enderror</span>
             </div>
             <tr>
-                <td colspan="2" class="text-center"><button type="submit" class="btn btn-primary">Soumettre</button></td>
+                <td colspan="2" class="text-center"><button type="submit" class="btn btn-primary">Ajouter</button></td>
             </tr>
         </table>
         </form>
