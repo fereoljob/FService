@@ -1,28 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Models\Professeur;
-use App\Models\User;
 
 class ControleurAdmin extends Controller
 {
-    function donnees()
-    {
-        $user=$this->verification();
-        $professeurs  = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur','users.email')
-        ->where('type_user','Professeur')->get();
-        $membres = DB::table('users')->whereNull('id_professeur')->get();
-        $admins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.admin','1')->get();
-        $supadmins = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
-        ->select('users.id_professeur','professeurs.nom_professeur','professeurs.prenom_professeur')->where('users.supadmin','1')->get();
-        $data=['prof'=>$user,'admins'=>$admins,'supadmins'=>$supadmins,'membres'=>$membres,'professeurs'=>$professeurs];
-        return $data;
-    }
     function verification()
     {
         if(session()->has('LoggedUser'))
@@ -31,251 +15,185 @@ class ControleurAdmin extends Controller
             return $user;
         }
     }
-    function ajouter()
-    {
-       $user=$this->verification();
-        $utilisateurs = DB::table('professeurs')->whereNotExists(function($query){
-            $query->select('*')->from('users')->whereColumn('users.id_professeur','professeurs.id_professeur');
-        })->get();
-        $data=['prof'=>$user,'utilisateurs'=>$utilisateurs];
-        return view('Administration/supadminspage/FormAjouUser',$data);
-    }
-    function Supprimer()
-    {
-        $data = $this->donnees();
-        return view('Administration/supadminspage/FormSuppUser',$data);
-    }
-    function Modifier()
-    {
-        $data = $this->donnees();
-        return view('Administration/supadminspage/FormModUser',$data);
-    }
-    function AjoutEnvoi(Request $requete)
-    {
-        //validation de la requete
-        $requete->validate([
-            "type"=>"Required",
-            "email"=>"Required|email",
-            "mdp"=>"Required"
-        ]);
-        //traitement post validation
-        $email = $requete->email;
-        $mdp = $requete->mdp;
-        $type = $requete->type;
-        if(isset($requete->admin))
-        {
-            if($requete->admin=="Admin")
-            {
-                $admin = 1;
-                $admin2 = 0;
-            }
-            else
-            {
-                $admin=0;
-                $admin2 = 1;
-            }
-        }
-        else
-        {
-            $admin=0;
-            $admin2 = 0;
-        }
-        if($type=="Professeur")
-        {
-            $prof = $requete->prof;
-            $donnees = ['id_professeur'=>$prof,'email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
-        }
-        else
-        {
-            $donnees = ['email'=>$email,'type_user'=>$type,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$admin2];
-        }
-        $util = DB::table('users')->insert($donnees);
-        if($util)
-        {
-            $user=$this->verification();
-        $utilisateurs = DB::table('professeurs')->whereNotExists(function($query){
-            $query->select('*')->from('users')->whereColumn('users.id_professeur','professeurs.id_professeur');
-        })->get();
-        $data=['prof'=>$user,'utilisateurs'=>$utilisateurs,'succes'=>$util];
-            return view('Administration/supadminspage/FormAjouUser',$data);
-        }
-        else
-        {
-            return back()->with('Echec',"Echec de l'insertion");
-        }
-        
-    }
-    function SuppEnvoi(Request $requete)
-    {
-        //validation de la requete
-        $requete->validate([
-            'prof'=>'Required'
-        ]);
-        //traitement post validation
-        $util2 = DB::table('users')->where('email',$requete->prof)->delete();
-        $data = $this->donnees();
-        $data["succes"] = $util2; 
-        if($util2)
-        {
-            return view('Administration/supadminspage/FormSuppUser',$data);
-        }
-        else
-        {
-            return back()->with('Echec',"Echec de la suppression");
-        }
-    }
-    function ModiEnvoi(Request $requete)
+    function AjouStat()
     {
         $user = $this->verification();
-        //validation de la requete
-        $requete->validate([
-            "prof"=>'Required'
-        ]);
-        //traitement post validation
-        $tab = DB::table('users')->where('email',$requete->prof)->first();
-        $data = $this->donnees();
-        $data['tab']=$tab;
-        return view('Administration/supadminspage/FormModUser',$data);
+        $data = ['prof'=>$user];
+        return view('Administration/adminspage/status/AjouStat',$data);
     }
-    function ValidationMod(Request $requete)
+    function SuppStat()
     {
         $user = $this->verification();
-        //validation de la requete
-        $requete->validate([
-            "email"=>'Required|email',
-        ]);
-        //traitement de la requete
-        $email = $requete->email;
-        $mdp = $requete->Mdp;
-        $admin = $requete->admin;
-        $supadmin = $requete->supadmin;
-        $id_user = $requete->id_user;
-        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$supadmin]);
-        $data = $this->donnees();
-        $data["succes"] = $resultat; 
-        if($resultat)
-        {
-            return view('Administration/supadminspage/FormModUser',$data);
-        }
-        else
-        {
-           return  back()->with('Echec',"Echec de la Mise à jour");
-        }
+        $status = DB::table('statuts')->get();
+        $data = ['prof'=>$user,'status'=>$status];
+        return view('Administration/adminspage/status/SuppStat',$data);
     }
-    function AjoutDep()
-    {
-        $user=$this->verification();
-        $responsables = DB::table('professeurs')->whereNotExists(function($query){
-            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
-        })->get();
-        $data=['prof'=>$user,'responsables'=>$responsables];
-        return view('Administration/supadminspage/FormAjouDep',$data);
-    }
-    function AjouDepForm(Request $requete)
-    {
-        //validation de la requete
-        $requete->validate([
-            "nom"=>"Required"
-        ]);
-        //traitement post validation
-        $nom_dep = $requete->nom;
-        $id_responsable = $requete->responsable;
-        $champs = ['nom_departement'=>$nom_dep,'responsable_departement'=>$id_responsable];
-        $resul = DB::table('departements')->insert($champs);
-        if($resul)
-        {
-            $user=$this->verification();
-            $responsables = DB::table('professeurs')->whereNotExists(function($query){
-            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
-            })->get();
-            $data=['prof'=>$user,'responsables'=>$responsables,'succes'=>$resul];   
-            return view('Administration/supadminspage/FormAjouDep',$data);
-        }
-        else
-        {
-           return back()->with('Echec',"Echec de l'insertion");
-        }
-    }
-    function SuppDep()
-    {
-        $user=$this->verification();
-        $departements = DB::table('departements')->get();
-        $data=['prof'=>$user,'departements'=>$departements];
-        return view('Administration/supadminspage/FormSuppDep',$data);
-    }
-    function SuppDepForm(Request $requete)
-    {
-        
-        //validation de la requete
-        $requete->validate([
-            'id'=>'Required'
-        ]);
-        //traitement post validation
-        $resul = DB::table('departements')->where('id_departement',$requete->id)->delete();
-        if($resul)
-        {
-            $user=$this->verification();
-            $departements = DB::table('departements')->get();
-            $data=['prof'=>$user,'departements'=>$departements];
-            $data['succes']=$resul;
-            return view('Administration/supadminspage/FormSuppDep',$data);
-        }
-        else
-        {
-            return back()->with('Echec',"Echec de la suppression");
-        }
-    }
-    function ModiDep()
-    {
-        $user=$this->verification();
-        $departements = DB::table('departements')->get();
-        $data=['prof'=>$user,'departements'=>$departements];
-        return view('Administration/supadminspage/FormModDep',$data);
-    }
-    
-    function ModDepForm(Request $requete)
-    {
-        $user=$this->verification();
-        $departements = DB::table('departements')->get();
-        $data=['prof'=>$user,'departements'=>$departements];
-        //validation de la requete
-        $requete->validate([
-            'id'=>'Required'
-        ]);
-        //traitement post validation
-        $responsables = DB::table('professeurs')->whereNotExists(function($query){
-            $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
-        })->get();
-        $tab = DB::table('departements')->join('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
-        ->select('departements.id_departement','professeurs.nom_professeur','departements.nom_departement','departements.responsable_departement','professeurs.prenom_professeur')
-        ->where('departements.id_departement',$requete->id)->get();
-        $data['responsables']=$responsables;
-        $data['tab']=$tab;
-        return view('Administration/supadminspage/FormModDep',$data);
-    }
-    function ModificationDep(Request $requete)
+    function ModStat()
     {
         $user = $this->verification();
-        //validation de la requete
-        $requete->validate([
-            "nom"=>'Required'
-        ]);
-        //traitement de la requete
-        $nom = $requete->nom;
-        $id_respo = $requete->responsable;
-        $id_departement = $requete->id_departement;
-        $resultat = DB::table('departements')->where('id_departement',$id_departement)->update(['nom_departement'=>$nom,'responsable_departement'=>$id_respo]);
-        $user=$this->verification();
-        $departements = DB::table('departements')->get();
-        $data=['prof'=>$user,'departements'=>$departements];
-        $data["succes"] = $resultat; 
-        if($resultat)
-        {
-            return view('Administration/supadminspage/FormModDep',$data);
-        }
-        else
-        {
-            return back()->with('Echec',"Echec de la Mise à jour");
-        }
+        $status = DB::table('statuts')->get();
+        $data = ['prof'=>$user,'status'=>$status];
+        return view('Administration/adminspage/status/ModStat',$data);
     }
+    function AjouProf()
+    {
+        $user = $this->verification();
+        $status = DB::table('statuts')->get();
+        $departements = DB::table('departements')->get();
+        $data = ['prof'=>$user,'status'=>$status,'departements'=>$departements];
+        return view('Administration/adminspage/professeurs/AjouProf',$data);
+    }
+    function SuppProf()
+    {
+        $user = $this->verification();
+        $professeurs = DB::table('professeurs')->get();
+        $data = ['prof'=>$user,'professeurs'=>$professeurs];
+        return view('Administration/adminspage/professeurs/SuppProf',$data);
+    }
+    function ModProf()
+    {
+        $user = $this->verification();
+        $professeurs = DB::table('professeurs')->get();
+        $data = ['prof'=>$user,'professeurs'=>$professeurs];
+        return view('Administration/adminspage/professeurs/ModProf',$data);
+    }
+    function AjouNiv()
+    {
+        $user = $this->verification();
+        $categories = DB::table('categories')->get();
+        $professeurs = DB::table('professeurs')->get();
+        $data = ['prof'=>$user,'categories'=>$categories,'professeurs'=>$professeurs];
+        return view('Administration/adminspage/niv_etudes/AjouNiv',$data);
+    }
+    function SuppNiv()
+    {
+        $user = $this->verification();
+        $niv_etudes = DB::table('niveau_etudes')->get();
+        $data = ['prof'=>$user,'niv_etudes'=>$niv_etudes];
+        return view('Administration/adminspage/niv_etudes/SuppNiv',$data);
+    }
+    function ModNiv()
+    {
+        $user = $this->verification();
+        $niv_etudes = DB::table('niveau_etudes')->get();
+        $data = ['prof'=>$user,'niv_etudes'=>$niv_etudes];
+        return view('Administration/adminspage/niv_etudes/ModNiv',$data);
+    }
+    function AjouCat()
+    {
+        $user = $this->verification();
+        $data =['prof'=>$user];
+        return view('Administration/adminspage/categories/AjouCat',$data);
+    }
+    function SuppCat()
+    {
+        $user = $this->verification();
+        $categories = DB::table('categories')->get();
+        $data =['prof'=>$user,'categories'=>$categories];
+        return view('Administration/adminspage/categories/SuppCat',$data);
+    }
+    function ModCat()
+    {
+        $user = $this->verification();
+        $categories = DB::table('categories')->get();
+        $data =['prof'=>$user,'categories'=>$categories];
+        return view('Administration/adminspage/categories/ModCat',$data);
+    }
+    function AjouSem()
+    {
+        $user = $this->verification();
+        $niv = DB::table('niveau_etudes')->get();
+        $data =['prof'=>$user,'niv_etudes'=>$niv];
+        return view('Administration/adminspage/semestres/AjouSem',$data);
+    }
+    function SuppSem()
+    {
+        $user = $this->verification();
+        $semestre_niv = DB::table('semestres')->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')->get();
+        $data =['prof'=>$user , 'semestre_niv'=>$semestre_niv];
+        return view('Administration/adminspage/semestres/SuppSem',$data);
+    }
+    function ModSem()
+    {   
+        $user = $this->verification();
+        $semestre_niv = DB::table('semestres')->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')->get();
+        $data =['prof'=>$user , 'semestre_niv'=>$semestre_niv];
+        return view('Administration/adminspage/semestres/ModSem',$data);
+    }
+    function AjouMat()
+    {
+        $user = $this->verification();
+        $semestre_niv = DB::table('semestres')->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')->get();
+        $professeurs = DB::table('professeurs')->get();
+        $departements = DB::table('departements')->get();
+        $data = ['prof'=>$user,'professeurs'=>$professeurs,'departements'=>$departements,'semestre_niv'=>$semestre_niv];
+        return view('Administration/adminspage/matieres/AjouMat',$data);
+    }
+    function SuppMat()
+    {
+        $user = $this->verification();
+        $matieres = DB::table('matieres')->get();
+        $data =['prof'=>$user,'matieres'=>$matieres];
+        return view('Administration/adminspage/matieres/SuppMat',$data);
+    }
+    function ModMat()
+    {
+        $user = $this->verification();
+        $matieres = DB::table('matieres')->get();
+        $data =['prof'=>$user,'matieres'=>$matieres];
+        return view('Administration/adminspage/matieres/ModMat',$data);
+    }
+    function AjouTyp()
+    {
+        $user = $this->verification();
+        $data = ['prof'=>$user];
+        return view('Administration/adminspage/type_enseignements/AjouTyp',$data);
+    }
+    function SuppTyp()
+    {
+        $user = $this->verification();
+        $type = DB::table('type_enseignements')->get();
+        $data = ['prof'=>$user,'type'=>$type];
+        return view('Administration/adminspage/type_enseignements/SuppTyp',$data);
+    }
+    function ModTyp()
+    {
+        $user = $this->verification();
+        $type = DB::table('type_enseignements')->get();
+        $data = ['prof'=>$user,'type'=>$type];
+        return view('Administration/adminspage/type_enseignements/ModTyp',$data);
+    }
+    function AjouPart()
+    {
+        $user = $this->verification();
+        $matieres = DB::table('matieres')->leftjoin('semestres','matieres.id_semestre','=','semestres.id_semestre')
+        ->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')
+        ->get();
+        $type = DB::table('type_enseignements')->get();
+        $data = ['prof'=>$user,'matieres'=>$matieres,'type'=>$type];
+        return view('Administration/adminspage/parties/AjouPart',$data);
+    }
+    function SuppPart()
+    {
+        $user = $this->verification();
+        $parties = DB::table('parties')->leftjoin('matieres','parties.id_matiere','=','matieres.id_matiere')
+        ->leftjoin('type_enseignements','parties.type_enseignement','=','type_enseignements.id_type_enseignement')
+        ->leftjoin('semestres','matieres.id_semestre','=','semestres.id_semestre')
+        ->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')
+        ->get();
+        $data = ['prof'=>$user,'parties'=>$parties];
+        return view('Administration/adminspage/parties/SuppPart',$data);
+    }
+    function ModPart()
+    {   
+        $user = $this->verification();
+        $parties = DB::table('parties')->leftjoin('matieres','parties.id_matiere','=','matieres.id_matiere')
+        ->leftjoin('type_enseignements','parties.type_enseignement','=','type_enseignements.id_type_enseignement')
+        ->leftjoin('semestres','matieres.id_semestre','=','semestres.id_semestre')
+        ->leftjoin('niveau_etudes','semestres.id_niveau','=','niveau_etudes.id_niveau')
+        ->get();
+        $data = ['prof'=>$user,'parties'=>$parties];
+        return view('Administration/adminspage/parties/ModPart',$data);
+    }
+
 }

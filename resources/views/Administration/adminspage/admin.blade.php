@@ -24,7 +24,9 @@
             </select>&nbsp; &nbsp; &nbsp;
             <button class="btn btn-secondary affichage">Afficher</button>
         </div>
-        <div>
+        <div >
+            <div class="tableau">
+            </div>
             <div class="status contenu1 text-center mt-3" style="display: none">
                 <br/>
                 <button class="btn btn-danger" id="status">Cacher</button>
@@ -229,6 +231,8 @@
             let Leselect = document.querySelector(".monselect");
             let val = Leselect.options[Leselect.selectedIndex].value;
             let div = document.querySelector("."+val);
+            let contenant = document.querySelector(".tableau");
+            contenant.insertBefore(div,contenant.firstChild);
             div.style.display="inline";
             let bout = document.querySelector("button[id="+val+"]");
             bout.addEventListener('click',function(){

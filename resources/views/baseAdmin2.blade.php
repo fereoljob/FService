@@ -94,14 +94,6 @@
                                     <a href="ModPart" class="dropdown-item">Modifier</a>
                                 </div>
                             </div>
-                            <div class="dropdown">
-                                <a href="#" data-toggle="dropdown">Affectations <i class="dropdown-toggle" ></i></a>
-                                <div class="dropdown-menu bg-dark">
-                                    <a href="AjouAff" class="dropdown-item">Ajouter</a>
-                                    <a href="SuppAff" class="dropdown-item">Supprimer</a>
-                                    <a href="ModAff" class="dropdown-item">Modifier</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-10">
