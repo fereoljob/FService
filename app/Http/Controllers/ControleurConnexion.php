@@ -108,7 +108,7 @@ class ControleurConnexion extends Controller
     }
 
     public function niveauEtudes(Request $request){
-
+        $categories = DB::table("categories")->where("categories.id_categorie", $request->id_categorie)->get();
         $niveau_etudes = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "matieres.id_matiere", "=", "parties.id_matiere")->select("niveau_etudes.id_niveau","niveau_etudes.nom_niveau", db::raw('count(parties.type_enseignement) as val'))
         ->where("niveau_etudes.id_categorie", $request->id_categorie)->groupBy('niveau_etudes.nom_niveau', 'niveau_etudes.id_niveau')->get();
@@ -125,6 +125,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->where("id_categorie", $request->id_categorie)->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         return response()->json([
+            'categories' => $categories,
             'niveau_etudes'=> $niveau_etudes,
             'semestres'=> $semestres,
             'matieres'=>$matieres,
@@ -135,8 +136,9 @@ class ControleurConnexion extends Controller
     }
 
     public function semestres(Request $request){
+        $categories = DB::table("categories")->join("niveau_etudes", "niveau_etudes.id_categorie", "=", "categories.id_categorie")->where("niveau_etudes.id_niveau", $request->id_niveau)->get();
         $niveau_etudes = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
-        ->join("parties", "matieres.id_matiere", "=", "parties.id_matiere") ->select("niveau_etudes.id_niveau", "niveau_etudes.nom_niveau", db::raw('count(parties.type_enseignement) as val')) ->where("niveau_etudes.id_niveau", $request->id_niveau)
+        ->join("parties", "matieres.id_matiere", "=", "parties.id_matiere") ->select("niveau_etudes.id_niveau", "niveau_etudes.nom_niveau", db::raw('count(parties.type_enseignement) as val')) ->where("niveau_etudes.id_niveau", $request->id_niveau )
         ->groupBy("niveau_etudes.id_niveau", "niveau_etudes.nom_niveau")->get();
         $semestres = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "matieres.id_matiere", "=", "parties.id_matiere")->select("semestres.id_semestre", "semestres.nom_semestre", db::raw('count(parties.type_enseignement) as val1'))->where("niveau_etudes.id_niveau", $request->id_niveau)
@@ -150,6 +152,34 @@ class ControleurConnexion extends Controller
         $heures = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->where("niveau_etudes.id_niveau", $request->id_niveau)->orderBy('parties.id_partie')->get();
         return response()->json([
+            'categories' => $categories,
+            'niveau_etudes' => $niveau_etudes,
+            'semestres' => $semestres,
+            'matieres' => $matieres,
+            'parties' => $parties,
+            'heures' => $heures
+        ]);
+    }
+
+    public function affichage(Request $request){
+        $categories = DB::table("categories")->join("niveau_etudes", "niveau_etudes.id_categorie", "=", "categories.id_categorie")->join('semestres', "semestres.id_niveau", "=", "niveau_etudes.id_niveau")
+        ->where('semestres.id_semestre', $request->id_semestre)->get();
+        $niveau_etudes = DB::table("niveau_etudes")->join('semestres', "semestres.id_niveau", "=", "niveau_etudes.id_niveau")->join("matieres", "semestres.id_semestre", "=", "matieres.id_semestre")
+        ->join("parties", "parties.id_matiere","=", "matieres.id_matiere") ->select("niveau_etudes.id_niveau", "niveau_etudes.nom_niveau", db::raw('count(parties.type_enseignement) as val'))->groupBy("niveau_etudes.id_niveau", "niveau_etudes.nom_niveau")
+        ->where('semestres.id_semestre', $request->id_semestre)->get();
+        $semestres = DB::table("niveau_etudes")->join('semestres', "semestres.id_niveau", "=", "niveau_etudes.id_niveau")->join("matieres", "semestres.id_semestre", "=", "matieres.id_semestre")
+        ->join("parties", "parties.id_matiere","=", "matieres.id_matiere")->select("semestres.id_semestre", "semestres.nom_semestre", db::raw('count(parties.type_enseignement) as val1'))->groupBy("semestres.id_semestre", "semestres.nom_semestre")
+        ->where('semestres.id_semestre', $request->id_semestre)->get();
+        $matieres = DB::table("niveau_etudes")->join('semestres', "semestres.id_niveau", "=", "niveau_etudes.id_niveau")->join("matieres", "semestres.id_semestre", "=", "matieres.id_semestre")
+        ->join("parties", "parties.id_matiere","=", "matieres.id_matiere")->select("matieres.id_matiere", "matieres.nom_matiere", db::raw('count(parties.type_enseignement) as val2'))->where('semestres.id_semestre', $request->id_semestre)
+        ->groupBy('matieres.id_matiere', 'matieres.nom_matiere')->get();
+        $parties = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
+        ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement") ->where('semestres.id_semestre', $request->id_semestre)
+        ->orderBy('parties.id_partie')->get();
+        $heures = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
+        ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->where('semestres.id_semestre', $request->id_semestre)->orderBy('parties.id_partie')->get();
+        return response()->json([
+            'categories' => $categories,
             'niveau_etudes' => $niveau_etudes,
             'semestres' => $semestres,
             'matieres' => $matieres,

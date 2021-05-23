@@ -55,7 +55,7 @@
 
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
-                                <select class="btn btn-secondary" name="vue">
+                                <select class="btn btn-secondary" name="vue" id="affichage">
                                     <option value="Global ">Global</option>
                                     <option value="Personnalisé">Personnalisé</option>
                                 </select>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            
+
             @yield('contenu')
         </div>
     </body>
