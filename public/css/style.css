@@ -159,19 +159,14 @@ html,body{
     background-color: gray;
     color:white;
 }
-<<<<<<< HEAD
 .contenu1 caption {
     padding: 10px;
     caption-side: top;
 }
-
-.contenu1 table {
-=======
 .contenu1 td,th
 {
     width: 250px;
     border: 2px solid black;
->>>>>>> 43bb37e7dd66c883a62a43e3c0979e72716719bb
     border-collapse: collapse;
     border: 2px solid rgb(200, 200, 200);
     letter-spacing: 1px;
