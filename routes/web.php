@@ -69,3 +69,7 @@ Route::post('FormProfAjou',[ControleurAdmin::class,'FormProfAjou'])->middleware(
 Route::post('FormProfSupp',[ControleurAdmin::class,'FormProfSupp'])->middleware("estConnecte");
 Route::post('FormProfMod', [ControleurAdmin::class,'FormProfMod'])->middleware("estConnecte");
 Route::post('ModificationProf',[ControleurAdmin::class,'ModificationProf'])->middleware("estConnecte");
+Route::get('niveauEtudes', [ControleurConnexion::class, 'niveauEtudes']);
+Route::get('semestres', [ControleurConnexion::class, 'semestres']);
+Route::get('affichage', [ControleurConnexion::class,'affichage']);
+
