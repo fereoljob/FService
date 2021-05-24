@@ -70,8 +70,9 @@
     op.selected="selected";
     respon.add(op);
 </script>
-@endsection    
+@endsection 
 @endif
+   
 
 <div class="contenu1 text-center mt-3">
     @yield('contenu1')

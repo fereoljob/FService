@@ -17,17 +17,17 @@
             <table>
                 <div class="form-group">
                     <tr>
-                        <td><label for="Nom "><strong>Nom :</strong></label></td>
-                        <td><input type="text" name="Nom" class="form-control" required/></td>
+                        <td><label for="nom "><strong>Nom :</strong></label></td>
+                        <td><input type="text" name="nom" class="form-control" required/></td>
                     </tr>
-                    <span class="text-danger">@error('Nom') {{ $message }} @enderror</span>
+                    <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td><label for="Prenom"><strong>Prénom :</strong></label></td>
-                        <td><input type="text" name="Prenom" class="form-control" required /></td>
+                        <td><label for="prenom"><strong>Prénom :</strong></label></td>
+                        <td><input type="text" name="prenom" class="form-control" required /></td>
                     </tr>
-                    <span class="text-danger">@error('Prenom') {{ $message }} @enderror</span>
+                    <span class="text-danger">@error('prenom') {{ $message }} @enderror</span>
                 </div>
             <div class="form-group">
                 <tr>

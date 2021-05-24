@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ControleurAdmin;
+use App\Http\Controllers\ControleurSupAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControleurConnexion;
 
@@ -60,3 +61,11 @@ Route::get('ModTyp',[ControleurAdmin::class,'ModTyp'])->middleware("estConnecte"
 Route::get('AjouPart',[ControleurAdmin::class,'AjouPart'])->middleware("estConnecte");
 Route::get('SuppPart',[ControleurAdmin::class,'SuppPart'])->middleware("estConnecte");
 Route::get('ModPart',[ControleurAdmin::class,'ModPart'])->middleware("estConnecte");
+Route::post('FormStatAjou',[ControleurAdmin::class,'FormStatAjou'])->middleware("estConnecte");
+Route::post('FormStatMod',[ControleurAdmin::class,'FormStatMod'])->middleware("estConnecte");
+Route::post('FormStatSupp',[ControleurAdmin::class,'FormStatSupp'])->middleware("estConnecte");
+Route::post('ModificationStat',[ControleurAdmin::class,'ModificationStat'])->middleware("estConnecte");
+Route::post('FormProfAjou',[ControleurAdmin::class,'FormProfAjou'])->middleware("estConnecte");
+Route::post('FormProfSupp',[ControleurAdmin::class,'FormProfSupp'])->middleware("estConnecte");
+Route::post('FormProfMod', [ControleurAdmin::class,'FormProfMod'])->middleware("estConnecte");
+Route::post('ModificationProf',[ControleurAdmin::class,'ModificationProf'])->middleware("estConnecte");

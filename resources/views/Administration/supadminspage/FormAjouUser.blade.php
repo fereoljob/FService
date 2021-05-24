@@ -19,7 +19,7 @@
             <table>
                 <div class="form-group">
                     <tr>
-                        <td><label for="type"><strong>Type d'utilisateur</strong></label></td>
+                        <td><label for="type"><strong>Type d'utilisateur :</strong></label></td>
                         <td><select name="type" id="sele" class="form-control">
                                 <option value="Professeur" selected>Professeur</option>
                                 <option value="Membre_administratif" >Membre Administratif</option>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td><label for="prof"><strong>Professeur</strong></label></td>
+                        <td><label for="prof"><strong>Professeur :</strong></label></td>
                         <td><select class="form-control" id="sele2" name="prof">
                             @foreach($utilisateurs as $utilisateur)
                                 <option value={{ $utilisateur->id_professeur }}>{{ $utilisateur->nom_professeur }} {{ $utilisateur->prenom_professeur }}</option>
@@ -39,14 +39,14 @@
                 </div>
             <div class="form-group">
                 <tr>
-                    <td><label for="email"><strong>Email</strong></label></td>
+                    <td><label for="email"><strong>Email :</strong></label></td>
                     <td><input type="email" name="email" class="form-control" placeholder="Email" required /></td>
                 </tr>
                 <span class="text-danger">@error('email') {{ $message }} @enderror</span>
             </div>
             <div class="form-group">
                 <tr>
-                    <td><label for="mdp" ><strong>Mot de passe</strong></label></td>
+                    <td><label for="mdp" ><strong>Mot de passe :</strong></label></td>
                     <td><input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required/></td>
                 </tr>
                 <span class="text-danger">@error('mdp') {{ $message }} @enderror</span>

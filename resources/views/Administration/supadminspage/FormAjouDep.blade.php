@@ -19,14 +19,14 @@
             <table>
             <div class="form-group">
                 <tr>
-                    <td><label for="nom"><strong>nom</strong> </label></td>
+                    <td><label for="nom"><strong>nom :</strong> </label></td>
                     <td><input type="text" name="nom" class="form-control" placeholder="Nom département" autofocus/></td>
                 </tr>
                 <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
             </div>
             <div class="form-group">
                 <tr>
-                    <td><label for="responsable"><strong>Responsable</strong></label></td>
+                    <td><label for="responsable"><strong>Responsable :</strong></label></td>
                     <td><select name="responsable">
                         @foreach ($responsables as $responsable)
                             <option value= {{ $responsable->id_professeur}} >{{ $responsable->nom_professeur}} {{ $responsable->prenom_professeur}} </option>

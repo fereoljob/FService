@@ -21,6 +21,31 @@ class ControleurAdmin extends Controller
         $data = ['prof'=>$user];
         return view('Administration/adminspage/status/AjouStat',$data);
     }
+    function FormStatAjou(Request $requete)
+    {
+        //validation de la requete
+        $requete->validate(
+            ['Nom'=>"Required",
+            "NbreHeure"=>"Required",
+            "NbreHeureMax"=>"Required"]
+        );
+        //traitement post Validation
+        $nom = $requete->Nom;
+        $nbreheure = $requete->NbreHeure;
+        $nbreheuremax = $requete->NbreHeureMax;
+        $donnees = ["nom_statut"=>$nom,"nbre_heure"=>$nbreheure,"nbre_heure_max"=>$nbreheuremax];
+        $insertion = DB::table('statuts')->insert($donnees);
+        if($insertion)
+        {
+            $user = $this->verification();
+            $data = ['prof'=>$user,"succes"=>$insertion];
+            return view('Administration/adminspage/status/AjouStat',$data);
+        }
+        else
+        {
+            return back()->with('Echec',"Echec de l'insertion");
+        }
+    }
     function SuppStat()
     {
         $user = $this->verification();
@@ -28,12 +53,57 @@ class ControleurAdmin extends Controller
         $data = ['prof'=>$user,'status'=>$status];
         return view('Administration/adminspage/status/SuppStat',$data);
     }
+    function FormStatSupp(Request $requete)
+    {
+        //traitement
+        $suppression = DB::table('statuts')->where('id_statut',$requete->infostatus)->delete();
+        if($suppression)
+        {
+            $user = $this->verification();
+            $status = DB::table('statuts')->get();
+            $data = ['prof'=>$user,'status'=>$status,"succes"=>$suppression];
+            return view('Administration/adminspage/status/SuppStat',$data);
+        }
+        else
+        {
+            return back()->with("Echec","Echec de la suppression");
+        }
+    }
     function ModStat()
     {
         $user = $this->verification();
         $status = DB::table('statuts')->get();
         $data = ['prof'=>$user,'status'=>$status];
         return view('Administration/adminspage/status/ModStat',$data);
+    }
+    function FormStatMod(Request $requete)
+    {
+        //traitement
+        $modification = DB::table('statuts')->where("id_statut",$requete->infostatus)->get();
+        if($modification)
+        {
+            $user = $this->verification();
+            $status = DB::table('statuts')->get();
+            $data = ['prof'=>$user,'status'=>$status,"modification"=>$modification];
+            return view('Administration/adminspage/status/ModStat',$data);
+        }
+    }
+    function ModificationStat(Request $requete)
+    {
+        //traitement de  la requete
+        $nom = $requete->nom;
+        $nbre_heure = $requete->nbre_heure;
+        $nbre_heure_max = $requete->nbre_heure_max;
+        $id_statut = $requete->id_statut;
+        $modif = DB::table('statuts')->where('id_statut',$id_statut)
+        ->update(['nom_statut'=>$nom,'nbre_heure'=>$nbre_heure,'nbre_heure_max'=>$nbre_heure_max]);
+        if($modif)
+        {
+            $user = $this->verification();
+            $status = DB::table('statuts')->get();
+            $data = ['prof'=>$user,'status'=>$status,'succes'=>$modif];
+            return view('Administration/adminspage/status/ModStat',$data);
+        }
     }
     function AjouProf()
     {
@@ -43,6 +113,35 @@ class ControleurAdmin extends Controller
         $data = ['prof'=>$user,'status'=>$status,'departements'=>$departements];
         return view('Administration/adminspage/professeurs/AjouProf',$data);
     }
+    function FormProfAjou(Request $requete)
+    {
+        //validation de la requete
+        $requete->validate([
+            "nom"=>"Required",
+            "prenom"=>"Required",
+            "service"=>"Required"
+        ]);
+        //traitement de la requete
+        $nom = $requete->nom;
+        $prenom = $requete->prenom;
+        $service = $requete->service;
+        $statut = $requete->status;
+        $departement = $requete->departement;
+        $donnees =['nom_professeur'=>$nom,'prenom_professeur'=>$prenom,'service'=>$service,'id_statut'=>$statut,'id_departement'=>$departement];
+        $insertion = DB::table('professeurs')->insert($donnees);
+        if($insertion)
+        {
+            $user = $this->verification();
+            $status = DB::table('statuts')->get();
+            $departements = DB::table('departements')->get();
+            $data = ['prof'=>$user,'status'=>$status,'departements'=>$departements,'succes'=>$insertion];
+            return view('Adminstration/adminspage/professeurs/AjouProf',$data);
+        }
+        else
+        {
+            return back()->with("Echec","Echec de l'insertion");
+        }
+    }
     function SuppProf()
     {
         $user = $this->verification();
@@ -50,12 +149,46 @@ class ControleurAdmin extends Controller
         $data = ['prof'=>$user,'professeurs'=>$professeurs];
         return view('Administration/adminspage/professeurs/SuppProf',$data);
     }
+    function FormProfSupp(Request $requete)
+    {
+        //traitement de la requete
+        $suppression= DB::table("professeurs")->where("id_professeur",$requete->id_professeur)->delete();
+        if($suppression)
+        {
+            $user = $this->verification();
+            $professeurs = DB::table('professeurs')->get();
+            $data = ['prof'=>$user,'professeurs'=>$professeurs,'succes'=>$suppression];
+            return view('Administration/adminspage/professeurs/SuppProf',$data);
+        }
+        else
+        {
+            return back()->with("Echec","Echec de suppression");
+        }
+    }
     function ModProf()
     {
         $user = $this->verification();
         $professeurs = DB::table('professeurs')->get();
         $data = ['prof'=>$user,'professeurs'=>$professeurs];
         return view('Administration/adminspage/professeurs/ModProf',$data);
+    }
+    function FormProfMod(Request $requete)
+    {
+        //traiement de la requete
+        $modification = DB::table("professeurs")->where("id_professeur",$requete->id_professeur)->get();
+        if($modification)
+        {
+            $user = $this->verification();
+            $professeurs = DB::table('professeurs')->get();
+            $status = DB::table('statuts')->get();
+            $departements = DB::table('departements')->get();
+            $data = ['prof'=>$user,'professeurs'=>$professeurs,"modification"=>$modification,'status'=>$status,'departements'=>$departements];
+            return view('Administration/adminspage/professeurs/ModProf',$data);
+        }
+    }
+    function ModificationProf()
+    {
+
     }
     function AjouNiv()
     {

@@ -18,7 +18,7 @@
             <table>
                 <div class="form-group">
                     <tr>
-                        <td><label for="type"><strong>Role</strong></label></td>
+                        <td><label for="type"><strong>Role :</strong></label></td>
                         <td><select id="sele" class="form-control" name="type">
                             <option value="Tous" selected >Tous</option>
                             <option value="Professeurs" >Professeur</option>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <tr>
-                        <td><label for="prof"><strong>Professeur</strong></label></td>
+                        <td><label for="prof"><strong>Professeur :</strong></label></td>
                         <td><select id="sele2" class="form-control" name="prof">
                         @foreach($professeurs as $professeur)
                             <option value={{ $professeur->email }}>{{ $professeur->nom_professeur }} {{ $professeur->prenom_professeur }}</option>
