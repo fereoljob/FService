@@ -256,7 +256,6 @@ th {
 }
 table
 {
-    width: 100%;
     border-collapse: collapse;
 
 }
@@ -266,4 +265,20 @@ tbody{
 }
 .separation{
     border-bottom: 3px solid black;
+}
+.partie td{
+    width: 100px
+}
+.profs.prof_1 td{
+    height: 80px !important;
+}
+.profs.prof_2 td{
+    height: 80px !important;
+}
+.profs.prof_3 td{
+    height: 80px !important;
+}
+.details td{
+
+    height: 80px !important;
 }
