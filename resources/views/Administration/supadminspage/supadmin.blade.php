@@ -14,7 +14,7 @@
 		<div >
 			<div class="utilisateur">
 				<button class='btn btn-secondary' id='utilisateurs' >Afficher les utilisateurs</button>
-				<button class="btn btn-primary" style="display:none" id="cacher" > Cacher</button>
+				<button class="btn btn-danger" style="display:none" id="cacher" > Cacher</button>
 			</div>
 			<div class="affiUser mt-3 contenu1 text-center" style="display: none">
 				<table>
@@ -42,7 +42,7 @@
 		<div class="mt-5">
 			<div class="departement">
 				<button class='btn btn-secondary' id='departements'  >Afficher les departements</button>
-				<button class="btn btn-primary" style="display:none" id="cacher1" > Cacher</button>
+				<button class="btn btn-danger" style="display:none" id="cacher1" > Cacher</button>
 			</div>
 			<div class="affidep mt-3 text-center contenu1" style="display:none" >
 				<table>

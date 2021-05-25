@@ -1,7 +1,7 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-            <div class="table-wrapper mt-5">
+            <div class="generation mt-5">
                 <table class="table_licence_gene" cellspacing="1" cellpadding="1" id="table_master" >
                     <tr id="niv">
                     </tr>

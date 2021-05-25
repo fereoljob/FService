@@ -88,8 +88,10 @@ class ControleurConnexion extends Controller
     {
         if(session()->has('LoggedUser'))
         {
+            $user = User::where('id_professeur','=',session('LoggedUser'))->first();
             $prof = Professeur::where('id_professeur','=',session('LoggedUser'))->first();
-            $data=['prof'=>$prof];
+            $categories = DB::table("categories")->pluck("nom_categorie","id_categorie");
+            $data=['infoConnexionUser'=>$user,'prof'=>$prof, 'categories' => $categories];
             return view('Utilisateur/profile',$data);
         }
     }

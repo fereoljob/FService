@@ -49,11 +49,6 @@ html,body{
     width: 2000px;
     text-align: left;
 }
-.contenu
-{
-    background-color:cornflowerblue;
-    padding:6px;
-}
 .troiscol
 {
     width: 400px;
@@ -239,27 +234,27 @@ th {
     float:right;
 }
 
-.table-wrapper{
+.generation {
     overflow-x: auto;
     border: 1px solid black;
 }
-.table-wrapper table{
+.generation table{
     border: 0;
 }
-.table-wrapper tbody>tr:first-child>*{
+.generation tbody>tr:first-child>*{
     border-top: 0;
 }
-.table-wrapper th, td{
+.generation th,td{
     border: 1px solid black;
     padding: 8px 12px;
     text-align: center;
 }
-table
+.generation table
 {
     border-collapse: collapse;
 
 }
-tbody{
+.generation tbody{
     display: table-row-group;
     vertical-align: middle;
 }
