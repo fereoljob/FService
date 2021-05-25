@@ -34,6 +34,36 @@ class PagesTableSemestre extends Seeder
             ],[
                 'nom_semestre' => 'Semestre 6',
                 'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 0',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 1',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 2',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 3',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 4',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 5',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 6',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 7',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 8',
+                'id_niveau' => null
+            ],[
+                'nom_semestre' => 'UE 9',
+                'id_niveau' => null
             ]
         ]);
     }

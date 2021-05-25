@@ -15,6 +15,9 @@ class PagesTableMatieres extends Seeder
     public function run()
     {
         DB::table('matieres')->insert([
+
+                // Matières Licences
+
             [
                 'nom_matiere' => 'Algorithme et structure de données 1',
                 'id_semestre' => 1,
@@ -148,6 +151,185 @@ class PagesTableMatieres extends Seeder
             ],[
                 'nom_matiere' => 'Option 5 : Initiation à la programmation de système intelligents',
                 'id_semestre' => 6,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Informatique',
+                'id_semestre' => 5,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Mise à niveau',
+                'id_semestre' => 7,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Utlisation des systèmes et réseaux',
+                'id_semestre' => 8,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Installation et configuration des systèmes et réseaux',
+                'id_semestre' => 9,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Progiciel de gestion intégré',
+                'id_semestre' => 9,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Conception des systèmes d information',
+                'id_semestre' => 10,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Base de données',
+                'id_semestre' => 10,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Algorithme et programmation',
+                'id_semestre' => 11,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Programmation orentée objet',
+                'id_semestre' => 12,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Développement Web',
+                'id_semestre' => 13,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Gestion de projets',
+                'id_semestre' => 14,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Projet 1 FI 1h eq TD par étudiant',
+                'id_semestre' => 15,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Projet 2 FI 1h eq TD par étudiant',
+                'id_semestre' => 15,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Projet Alt. 2h eq TD par alt.',
+                'id_semestre' => 15,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Stage FI 3h eq TD par étudiant 2020-21',
+                'id_semestre' => 16,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ]
+
+                //Matière Masters
+
+            ,[
+                'nom_matiere' => 'Design Patterns',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Organisation et conduite de projets',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Réseaux',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Développement mobile',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Intelligence artificielle 1',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Introduction à la résolution de problèmes',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Optimisation linéaire',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Concrétisation disciplinaire',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Option 1.1 : Programmation parallèle avec CUDA',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Option 1.2 : Applications web temps réel',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Option 1.3 : Création, développement et éxecution de conteneurs logiciels',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Option 1.4 : Recherche documentaire',
+                'id_semestre' => 1,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Programmation systèmes et réseaux',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Web des données',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Web anvancé',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Intelligence artificielle 2',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Optimisation combinatoire',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Option 2.1 : Apprentissage artificiel',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Traitement automatique du langage naturel',
+                'id_semestre' => 2,
+                'responsable_matiere' => null,
+                'id_departement' => 1
+            ],[
+                'nom_matiere' => 'Représentation des connaissances et raisonnement en présence d informations imparfaites',
+                'id_semestre' => 2,
                 'responsable_matiere' => null,
                 'id_departement' => 1
             ]
