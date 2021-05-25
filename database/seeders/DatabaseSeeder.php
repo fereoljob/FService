@@ -14,14 +14,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([PagesTableUsers::class,
-                     PagesTableProfesseurs::class,
-                     PagesTableSemestre::class,
-                     PagesTableDepartement::class,
-                     PagesTableMatieres::class,
-                     PagesTableNiveauEtude::class,
-                     PagesTablePartie::class, // Rien de ce fichier pour l'instant
                      PagesTableStatut::class,
                      PagesTableTypeEnseignement::class,
+                     PagesTableCategorie::class,
+                     PagesTableDepartement::class,
+                     PagesTableProfesseurs::class,
+                     PagesTableNiveauEtude::class,
+                     PagesTableSemestre::class,
+                     PagesTableMatieres::class,
+                     PagesTablePartie::class, 
+                     
+                     
                      
         ]);
     }

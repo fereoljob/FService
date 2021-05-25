@@ -15,7 +15,7 @@ class PagesTablePartie extends Seeder
      */
     public function run()
     {
-        
+        DB::table('parties')->insert([
             [
                 "id_matiere" => 1,
                 "type_enseignement" => "C/TD",
