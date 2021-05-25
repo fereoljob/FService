@@ -16,6 +16,7 @@ class CreateMatieresTable extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->increments("id_matiere");
             $table->string("nom_matiere");
+            $table->boolean("mat_verrouille")->default(0);
             $table->UnsignedInteger("id_semestre")->nullable();
             $table->UnsignedInteger("responsable_matiere")->nullable();
             $table->UnsignedInteger("id_departement")->nullable();

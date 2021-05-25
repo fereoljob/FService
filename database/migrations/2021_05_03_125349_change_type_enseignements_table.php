@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class ChangeNiveauEtudesTable extends Migration
+class ChangeTypeEnseignementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,9 @@ class ChangeNiveauEtudesTable extends Migration
      */
     public function up()
     {
-        Schema::table('niveau_etudes', function (Blueprint $table) {
-            $table->foreign('responsable_annee')->references("id_professeur")->on("professeurs");
-            $table->foreign('id_categorie')->references("id_categorie")->on("categories");
-
+        Schema::table('type_enseignements', function (Blueprint $table) { 
         });
+        DB::statement('ALTER TABLE type_enseignements ADD CONSTRAINT chk_type_en CHECK (nom_type_enseignement in ("C/TD","C","TD","TP","Responsable_matière"));');
     }
 
     /**

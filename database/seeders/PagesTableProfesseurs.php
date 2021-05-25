@@ -14,7 +14,7 @@ class PagesTableProfesseurs extends Seeder
      */
     public function run()
     {
-        DB::table('professeurs')->insert([
+       DB::table('professeurs')->insert([
             [
                 'nom_professeur' => 'AIT EI MEKKI',
                 'prenom_professeur' => 'Touria',

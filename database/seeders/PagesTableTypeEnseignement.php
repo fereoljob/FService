@@ -17,10 +17,10 @@ class PagesTableTypeEnseignement extends Seeder
     {
         DB::table('type_enseignements')->insert([
             [
-                'nom_type_enseignement' => 'CM',
+                'nom_type_enseignement' => 'C',
                 'coefficient' => 1
             ],[
-                'nom_type_enseignement' => 'CM / TD',
+                'nom_type_enseignement' => 'C/TD',
                 'coefficient' => 1.25
             ]
             ,[

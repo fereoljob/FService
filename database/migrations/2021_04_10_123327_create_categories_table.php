@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-class ChangeNiveauEtudesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,9 @@ class ChangeNiveauEtudesTable extends Migration
      */
     public function up()
     {
-        Schema::table('niveau_etudes', function (Blueprint $table) {
-            $table->foreign('responsable_annee')->references("id_professeur")->on("professeurs");
-            $table->foreign('id_categorie')->references("id_categorie")->on("categories");
-
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id_categorie');
+            $table->string('nom_categorie');
         });
     }
 
@@ -28,6 +26,6 @@ class ChangeNiveauEtudesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('categories');
     }
 }
