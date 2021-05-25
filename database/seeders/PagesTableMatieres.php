@@ -152,7 +152,6 @@ class PagesTableMatieres extends Seeder
                 'nom_matiere' => 'Option 5 : Initiation à la programmation de système intelligents',
                 'id_semestre' => 6,
                 'responsable_matiere' => null,
-<<<<<<< HEAD
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Informatique',
@@ -333,9 +332,6 @@ class PagesTableMatieres extends Seeder
                 'id_semestre' => 2,
                 'responsable_matiere' => null,
                 'id_departement' => 1
-=======
-                'id_departement' => null
->>>>>>> 6b82710937256e03dc60cbd587f75ae1ae4594e4
             ]
         ]);
     }
