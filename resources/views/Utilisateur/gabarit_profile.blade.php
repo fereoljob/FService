@@ -34,7 +34,6 @@
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="categorie" id="categorie">
-                                    <option value="" selected disabled> Categories </option>
                                     @foreach($categories as $id=> $categorie )
                                     <option value="{{$id}}"> {{$categorie}} </option>
                                     @endforeach
@@ -66,6 +65,11 @@
             </div>
 
             @yield('contenu')
+            <script>
+               let lesSelect =  document.querySelector("#categorie").options;
+               let laval = lesSelect[lesSelect.selectedIndex].value;
+               $("#categorie").trigger("change",[laval]);
+            </script>
         </div>
     </body>
 </html>

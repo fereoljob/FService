@@ -46,7 +46,7 @@
                         $(".groupe").empty();
                         $(".edt").empty();
                         $(".details").empty();
-                        $("#niveau").append('<option>Niveau </option>');
+                        $("#niveau").append('<option>Tous </option>');
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
                         $.each(res.categories, function(key,value){
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
@@ -59,6 +59,7 @@
                         $(".details").append('<td> Difference </td>');
                         $(".details").append('<td> Charge </td>');
                         $.each(res.niveau_etudes,function(key,value){
+                            
                             $("#niveau").append('<option value="'+ value.id_niveau +'">'+value.nom_niveau+'</option>');
                             $("#niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
                         });
@@ -78,15 +79,15 @@
                         });
                         $.each(res.profs, function(key,value){
                             let test = "";
-                            $.each(res.heures, function(key,value){
-                                    test += '<td> </td>';
+                            $.each(res.heures, function(key,value2){
+                                test += "<td id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_1">' +
                                 '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>'+
+                                '<td></td>' +
+                                '<td></td>' +
+                                '<td></td>'+
                                 test +
                                 '</tr>'
                             )
