@@ -1,8 +1,8 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-            <div class="generation mt-5">
-                <table class="table_licence_gene" cellspacing="1" cellpadding="1" id="table_master" >
+            <div class="generation  mt-5">
+                <table  cellspacing="1" cellpadding="1" id="table_master" >
                     <tr id="niv">
                     </tr>
                     <tr class="sem">
@@ -49,7 +49,6 @@
                         $("#niveau").append('<option>Niveau </option>');
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
                         $.each(res.categories, function(key,value){
-                            console.log(value.nom_categorie);
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
                         });
                         $(".heures").append('<td colspan="2"> Heure </td>');

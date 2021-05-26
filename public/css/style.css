@@ -238,23 +238,23 @@ th {
     overflow-x: auto;
     border: 1px solid black;
 }
-.generation table{
+table{
     border: 0;
 }
-.generation tbody>tr:first-child>*{
+tbody>tr:first-child>*{
     border-top: 0;
 }
-.generation th,td{
+th,td{
     border: 1px solid black;
     padding: 8px 12px;
     text-align: center;
 }
-.generation table
+table
 {
     border-collapse: collapse;
 
 }
-.generation tbody{
+tbody{
     display: table-row-group;
     vertical-align: middle;
 }
