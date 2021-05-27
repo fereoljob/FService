@@ -17,28 +17,28 @@ class PagesTableUsers extends Seeder
     {
        DB::table('users')->insert([
             [   'id_professeur' => 9,
-                'email' => 'david.genest@gmail.com',
+                'email' => 'david.genest@email.com',
                 'type_user' => 'Professeur',
                 'password' => 'Motdepasse',
                 'admin' => 1,
                 'supadmin'=>0
             ],[
                 'id_professeur'=>6,
-                'email' => 'martin.dieguez@gmail.com',
+                'email' => 'martin.dieguez@email.com',
                 'type_user' => 'Professeur',
                 'password' => 'Motdepasse',
                 'admin'=>0,
                 'supadmin'=>0
             ],[
                 'id_professeur'=>8,
-                'email' => 'laurent.garcia@gmail.com',
+                'email' => 'laurent.garcia@email.com',
                 'type_user' => 'Professeur',
                 'password' => 'Motdepasse',
                 'admin'=>0,
                 'supadmin'=>1
             ],[
                 'id_professeur'=>null,
-                'email' => 'test.test@gmail.com',
+                'email' => 'test.test@email.com',
                 'type_user' => 'Membre_administratif',
                 'password' => 'Motdepasse',
                 'admin'=>0,
