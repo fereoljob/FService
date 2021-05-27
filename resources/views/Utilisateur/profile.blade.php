@@ -1,7 +1,7 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-<div class="generation contenu1 mt-5">
+<div class="generation  mt-5">
     <table  cellspacing="1" cellpadding="1" id="table_master" >
         <tr id="niv"></tr>
         <tr class="sem"></tr>
@@ -102,9 +102,22 @@
                                 '</tr>'
                             )
                         });
+                        let id_prof = leprof.id_professeur;
                         let editables = $(".editable");
                         $.each(editables,function(key,value){
-                            let id = editables[key].attributes["id"].value;
+                            let id = (editables[key].attributes["id"].value).split('-');
+                            if(id[0]==id_prof)
+                            {
+                                //editables[key].setAttribute('contenteditable','true');
+                                let inp = document.createElement("input");
+                                inp.type = "Number";
+                                inp.size = 2;
+                                inp.step = "0.1";
+                                editables[key].appendChild(inp);
+                                editables[key].style.borderColor = "blue";
+                                editables[key].style.boxShadow= "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
+                                editables[key].style.outline = "0 none";
+                            }
                             
                         })
 

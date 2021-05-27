@@ -63,12 +63,16 @@
     echo "</script>";
 @endphp
 <script>
+    if(tab[0].nom_professeur!=null){
     let respon = document.querySelector("#responsable");
     let op = document.createElement("option");
     op.value=tab[0].responsable_departement;
     op.innerHTML = tab[0].nom_professeur+" "+tab[0].prenom_professeur;
     op.selected="selected";
     respon.add(op);
+    console.log(tab);
+    }
+    
 </script>
 @endsection 
 @endif
