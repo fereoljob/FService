@@ -17,7 +17,7 @@ class CreateAffectationsTable extends Migration
             $table->increments("id_affectation");
             $table->UnsignedInteger("id_partie");
             $table->UnsignedInteger("id_professeur");
-            $table->string("nbre_groupe_prof");
+            $table->double("nbre_groupe_prof");
         });
     }
 

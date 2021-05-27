@@ -108,7 +108,6 @@
                             let id = (editables[key].attributes["id"].value).split('-');
                             if(id[0]==id_prof)
                             {
-                                //editables[key].setAttribute('contenteditable','true');
                                 let inp = document.createElement("input");
                                 inp.type = "Number";
                                 inp.size = 2;
