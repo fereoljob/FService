@@ -112,6 +112,9 @@
                                 inp.type = "Number";
                                 inp.size = 2;
                                 inp.step = "0.1";
+                                inp.min = "0.25";
+                                inp.name = id;
+                                inp.class = "editable2";
                                 editables[key].appendChild(inp);
                                 editables[key].style.borderColor = "blue";
                                 editables[key].style.boxShadow= "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
