@@ -40,7 +40,7 @@
         if(categorieID){
             $.ajax({
                 type:"GET",
-                url:"{{url('niveauEtudes')}}?id_categorie="+categorieID,
+                url:"{{url('/niveauEtudes')}}/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
@@ -103,7 +103,7 @@
                             )
                         });
                         let id_prof = leprof.id_professeur;
-                        let editables = $(".editable");
+                        let editables = $("td[id]");
                         $.each(editables,function(key,value){
                             let id = (editables[key].attributes["id"].value).split('-');
                             if(id[0]==id_prof)
@@ -148,7 +148,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('semestres')}}?id_niveau="+niveauID,
+                url:"{{url('/semestres')}}/?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();
@@ -233,7 +233,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('affichage')}}?id_semestre="+semestreID,
+                url:"{{url('/affichage')}}/?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
                         $("#niv").empty();
