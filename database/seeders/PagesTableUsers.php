@@ -19,28 +19,28 @@ class PagesTableUsers extends Seeder
             [   'id_professeur' => 9,
                 'email' => 'david.genest@gmail.com',
                 'type_user' => 'Professeur',
-                'password' => 'motdepasse',
+                'password' => 'Motdepasse',
                 'admin' => 1,
                 'supadmin'=>0
             ],[
                 'id_professeur'=>6,
                 'email' => 'martin.dieguez@gmail.com',
                 'type_user' => 'Professeur',
-                'password' => 'motdepasse',
+                'password' => 'Motdepasse',
                 'admin'=>0,
                 'supadmin'=>0
             ],[
                 'id_professeur'=>8,
                 'email' => 'laurent.garcia@gmail.com',
                 'type_user' => 'Professeur',
-                'password' => 'motdepasse',
+                'password' => 'Motdepasse',
                 'admin'=>0,
                 'supadmin'=>1
             ],[
-                
+                'id_professeur'=>null,
                 'email' => 'test.test@gmail.com',
                 'type_user' => 'Membre_administratif',
-                'password' => 'motdepasse',
+                'password' => 'Motdepasse',
                 'admin'=>0,
                 'supadmin'=>0
             ]
