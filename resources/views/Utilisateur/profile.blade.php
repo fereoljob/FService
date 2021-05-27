@@ -69,7 +69,7 @@
                         $(".details").append('<td> Difference </td>');
                         $(".details").append('<td> Charge </td>');
                         $.each(res.niveau_etudes,function(key,value){
-                            
+
                             $("#niveau").append('<option value="'+ value.id_niveau +'">'+value.nom_niveau+'</option>');
                             $("#niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
                         });
@@ -204,7 +204,7 @@
             $("#semestre").empty();
         }
     });
-    
+
     $('#semestre').change(function(){
         var semestreID = $(this).val();
         if(semestreID){
@@ -221,7 +221,6 @@
                 url:"{{url('affichage')}}?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
-                        $("#affichage").empty();
                         $("#niv").empty();
                         $(".sem").empty();
                         $(".mat").empty();
@@ -277,13 +276,9 @@
                                 '</tr>'
                             )
                         });
-                    }else{
-                        $("#affichage").empty();
                     }
                 }
             });}
-        }else{
-            $("#affichage").empty();
         }
     });
     });
