@@ -1,38 +1,41 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-            <div class="generation contenu1 mt-5">
-                <table  cellspacing="1" cellpadding="1" id="table_master" >
-                    <tr id="niv">
-                    </tr>
-                    <tr class="sem">
-                    </tr>
+<div class="generation contenu1 mt-5">
+    <table  cellspacing="1" cellpadding="1" id="table_master" >
+        <tr id="niv"></tr>
+        <tr class="sem"></tr>
+        <tr class="mat"></tr>
+        <tr class="partie"></tr>
+        <tr class="heures"></tr>
+        <tr class ="groupe"></tr>
+        <tr class ="edt"></tr>
+        <tr class="details"></tr>
+    </table>
+</div>
+@php
+    if(isset($prof))
+    {
+        echo "<script>";
+        echo "let leprof=";
+        echo json_encode($prof);
+        echo ";";
+        echo "</script>";
+    } 
+    else
+    {
+        echo "<script>";
+        echo "let leprof";
+        echo ";";
+        echo "</script>";
+    }
+@endphp
 
-                    <tr class="mat">
-                    </tr>
-
-                    <tr class="partie">
-                    </tr>
-
-                    <tr class="heures">
-                    </tr>
-
-                    <tr class ="groupe">
-                    </tr>
-
-                    <tr class ="edt">
-                    </tr>
-
-                    <tr class="details">
-                    </tr>
-
-                </table>
-            </div>
 <script type="text/javascript">
     let lesSelect =  document.querySelector("#categorie").options;
     let laval = lesSelect[lesSelect.selectedIndex].value;
-    
-    $('#categorie').change(function(){
+    $(document).ready(function(){
+        $('#categorie').change(function(){
         var categorieID = $(this).val();
         if(categorieID){
             $.ajax({
@@ -87,7 +90,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_1">' +
@@ -99,11 +102,17 @@
                                 '</tr>'
                             )
                         });
+                        let editables = $(".editable");
+                        $.each(editables,function(key,value){
+                            let id = editables[key].attributes["id"].value;
+                            
+                        })
 
                     }else{
                         $("#niveau").empty();
                     }
                 }
+               
             });
         }else{
             $("#niveau").empty();
@@ -111,6 +120,7 @@
         }
     });
     $("#categorie").trigger("change",[laval]);
+    
     $('#niveau').change(function(){
         var niveauID = $(this).val();
         if(niveauID){
@@ -276,11 +286,8 @@
             $("#affichage").empty();
         }
     });
-   
+    });
 </script>
 @endsection
 
-<script>
 
-    
-</script>

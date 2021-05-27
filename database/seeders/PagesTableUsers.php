@@ -16,7 +16,7 @@ class PagesTableUsers extends Seeder
     public function run()
     {
        DB::table('users')->insert([
-           [    'id_professeur' => 9,
+            [   'id_professeur' => 9,
                 'email' => 'david.genest@gmail.com',
                 'type_user' => 'Professeur',
                 'password' => 'motdepasse',
@@ -37,6 +37,7 @@ class PagesTableUsers extends Seeder
                 'admin'=>0,
                 'supadmin'=>1
             ],[
+                
                 'email' => 'test.test@gmail.com',
                 'type_user' => 'Membre_administratif',
                 'password' => 'motdepasse',

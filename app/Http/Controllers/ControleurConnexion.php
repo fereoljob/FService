@@ -164,7 +164,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")
         ->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")
         ->where("id_categorie", $request->id_categorie)
-        ->select("parties.id_partie", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
+        ->select("parties.id_partie","parties.id_matiere", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         return response()->json([
             'categories' => $categories,
@@ -193,7 +193,7 @@ class ControleurConnexion extends Controller
         ->orderBy('parties.id_partie')->get();
         $heures = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")->where("niveau_etudes.id_niveau", $request->id_niveau)
-        ->select("parties.id_partie", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
+        ->select("parties.id_partie","parties.id_matiere", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         return response()->json([
             'categories' => $categories,
@@ -223,7 +223,7 @@ class ControleurConnexion extends Controller
         ->orderBy('parties.id_partie')->get();
         $heures = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")->where('semestres.id_semestre', $request->id_semestre)
-        ->select("parties.id_partie", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
+        ->select("parties.id_partie", "parties.id_matiere","parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         return response()->json([
             'categories' => $categories,
