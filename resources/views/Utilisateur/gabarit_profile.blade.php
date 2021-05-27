@@ -55,7 +55,7 @@
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue" id="affichage">
-                                    <option value="Global ">Global</option>
+                                    <option value="Global ">Général</option>
                                     <option value="Personnalisé">Personnalisé</option>
                                 </select>
                             </div>
@@ -65,11 +65,6 @@
             </div>
 
             @yield('contenu')
-            <script>
-               let lesSelect =  document.querySelector("#categorie").options;
-               let laval = lesSelect[lesSelect.selectedIndex].value;
-               $("#categorie").trigger("change",[laval]);
-            </script>
         </div>
     </body>
 </html>

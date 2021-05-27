@@ -1,7 +1,7 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-            <div class="generation  mt-5">
+            <div class="generation contenu1 mt-5">
                 <table  cellspacing="1" cellpadding="1" id="table_master" >
                     <tr id="niv">
                     </tr>
@@ -29,6 +29,9 @@
                 </table>
             </div>
 <script type="text/javascript">
+    let lesSelect =  document.querySelector("#categorie").options;
+    let laval = lesSelect[lesSelect.selectedIndex].value;
+    
     $('#categorie').change(function(){
         var categorieID = $(this).val();
         if(categorieID){
@@ -46,7 +49,11 @@
                         $(".groupe").empty();
                         $(".edt").empty();
                         $(".details").empty();
-                        $("#niveau").append('<option>Tous </option>');
+                      /*$(".profs.prof_1").css("display", "none");
+                        $(".profs.prof_2").css("display", "none");
+                        $(".profs.prof_3").css("display", "none");*/
+                        $(".profs").remove();
+                        $("#niveau").append('<option value="tous" >Tous </option>');
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
                         $.each(res.categories, function(key,value){
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
@@ -80,14 +87,14 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_1">' +
                                 '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
-                                '<td></td>' +
-                                '<td></td>' +
-                                '<td></td>'+
+                                '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'charge'+'></td>'+
                                 test +
                                 '</tr>'
                             )
@@ -98,19 +105,23 @@
                     }
                 }
             });
-            $(".profs.prof_1").css("display", "none");
-            $(".profs.prof_2").css("display", "none");
-            $(".profs.prof_3").css("display", "none");
         }else{
             $("#niveau").empty();
             $("#semestre").empty();
         }
     });
+    $("#categorie").trigger("change",[laval]);
     $('#niveau').change(function(){
         var niveauID = $(this).val();
-        console.log(niveauID);
         if(niveauID){
-            $.ajax({
+            if(niveauID=="tous")
+            {
+                $("#categorie").trigger("change",[laval]);
+                $("#semestre").empty();
+            }
+            else
+            {
+                $.ajax({
                 type:"GET",
                 url:"{{url('semestres')}}?id_niveau="+niveauID,
                 success: function(res){
@@ -124,11 +135,11 @@
                         $(".groupe").empty();
                         $(".edt").empty();
                         $(".details").empty();
-                       // $(".profs").empty();
+                        //$(".profs.prof_1").css("display", "none");
+                        $(".profs").remove();
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
-                        $("#semestre").append('<option>Semestre</option>');
+                        $("#semestre").append('<option value="tous" >Tous</option>');
                         $.each(res.categories, function(key,value){
-                            console.log(value.nom_categorie);
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
                         });
                         $(".heures").append('<td colspan="2"> Heure </td>');
@@ -158,16 +169,15 @@
                         });
                         $.each(res.profs, function(key,value){
                             let test = "";
-                            $.each(res.heures, function(key,value){
-                                    test += '<td> </td>';
+                            $.each(res.heures, function(key,value2){
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
                                 });
-                                $(".profs.prof_1").css("display", "none");
                             $("#table_master").append(
                                 '<tr class="profs prof_2">' +
                                 '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>'+
+                                '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'charge'+'></td>'+
                                 test +
                                 '</tr>'
                             )
@@ -176,19 +186,27 @@
                         $("#semestre").empty();
                     }
                 }
-            });
+            });}/*
             $(".profs.prof_1").css("display", "none");
             $(".profs.prof_2").css("display", "none");
-            $(".profs.prof_3").css("display", "none");
+            $(".profs.prof_3").css("display", "none");*/
         }else{
             $("#semestre").empty();
         }
     });
-
+    
     $('#semestre').change(function(){
         var semestreID = $(this).val();
         if(semestreID){
-            $.ajax({
+            if(semestreID=="tous")
+            {
+                let lesSelect2 =  document.querySelector("#niveau").options;
+                let laval2 = lesSelect2[lesSelect2.selectedIndex].value;
+                $("#niveau").trigger("change",[laval2]);
+            }
+            else
+            {
+                $.ajax({
                 type:"GET",
                 url:"{{url('affichage')}}?id_semestre="+semestreID,
                 success: function(res){
@@ -201,12 +219,12 @@
                         $(".heures").empty();
                         $(".groupe").empty();
                         $(".edt").empty();
+                        $(".profs").remove();
+                        //$(".profs.prof_1").css("display", "none");
+                        //$(".profs.prof_2").css("display", "none");
                         $(".details").empty();
-                        //$(".profs").empty();
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
-                        $("#affichage").append('<option>Affichage</option>');
                         $.each(res.categories, function(key,value){
-                            console.log(value.nom_categorie);
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
                         });
                         $(".heures").append('<td colspan="2"> Heure </td>');
@@ -227,7 +245,6 @@
                             $(".mat").append('<td colspan= "'+value.val2+'">'+value.nom_matiere+'</td>' )
                         });
                         $.each(res.parties, function(key,value){
-                            console.log(value.nom_type_enseignement);
                             $(".partie").append('<td>'+value.nom_type_enseignement+'</td>');
                         });
                         $.each(res.heures, function(key,value){
@@ -237,17 +254,15 @@
                         });
                         $.each(res.profs, function(key,value){
                             let test = "";
-                            $.each(res.heures, function(key,value){
-                                    test += '<td> </td>';
+                            $.each(res.heures, function(key,value2){
+                                test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
                                 });
-                            $(".profs.prof_1").css("display", "none");
-                            $(".profs.prof_2").css("display", "none");
                             $("#table_master").append(
                                 '<tr class="profs prof_3">' +
-                                '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>' +
-                                '<td>' + value.service + '</td>'+
+                                '<td id='+value.id_professeur+'>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
+                                '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
+                                '<td class="valeurs_cal" id='+value.id_professeur+'-'+'charge'+'></td>'+
                                 test +
                                 '</tr>'
                             )
@@ -256,13 +271,16 @@
                         $("#affichage").empty();
                     }
                 }
-            });
-            $(".profs.prof_1").css("display", "none");
-            $(".profs.prof_2").css("display", "none");
-            $(".profs.prof_3").css("display", "none");
+            });}
         }else{
             $("#affichage").empty();
         }
     });
+   
 </script>
 @endsection
+
+<script>
+
+    
+</script>

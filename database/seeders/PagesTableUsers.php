@@ -16,11 +16,11 @@ class PagesTableUsers extends Seeder
     public function run()
     {
        DB::table('users')->insert([
-           [    'id_professeur'=>9,
+           [    'id_professeur' => 9,
                 'email' => 'david.genest@gmail.com',
                 'type_user' => 'Professeur',
                 'password' => 'motdepasse',
-                'admin'=>1,
+                'admin' => 1,
                 'supadmin'=>0
             ],[
                 'id_professeur'=>6,
