@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                      PagesTableSemestre::class,
                      PagesTableMatieres::class,
                      PagesTablePartie::class, 
-                     
+                     PagesTableAffectation::class
                      
                      
         ]);
