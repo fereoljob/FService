@@ -89,7 +89,7 @@ class PagesTableMatieres extends Seeder
                 'responsable_matiere' => 2,
                 'id_departement' => 1
             ],[
-                'nom_matiere' => 'écomposition Conception et Réalisation d Applications',
+                'nom_matiere' => 'Décomposition Conception et Réalisation d Applications',
                 'id_semestre' => 5,
                 'responsable_matiere' => 7,
                 'id_departement' => 1
@@ -234,102 +234,102 @@ class PagesTableMatieres extends Seeder
 
             ,[
                 'nom_matiere' => 'Design Patterns',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 13,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Organisation et conduite de projets',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 11,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Réseaux',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 11,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Développement mobile',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 2,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Intelligence artificielle 1',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 3,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Introduction à la résolution de problèmes',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 4,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Optimisation linéaire',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 5,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Concrétisation disciplinaire',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 3,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Option 1.1 : Programmation parallèle avec CUDA',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 1,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Option 1.2 : Applications web temps réel',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 8,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Option 1.3 : Création, développement et éxecution de conteneurs logiciels',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 1,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Option 1.4 : Recherche documentaire',
-                'id_semestre' => 1,
+                'id_semestre' => 17,
                 'responsable_matiere' => 13,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Programmation systèmes et réseaux',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 11,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Web des données',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 12,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Web anvancé',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 4,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Intelligence artificielle 2',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 23,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Optimisation combinatoire',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 22,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Option 2.1 : Apprentissage artificiel',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 22,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Traitement automatique du langage naturel',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 18,
                 'id_departement' => 1
             ],[
                 'nom_matiere' => 'Représentation des connaissances et raisonnement en présence d informations imparfaites',
-                'id_semestre' => 2,
+                'id_semestre' => 18,
                 'responsable_matiere' => 17,
                 'id_departement' => 1
             ]

@@ -34,13 +34,14 @@
 <script type="text/javascript">
     let lesSelect =  document.querySelector("#categorie").options;
     let laval = lesSelect[lesSelect.selectedIndex].value;
+    let test = null;
     $(document).ready(function(){
         $('#categorie').change(function(){
         var categorieID = $(this).val();
         if(categorieID){
             $.ajax({
                 type:"GET",
-                url:"/niveauEtudes/?id_categorie="+categorieID,
+                url:"/Categorie/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
@@ -102,26 +103,8 @@
                                 '</tr>'
                             )
                         });
-                        let id_prof = leprof.id_professeur;
-                        let editables = $(".editable");
-                        $.each(editables,function(key,value){
-                            let id = (editables[key].attributes["id"].value).split('-');
-                            if(id[0]==id_prof)
-                            {
-                                let inp = document.createElement("input");
-                                inp.type = "Number";
-                                inp.style.width = "70px";
-                                inp.step = "0.1";
-                                inp.min = "0.25";
-                                inp.name = id;
-                                editables[key].appendChild(inp);
-                                editables[key].style.borderColor = "blue";
-                                editables[key].style.boxShadow= "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
-                                editables[key].style.outline = "0 none";
-                            }
-                            
-                        })
-
+                        let mats = res.matieres;
+                        edition(mats);
                     }else{
                         $("#niveau").empty();
                     }
@@ -133,6 +116,7 @@
             $("#semestre").empty();
         }
     });
+
     $("#categorie").trigger("change",[laval]);
     
     $('#niveau').change(function(){
@@ -147,7 +131,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"/semestres/?id_niveau="+niveauID,
+                url:"/niveauEtude/?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();
@@ -194,7 +178,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_2">' +
@@ -206,6 +190,8 @@
                                 '</tr>'
                             )
                         });
+                        let mats = res.matieres;
+                        edition(mats);
                     }else{
                         $("#semestre").empty();
                     }
@@ -232,7 +218,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"/affichage/?id_semestre="+semestreID,
+                url:"/Semestre/?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
                         $("#niv").empty();
@@ -278,7 +264,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_3">' +
@@ -290,6 +276,8 @@
                                 '</tr>'
                             )
                         });
+                        let mats = res.matieres;
+                        edition(mats);
                     }
                 }
             });}
