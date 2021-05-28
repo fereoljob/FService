@@ -16,7 +16,7 @@ class CreateTypeEnseignementsTable extends Migration
         Schema::create('type_enseignements', function (Blueprint $table) {
             $table->increments("id_type_enseignement");
             $table->string("nom_type_enseignement");
-            $table->integer("coefficient");
+            $table->double("coefficient");
         });
     }
 
