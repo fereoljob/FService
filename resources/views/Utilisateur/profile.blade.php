@@ -40,7 +40,7 @@
         if(categorieID){
             $.ajax({
                 type:"GET",
-                url:"{{url('/niveauEtudes/')}}?id_categorie="+categorieID,
+                url:"{{url('/niveauEtudes/')}}/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
@@ -103,18 +103,17 @@
                             )
                         });
                         let id_prof = leprof.id_professeur;
-                        let editables = $("td[id]");
+                        let editables = $(".editable");
                         $.each(editables,function(key,value){
                             let id = (editables[key].attributes["id"].value).split('-');
                             if(id[0]==id_prof)
                             {
                                 let inp = document.createElement("input");
                                 inp.type = "Number";
-                                inp.size = 2;
+                                inp.style.width = "70px";
                                 inp.step = "0.1";
                                 inp.min = "0.25";
                                 inp.name = id;
-                                inp.class = "editable2";
                                 editables[key].appendChild(inp);
                                 editables[key].style.borderColor = "blue";
                                 editables[key].style.boxShadow= "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
@@ -148,7 +147,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('/semestres/')}}?id_niveau="+niveauID,
+                url:"{{url('/semestres/')}}/?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();

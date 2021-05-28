@@ -103,7 +103,7 @@ class ControleurConnexion extends Controller
             $utilisateurs = DB::table('users')->join('professeurs','users.id_professeur','=','professeurs.id_professeur')
             ->get();
             $membres = DB::table('users')->where('type_user',"Membre_administratif")->get();
-            $departements = DB::table('departements')->join('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
+            $departements = DB::table('departements')->leftJoin('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
             ->get();
             $data =['prof'=>$prof,'membres'=>$membres,'utilisateurs'=>$utilisateurs,'departements'=>$departements];
             return view('Administration/supadminspage/supadmin',$data);
