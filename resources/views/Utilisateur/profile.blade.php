@@ -40,7 +40,7 @@
         if(categorieID){
             $.ajax({
                 type:"GET",
-                url:"{{url('/niveauEtudes/')}}/?id_categorie="+categorieID,
+                url:"/niveauEtudes/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
@@ -147,7 +147,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('/semestres/')}}/?id_niveau="+niveauID,
+                url:"{{url('/semestres')}}?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();
@@ -232,7 +232,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('/affichage/')}}?id_semestre="+semestreID,
+                url:"affichage?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
                         $("#niv").empty();
