@@ -147,7 +147,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('/semestres')}}?id_niveau="+niveauID,
+                url:"/semestres/?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();
@@ -232,7 +232,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"affichage?id_semestre="+semestreID,
+                url:"/affichage/?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
                         $("#niv").empty();
