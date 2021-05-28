@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([PagesTableUsers::class,
-                     PagesTableStatut::class,
+        $this->call([PagesTableStatut::class,
                      PagesTableTypeEnseignement::class,
                      PagesTableCategorie::class,
                      PagesTableDepartement::class,
                      PagesTableProfesseurs::class,
+                     PagesTableUsers::class,
                      PagesTableNiveauEtude::class,
                      PagesTableSemestre::class,
                      PagesTableMatieres::class,

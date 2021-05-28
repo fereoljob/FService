@@ -1,62 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Pour déployer le projet pour la première fois, on a besoin d'installer certains pré-requis.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+--mariadb
+--php
 
-## About Laravel
+Si vous n'avez pas ces pré-requis sur votre machine, voici les différentes étapes pour leur installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+----------INSTALLATION DES PRE-REQUIS---------------
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Pour commencer, il faut passer en tant que super administrateur avec la commande 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+****su -****
 
-## Learning Laravel
+Ensuite, il faut taper les commandes suivantse
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+******apt-get update******
+******apt-get upgrade****** dans un terminal
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Ensuite, on installe mariadb et php7.3 avec les commandes
 
-## Laravel Sponsors
+*****apt-get install mariadb-server*****
+*****apt-get install php7.3 php-mysql php-xml*******
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Une fois les installations terminées, on va creer notre base de données. Mais avant ça, on se connecte avec la commande 
 
-### Premium Partners
+*mysql -u root -p*
+puis entrer le mot de passe de votre compte root (par defaut '' (vide))
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+Pour la création de notre base de données on fera une fois connecté, 
+ 
+**** create database FService; ****
 
-## Contributing
+Une fois la base de données créée, on va créer un nouvel utilisateur et lui donner les accès à la base de données FService de notre projet avec les commandes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+*CREATE USER 'admin'@'localhost'IDENTIFIED BY 'admin';*
+*GRANT ALL PRIVILEGES ON FService.* TO 'admin'@'localhost' IDENTIFIED BY 'admin' WITH GRANT OPTION;*
+*FLUSH PRIVILEGES;*
+*quit*
 
-## Code of Conduct
+A la fin on fait un ***exit*** pour quitter le mode super utilisateur
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-----------------LE DEPLOIEMENT--------------
 
-## Security Vulnerabilities
+On tape dans un navigateur le lien suivant
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+https://github.com/fereoljob/FService.git
 
-## License
+Une fois la page chargée, il faut cliquer sur Download ZIP dans l'onglet code
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Le fichier une fois téléchargé, il faut se placer dans le dossier de telechargement dans votre terminal et dézipper le fichier avec la commande 
+
+*unzip FService-master*
+
+Puis on se place dans le dossier du projet avec la commande 
+
+**cd FService-master**
+
+Une fois dans le dossier, il faut taper la commande 
+
+**php artisan serve** pour démarrer le serveur
+
+Toujours dans le terminal, il faut ouvrir un nouvel onglet et taper la commande:
+
+**php artisan migrate**
+
+Une fois la commande totalement executée, il faut ensuite taper la commande 
+
+**php artisan db:seed**
+
+Une fois cette requete executée, il faut repartir sur le lien du serveur préalablement démarré
+
+On a quatre type d'utilisateur dans la base avec les identifiants suivants
+
+david.genest@email.com | Motdepasse (Prof & admin)
+laurent.garcia@email.com | Motdepasse (Prof & supAdmin)
+martin.dieguez@email.com | Motdepasse (Prof)
+test.test@email.com | Motdepasse (Membre_administratif)
+
+Vous pouvez donc faire les jeux de test ensuite en fonction de l'utilisateur connecté.
+
+
+
+
+
+
+
+
+

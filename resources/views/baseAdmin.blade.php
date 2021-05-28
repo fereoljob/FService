@@ -12,7 +12,7 @@
 	    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     </head>
     <body class="admin">
-        <div class="wrapper">
+        <div >
             <div class="container-fluid">
                 <div class="row bg-dark one" style="color:white; font-size:25px;">
                     <div class=" col-sm-3 col-md-2 mt-4 text-center acc" style="border-bottom: thick double white; border-right:thick double white"><a href=supadmin ><span class="adm">Administration</span></a></div>
@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                     <div class="col-md-10">
-                        <div class="container-fluid">
+                        <div class="container-fluid contenu">
                             @yield('contenu')
                         </div>
                     </div>

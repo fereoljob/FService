@@ -49,11 +49,6 @@ html,body{
     width: 2000px;
     text-align: left;
 }
-.contenu
-{
-    background-color:cornflowerblue;
-    padding:6px;
-}
 .troiscol
 {
     width: 400px;
@@ -163,7 +158,7 @@ html,body{
     padding: 10px;
     caption-side: top;
 }
-.contenu1 td,th
+.contenu1 td,.contenu1 th
 {
     width: 250px;
     border: 2px solid black;
@@ -174,26 +169,42 @@ html,body{
     font-size: 15px;
 }
 
-.contenu1 td,
-th {
+.contenu1 td,.contenu1 th {
     border: 1px solid rgb(190, 190, 190);
     padding: 7px 5px;
 }
 
+
 .contenu1 th {
     background-color: rgb(235, 235, 235);
 }
+.generation th
+{
+    background-color:rgb(235, 235, 235);
+}
 
 .contenu1 td {
+    text-align: center;
+}
+.generation td
+{
     text-align: center;
 }
 
 .contenu1 tr:nth-child(even) td {
     background-color: rgb(250, 250, 250);
 }
+.generation tr:nth-child(even) td
+{
+    background-color: rgb(250, 250, 250);
+}
 
 .contenu1 tr:nth-child(odd) td {
     background-color: rgb(240, 240, 240);
+}
+.generation tr:nth-child(odd) td
+{
+    background-color:rgb(240, 240, 240);
 }
 .panneau a
 {
@@ -239,27 +250,21 @@ th {
     float:right;
 }
 
-.table-wrapper{
+.generation {
     overflow-x: auto;
-    border: 1px solid black;
 }
-.table-wrapper table{
-    border: 0;
-}
-.table-wrapper tbody>tr:first-child>*{
+tbody>tr:first-child>*{
     border-top: 0;
 }
-.table-wrapper th, td{
+
+.generation table,.generation td,.generation th
+{
+    border-collapse: collapse;
     border: 1px solid black;
     padding: 8px 12px;
     text-align: center;
 }
-table
-{
-    border-collapse: collapse;
-
-}
-tbody{
+.generation tbody{
     display: table-row-group;
     vertical-align: middle;
 }

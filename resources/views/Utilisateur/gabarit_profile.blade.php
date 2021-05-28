@@ -34,7 +34,6 @@
                             <div class="form-group troiscol">
                                 <label for="licences"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="categorie" id="categorie">
-                                    <option value="" selected disabled> Categories </option>
                                     @foreach($categories as $id=> $categorie )
                                     <option value="{{$id}}"> {{$categorie}} </option>
                                     @endforeach
@@ -56,7 +55,7 @@
                             <div class="form-group troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue" id="affichage">
-                                    <option value="Global ">Global</option>
+                                    <option value="Global ">Général</option>
                                     <option value="Personnalisé">Personnalisé</option>
                                 </select>
                             </div>

@@ -244,7 +244,7 @@ class ControleurSupAdmin extends Controller
         $responsables = DB::table('professeurs')->whereNotExists(function($query){
             $query->select('*')->from('departements')->whereColumn('professeurs.id_professeur','departements.responsable_departement');
         })->get();
-        $tab = DB::table('departements')->join('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
+        $tab = DB::table('departements')->leftJoin('professeurs','departements.responsable_departement','=','professeurs.id_professeur')
         ->select('departements.id_departement','professeurs.nom_professeur','departements.nom_departement','departements.responsable_departement','professeurs.prenom_professeur')
         ->where('departements.id_departement',$requete->id)->get();
         $data['responsables']=$responsables;
