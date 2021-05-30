@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                     <div class="col-md-10">
-                        <div class="container-fluid">
+                        <div class="container-fluid contenu">
                             @yield('contenu')
                         </div>
                     </div>

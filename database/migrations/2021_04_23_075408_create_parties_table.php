@@ -18,7 +18,7 @@ class CreatePartiesTable extends Migration
             $table->UnsignedInteger("id_matiere");
             $table->UnsignedInteger("type_enseignement");
             $table->integer("nbre_heure");
-            $table->integer("nbre_groupe");
+            $table->double("nbre_groupe");
         });
     }
 

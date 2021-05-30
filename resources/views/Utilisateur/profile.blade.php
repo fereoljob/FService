@@ -1,43 +1,47 @@
 @extends('Utilisateur/gabarit_profile')
 @section('contenu')
 <hr class="separation"/>
-            <div class="generation contenu1 mt-5">
-                <table  cellspacing="1" cellpadding="1" id="table_master" >
-                    <tr id="niv">
-                    </tr>
-                    <tr class="sem">
-                    </tr>
+<div class="generation  mt-5">
+    <table  cellspacing="1" cellpadding="1" id="table_master" >
+        <tr id="niv"></tr>
+        <tr class="sem"></tr>
+        <tr class="mat"></tr>
+        <tr class="partie"></tr>
+        <tr class="heures"></tr>
+        <tr class ="groupe"></tr>
+        <tr class ="edt"></tr>
+        <tr class="details"></tr>
+    </table>
+</div>
+@php
+    if(isset($prof))
+    {
+        echo "<script>";
+        echo "let leprof=";
+        echo json_encode($prof);
+        echo ";";
+        echo "</script>";
+    } 
+    else
+    {
+        echo "<script>";
+        echo "let leprof";
+        echo ";";
+        echo "</script>";
+    }
+@endphp
 
-                    <tr class="mat">
-                    </tr>
-
-                    <tr class="partie">
-                    </tr>
-
-                    <tr class="heures">
-                    </tr>
-
-                    <tr class ="groupe">
-                    </tr>
-
-                    <tr class ="edt">
-                    </tr>
-
-                    <tr class="details">
-                    </tr>
-
-                </table>
-            </div>
 <script type="text/javascript">
     let lesSelect =  document.querySelector("#categorie").options;
     let laval = lesSelect[lesSelect.selectedIndex].value;
-
-    $('#categorie').change(function(){
+    let test = null;
+    $(document).ready(function(){
+        $('#categorie').change(function(){
         var categorieID = $(this).val();
         if(categorieID){
             $.ajax({
                 type:"GET",
-                url:"{{url('niveauEtudes')}}?id_categorie="+categorieID,
+                url:"/Categorie/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
@@ -87,7 +91,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_1">' +
@@ -99,18 +103,22 @@
                                 '</tr>'
                             )
                         });
-
+                        let mats = res.matieres;
+                        edition(mats);
                     }else{
                         $("#niveau").empty();
                     }
                 }
+               
             });
         }else{
             $("#niveau").empty();
             $("#semestre").empty();
         }
     });
+
     $("#categorie").trigger("change",[laval]);
+    
     $('#niveau').change(function(){
         var niveauID = $(this).val();
         if(niveauID){
@@ -123,7 +131,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('semestres')}}?id_niveau="+niveauID,
+                url:"/niveauEtude/?id_niveau="+niveauID,
                 success: function(res){
                     if(res){
                         $("#semestre").empty();
@@ -170,7 +178,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_2">' +
@@ -182,6 +190,8 @@
                                 '</tr>'
                             )
                         });
+                        let mats = res.matieres;
+                        edition(mats);
                     }else{
                         $("#semestre").empty();
                     }
@@ -208,7 +218,7 @@
             {
                 $.ajax({
                 type:"GET",
-                url:"{{url('affichage')}}?id_semestre="+semestreID,
+                url:"/Semestre/?id_semestre="+semestreID,
                 success: function(res){
                     if(res){
                         $("#niv").empty();
@@ -254,7 +264,7 @@
                         $.each(res.profs, function(key,value){
                             let test = "";
                             $.each(res.heures, function(key,value2){
-                                test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_partie+" > </td>";
+                                test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
                                 });
                             $("#table_master").append(
                                 '<tr class="profs prof_3">' +
@@ -266,16 +276,15 @@
                                 '</tr>'
                             )
                         });
+                        let mats = res.matieres;
+                        edition(mats);
                     }
                 }
             });}
         }
     });
-
+    });
 </script>
 @endsection
 
-<script>
 
-
-</script>

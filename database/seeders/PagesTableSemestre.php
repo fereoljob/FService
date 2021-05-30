@@ -64,6 +64,21 @@ class PagesTableSemestre extends Seeder
             ],[
                 'nom_semestre' => 'UE 9',
                 'id_niveau' => 4
+            ],[
+                'nom_semestre' => 'Semestre 1',
+                'id_niveau' => 5
+            ],[
+                'nom_semestre' => 'Semestre 2',
+                'id_niveau' => 5
+            ],[
+                'nom_semestre' => 'Tronc commun parcours ACDI / ID',
+                'id_niveau' => 6
+            ],[
+                'nom_semestre' => 'Parcours ACDI (Analyse, conception et développement informatique)',
+                'id_niveau' => 6
+            ],[
+                'nom_semestre' => 'Parcours ID (Intelligence Décisionnelle)',
+                'id_niveau' => 6
             ]
         ]);
     }
