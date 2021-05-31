@@ -43,6 +43,7 @@
                 url:"/Categorie/?id_categorie="+categorieID,
                 success: function(res){
                     if(res){
+                        $("#niveau").empty();
                         $("#semestre").empty();
                         $("#niv").empty();
                         $(".sem").empty();
@@ -54,7 +55,7 @@
                         $(".details").empty();
                         $(".profs").remove();
                         $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
-                        $("#semestre").append('<option value="tous" selected="selected" >Tous</option>');
+                        $("#niveau").append('<option value="tous" selected="selected" >Tous</option>');
                         $.each(res.categories, function(key,value){
                             $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
                         });
@@ -67,7 +68,7 @@
                         $(".details").append('<td> Charge </td>');
                         $.each(res.niveau_etudes,function(key,value){
                             $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
-                            console.log(value);
+                            $("#niveau").append("<option value='"+value.id_niveau+"' >"+value.nom_niveau+" </option>");
                         });
                         $.each(res.semestres, function(key,value){
                             $("#semestre").append('<option value="'+ value.id_semestre+'">'+ value.nom_semestre+'</option>');
