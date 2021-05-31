@@ -44,7 +44,6 @@
                 success: function(res){
                     if(res){
                         $("#niveau").empty();
-                        $("#semestre").empty();
                         $("#niv").empty();
                         $(".sem").empty();
                         $(".mat").empty();
@@ -67,17 +66,16 @@
                         $(".details").append('<td> Difference </td>');
                         $(".details").append('<td> Charge </td>');
                         $.each(res.niveau_etudes,function(key,value){
-                            $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
-                            $("#niveau").append("<option value='"+value.id_niveau+"' >"+value.nom_niveau+" </option>");
+                            $("#niveau").append('<option value="'+ value.id_niveau +'">'+value.nom_niveau+'</option>');
+                            $("#niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
                         });
-                        $.each(res.semestres, function(key,value){
-                            $("#semestre").append('<option value="'+ value.id_semestre+'">'+ value.nom_semestre+'</option>');
+                         $.each(res.semestres,function(key,value){
                             $(".sem").append('<td colspan="'+value.val1+'">'+value.nom_semestre+'</td>');
                         });
-                        $.each(res.matieres, function(key,value){
-                            $(".mat").append('<td colspan= "'+value.val2+'">'+value.nom_matiere+'</td>' )
+                       $.each(res.matieres,function(key,value){
+                            $(".mat").append('<td colspan="'+value.val2+'">'+value.nom_matiere+'</td>');
                         });
-                        $.each(res.parties, function(key,value){
+                         $.each(res.parties, function(key,value){
                             $(".partie").append('<td>'+value.nom_type_enseignement+'</td>');
                         });
                         $.each(res.heures, function(key,value){
@@ -234,7 +232,7 @@
                         $(".details").append('<td> Service </td>');
                         $(".details").append('<td> Difference </td>');
                         $(".details").append('<td> Charge </td>');
-                        $.each(res.niveau_etudes,function(key,val){
+                        $.each(res.niveau_etudes,function(key,value){
                             $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
                         });
                         $.each(res.semestres, function(key,value){
@@ -276,6 +274,4 @@
     });
     });
 </script>
-@endsection
-
-
+@endsection 
