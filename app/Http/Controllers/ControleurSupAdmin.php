@@ -146,9 +146,25 @@ class ControleurSupAdmin extends Controller
         $email = $requete->email;
         $mdp = $requete->Mdp;
         $admin = $requete->admin;
-        $supadmin = $requete->supadmin;
+        $valadmin = 0;
+        $valsupadmin = 0;
+        if($admin==1)
+        {
+            $valadmin =1;
+            $valsupadmin = 0;
+        }
+        else if($admin==2)
+        {
+            $valadmin =0;
+            $valsupadmin = 1;
+        }
+        else
+        {
+            $valadmin =0;
+            $valsupadmin = 0;
+        }
         $id_user = $requete->id_user;
-        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$admin,'supadmin'=>$supadmin]);
+        $resultat = DB::table('users')->where('id_user',$id_user)->update(['email'=>$email,'password'=>$mdp,'admin'=>$valadmin,'supadmin'=>$valsupadmin]);
         $data = $this->donnees();
         $data["succes"] = $resultat; 
         if($resultat)

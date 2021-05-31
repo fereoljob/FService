@@ -55,18 +55,23 @@
 @if(isset($tab))
 @section('contenu1')
 <h4> Changez la valeur des informations à modifier</h4>
-<form action="ValidationMod" method="post" >
+<form action="ValidationMod" method="post" autocomplete="off" >
     @csrf
 <table class="mt-3">
+    <thead>
+    @if ($tab->type_user=="Professeur")
+    <th >Administation</th> 
+    @endif
     <th>Email</th>
     <th>Mot de passe</th>
-    <th>Admin</th>
-    <th>Super Admin</th>
+    </thead> 
+       
         <tr>
-            <td><input type='text' name='email' value={{ $tab->email }}  /></td>
-            <td><input type="text" name="Mdp" value = {{ $tab->password }}  /></td>
-            <td><input type=radio name="admin" id="une" value=1  /> Oui &nbsp; &nbsp; <input type="radio" id="deux" name="admin" value=0 /> Non</td>
-            <td><input type=radio name="supadmin" id="trois" value=1 /> Oui  &nbsp; &nbsp; <input type="radio" id="quatre" name="supadmin" value=0 /> Non</td>
+            @if ($tab->type_user=="Professeur")
+            <td style="width: 500px"><input type=radio name="admin" id="une" value=1  />&nbsp;Administrateur &nbsp; &nbsp; <input type="radio" id="deux" name="admin" value=2 /> Super Administrateur &nbsp; &nbsp; <input type="radio" id="trois" name="admin" value=0 /> Non</td>
+            @endif
+            <td ><input type='text' name='email' value={{ $tab->email }}  /></td>
+            <td ><input type="text" name="Mdp" value = {{ $tab->password }}  /></td>
             <input type="hidden" name="id_user" value={{ $tab->id_user }} />
         </tr>
 </table>
@@ -81,19 +86,19 @@
     echo "</script>";
 @endphp
 <script>
-    let rad1 = document.querySelector("#une");
-    let rad2 = document.querySelector("#deux");
-    let rad3 = document.querySelector("#trois");
-    let rad4 = document.querySelector("#quatre");
-    if(tab.admin==1)
-        rad1.checked=true;
-    else
-        rad2.checked=true;
-    if(tab.supadmin==1)
-        rad3.checked=true;
-    else
-        rad4.checked=true;
-
+    if(tab.type_user=="Professeur")
+    {
+        let rad1 = document.querySelector("#une");
+        let rad2 = document.querySelector("#deux");
+        let rad3 = document.querySelector("#trois");
+        if(tab.admin==1)
+            rad1.checked=true;
+        else if(tab.supadmin==1)
+            rad2.checked=true;
+        else
+            rad3.checked=true;  
+    }
+      
 </script>
 @endsection    
 @endif

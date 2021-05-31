@@ -7,7 +7,7 @@
         <h3><strong>Formulaire :</strong> Ajout <span class="target">(Utilisateurs)</span></h3>
     </div>
     <div class="card-body">
-        <form action="AjoutEnvoi" method="POST">
+        <form action="AjoutEnvoi" method="POST" autocomplete="off" >
             @csrf
             <div class="resultats">
                 @if (Session::get('Echec'))
@@ -90,6 +90,7 @@
     {
         let monselect = document.querySelector("#sele");
         let monselect2 = document.querySelector("#sele2");
+        let monradio = document.querySelectorAll("input[name='admin']");
         let valeur = monselect.options[monselect.selectedIndex].value;
         let enfants = monselect2.childNodes;
         for(let i=monselect2.length -1 ; i>=0 ;i--) { monselect2.remove(i); }
@@ -103,13 +104,21 @@
                     opt.value = li.id_professeur;
                     opt.innerHTML = li.nom_professeur+" "+li.prenom_professeur;
                     monselect2.add(opt);
-                }
-                
+                }                
+            }
+            for(val of monradio)
+            {
+                val.disabled = false;
             }
         }
         else
         {
             for(let i=monselect2.length -1 ; i>=0 ;i--) { monselect2.remove(i); }
+            for(val of monradio)
+            {
+                val.disabled = true;
+                val.checked = false;
+            }
         }
     }
     monselect.addEventListener('change',listing);
