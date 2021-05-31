@@ -205,7 +205,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "matieres.id_matiere", "=", "parties.id_matiere")
         ->select("matieres.id_matiere","matieres.responsable_matiere", "matieres.nom_matiere", db::raw('count(parties.type_enseignement) as val2'))
         ->where("niveau_etudes.id_niveau", $request->id_niveau)
-        ->groupBy('matieres.id_matiere', 'matieres.nom_matiere')->get();
+        ->groupBy('matieres.id_matiere', 'matieres.nom_matiere','matieres.responsable_matiere')->get();
         $parties = DB::table("niveau_etudes")->join("semestres", "niveau_etudes.id_niveau", "=", "semestres.id_niveau")
         ->join("matieres", "matieres.id_semestre", "=", "semestres.id_semestre")
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")
