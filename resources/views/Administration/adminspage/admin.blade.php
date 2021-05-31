@@ -216,9 +216,11 @@
                     </thead>
                     <tbody>
                         @foreach ($affectations as $aff)
-                            <td>{{ $aff->nom_partie }}</td>
+                        <tr>
+                            <td>{{ $aff->nom_type_enseignement }}</td>
                             <td>{{ $aff->nom_professeur." ".$aff->prenom_professeur }}</td>
-                            <td>{{ $aff->nbre_group_prof }}</td>
+                            <td>{{ $aff->nbre_groupe_prof }}</td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

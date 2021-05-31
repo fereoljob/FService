@@ -287,3 +287,7 @@ tbody>tr:first-child>*{
 
     height: 80px !important;
 }
+.editable
+{
+    font-size:18px;
+}
