@@ -10,7 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-        <script src="js/fonction.js" type="text/javascript" ></script>
+        <!--<script src="js/fonction.js" type="text/javascript" ></script>-->
     </head>
     <body>
         <div class="container-fluid bg-dark padding tete">
@@ -33,7 +33,7 @@
                     <div class="row">
                         <form action="#" class="form-inline lefiltre">
                             <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Catégorie :</span></label>
+                                <label for="categorie"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="categorie" id="categorie">
                                     @foreach($categories as $id=> $categorie )
                                     <option value="{{$id}}"> {{$categorie}} </option>
@@ -42,8 +42,8 @@
                             </div>
 
                             <div class="form-group troiscol">
-                                <label for="licences"><span class="filtre"> Niveau d'Etudes :</span></label>
-                                <select class="btn btn-secondary" name="licence" id="niveau">
+                                <label for="niveau"><span class="filtre"> Niveau d'Etudes :</span></label>
+                                <select class="btn btn-secondary" name="niveau" id="niveau">
                                 </select>
                             </div>
 
