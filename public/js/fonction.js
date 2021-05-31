@@ -65,7 +65,65 @@ function edition(mats)
         }
     }
 }
-function traitementNiv_Cat(res)
+function traitementCat(res)
+{
+    $("#niveau").empty();
+    $("#niv").empty();
+    $(".sem").empty();
+    $(".mat").empty();
+    $(".partie").empty();
+    $(".heures").empty();
+    $(".groupe").empty();
+    $(".edt").empty();
+    $(".details").empty();
+    $(".profs").remove();
+    $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
+    $("#niveau").append('<option value="tous" selected="selected" >Tous</option>');
+    $.each(res.categories, function(key,value){
+        $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
+    });
+    $(".heures").append('<td colspan="2"> Heure </td>');
+    $(".groupe").append('<td colspan="2"> Nbr de groupes </td>');
+    $(".edt").append('<td colspan="2"> ETD </td>');
+    $(".details").append('<td>  </td>');
+    $(".details").append('<td> Service </td>');
+    $(".details").append('<td> Difference </td>');
+    $(".details").append('<td> Charge </td>');
+    $.each(res.niveau_etudes,function(key,value){
+        $("#niveau").append('<option value="'+ value.id_niveau +'">'+value.nom_niveau+'</option>');
+        $("#niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
+    });
+     $.each(res.semestres,function(key,value){
+        $(".sem").append('<td colspan="'+value.val1+'">'+value.nom_semestre+'</td>');
+    });
+        $.each(res.matieres,function(key,value){
+        $(".mat").append('<td colspan="'+value.val2+'">'+value.nom_matiere+'</td>');
+    });
+     $.each(res.parties, function(key,value){
+        $(".partie").append('<td>'+value.nom_type_enseignement+'</td>');
+    });
+    $.each(res.heures, function(key,value){
+        $(".heures").append('<td>'+value.nbre_heure+'</td>');
+        $(".groupe").append('<td>'+value.nbre_groupe+'</td>');
+        $(".edt").append('<td>'+value.mult+'</td>');
+    });
+    $.each(res.profs, function(key,value){
+        let test = "";
+        $.each(res.heures, function(key,value2){
+            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
+    });
+    $("#table_master").append(
+    '<tr class="profs prof_2">' +
+    '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
+    '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
+    '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
+    '<td class="valeurs_cal" id='+value.id_professeur+'-'+'charge'+'></td>'+
+    test +
+    '</tr>'
+    )
+    });
+}
+function traitementNiv(res)
 {
     $("#semestre").empty();
     $("#niv").empty();
@@ -122,10 +180,8 @@ function traitementNiv_Cat(res)
             '</tr>'
         )
     });
-    let mats = res.matieres;
-    edition(mats);
 }
-function traitementSemestre(res)
+function traitementSem(res)
 {
     $("#niv").empty();
     $(".sem").empty();
@@ -147,7 +203,7 @@ function traitementSemestre(res)
     $(".details").append('<td> Service </td>');
     $(".details").append('<td> Difference </td>');
     $(".details").append('<td> Charge </td>');
-    $.each(res.niveau_etudes,function(key,val){
+    $.each(res.niveau_etudes,function(key,value){
         $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
     });
     $.each(res.semestres, function(key,value){
@@ -179,8 +235,6 @@ function traitementSemestre(res)
             '</tr>'
         )
     });
-    let mats = res.matieres;
-    edition(mats);
 }
 function AffichageAffect(res)
 {
