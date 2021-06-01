@@ -32,4 +32,70 @@
         </form>
     </div>
 </div>
+@if(isset($modification))
+@section('contenu1')
+<h4> Changez la valeur des informations à modifier</h4>
+<form action="ModificationSem" method="post" >
+@csrf
+<table class="mt-3">
+    <th>Semestre</th>
+    <th>Niveau</th>
+        <tr>
+            <td><input type='text' name='semestre' value="{{ $modification[0]->nom_semestre }}"  /></td>
+            <td><select name="niveau" id="niveau" data-toggle="tooltip" data-placement="left" >
+                @foreach ($semestre_niv as $sem)
+                    <option value={{ $sem->id_semestre }} >{{ $sem->nom_niveau }}</option>
+                @endforeach</select></td>
+            <input type="hidden" name="id_semestre" value={{ $modification[0]->id_semestre }} />
+        </tr>
+</table>
+<br/>
+<button type="submit" class='btn btn-primary'>Valider</button>
+<a href="ModSem" ><button type="button" class='btn btn-danger' id="modifi" style="display: none">Annuler</button></a>
+</form>
+@php
+    echo "<script>";
+    echo "let tab =";
+    echo json_encode($modification).";";
+    echo "</script>";
+@endphp
+<script>
+    let status = document.querySelector("#status");
+    let selectStatut = document.createElement("option");
+    if(tab.id_statut==null)
+    {
+        selectStatut.innerHTML="Null";
+        selectStatut.selected = "selected";
+        status.add(selectStatut);
+    }
+    else
+    {
+        selectStatut.value = tab.id_statut;
+        selectStatut.selected = "selected";
+        selectStatut.innerHTML =
+    }
+</script>
+@endsection
+@endif
+
+
+<div class="contenu1 text-center mt-3">
+    @yield('contenu1')
+</div>
+@if (isset($succes))
+<script type='text/javascript' >
+    alert('Modification Reussie');
+</script>
+@endif
+<script>
+
+    let lesinput = document.querySelectorAll(".contenu1 input");
+    for(lesinpu of lesinput)
+    {
+        lesinpu.addEventListener("change",function(e){
+            let monbou = document.querySelector("#modifi");
+            monbou.style.display="inline";
+        });
+    }
+</script>
 @endsection

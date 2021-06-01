@@ -29,4 +29,9 @@
         </form>
     </div>
 </div>
+@if (isset($succes))
+<script type='text/javascript' >
+    alert('insertion Reussie');
+</script>"
+@endif
 @endsection

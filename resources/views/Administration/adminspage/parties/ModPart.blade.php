@@ -32,4 +32,78 @@
         </form>
     </div>
 </div>
+@if(isset($modification))
+@section('contenu1')
+<h4> Changez la valeur des informations à modifier</h4>
+<form action="ModificationPart" method="post" >
+@csrf
+<table class="mt-3">
+    <th>Matiere</th>
+    <th>Type d'enseignement</th>
+    <th>Nombre d'heures</th>
+    <th>Nombre de groupe</th>
+        <tr>
+            <td><select name="matieres" id="matieres" data-toggle="tooltip" data-placement="left" >
+                @foreach ($matieres as $mat)
+                    <option value={{ $mat->id_matiere }} >{{ $mat->nom_matiere}}</option>
+                @endforeach</select></td>
+            <td><select name="type" id="type" >
+                @foreach ($type as $typ)
+                    <option value= {{ $typ->id_type_enseignement }} > {{ $typ->nom_type_enseignement }}</option>
+                @endforeach
+                </select></td>
+                <td><input type="number" name="nbre_heure" value="{{ $modification[0]->nbre_heure }}"  /></td>
+            <td><input type="number" name="nbre_groupe" value="{{ $modification[0]->nbre_groupe }}" /></td>
+            <input type="hidden" name="id_partie" value="{{ $modification[0]->id_partie }}" />
+        </tr>
+</table>
+<br/>
+<button type="submit" class='btn btn-primary'>Valider</button>
+<a href="ModPart" ><button type="button" class='btn btn-danger' id="modifi" style="display: none">Annuler</button></a>
+</form>
+@php
+    echo "<script>";
+    echo "let tab =";
+    echo json_encode($modification).";";
+    echo "</script>";
+@endphp
+<script>
+    let status = document.querySelector("#status");
+    let selectStatut = document.createElement("option");
+    if(tab.id_statut==null)
+    {
+        selectStatut.innerHTML="Null";
+        selectStatut.selected = "selected";
+        status.add(selectStatut);
+    }
+    else
+    {
+        selectStatut.value = tab.id_statut;
+        selectStatut.selected = "selected";
+        selectStatut.innerHTML =
+    }
+</script>
+@endsection
+@endif
+
+
+<div class="contenu1 text-center mt-3">
+    @yield('contenu1')
+</div>
+@if (isset($succes))
+<script type='text/javascript' >
+    alert('Modification Reussie');
+</script>
+@endif
+<script>
+
+    let lesinput = document.querySelectorAll(".contenu1 input");
+    for(lesinpu of lesinput)
+    {
+        lesinpu.addEventListener("change",function(e){
+            let monbou = document.querySelector("#modifi");
+            monbou.style.display="inline";
+        });
+    }
+</script>
 @endsection

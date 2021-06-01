@@ -32,4 +32,9 @@
         </form>
     </div>
 </div>
+@if (isset($succes))
+<script type='text/javascript' >
+    alert('Suppression Reussie');
+</script>"
+@endif
 @endsection

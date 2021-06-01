@@ -21,7 +21,7 @@
                             <div class="col-md-6 text-center"><i class="fa fa-user "></i> {{$prof->nom_professeur }}  {{ $prof->prenom_professeur }}</div>
                             <div class="col-md-6"><a href="logout"><button class="btn btn-primary" >Deconnexion</button></a></div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -74,8 +74,8 @@
                                 <a href="#" data-toggle="dropdown">Matieres <i class="dropdown-toggle" ></i></a>
                                 <div class="dropdown-menu bg-dark">
                                     <a href="AjouMat" class="dropdown-item">Ajouter</a>
-                                    <a href="SuppSem" class="dropdown-item">Supprimer</a>
-                                    <a href="ModSem" class="dropdown-item">Modifier</a>
+                                    <a href="SuppMat" class="dropdown-item">Supprimer</a>
+                                    <a href="ModMat" class="dropdown-item">Modifier</a>
                                 </div>
                             </div>
                             <div class="dropdown">

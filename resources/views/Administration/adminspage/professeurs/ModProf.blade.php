@@ -44,8 +44,8 @@
     <th>Status</th>
     <th>Département</th>
         <tr>
-            <td><input type='text' name='nom' value='{{ $modification[0]->nom_professeur }}'  /></td>
-            <td><input type="text" name="prenom" value="{{ $modification[0]->prenom_professeur }}"" /></td>
+            <td><input type='text' name='nom' value="{{ $modification[0]->nom_professeur }}"  /></td>
+            <td><input type="text" name="prenom" value="{{ $modification[0]->prenom_professeur }}" /></td>
             <td><input type="number" name="service" value={{ $modification[0]->service }} /></td>
             <td><select name="status" id="status" data-toggle="tooltip" data-placement="left" title="(nom du statut (nombre heure - nombre heure max)">
                 @foreach ($status as $stat)
@@ -82,12 +82,12 @@
     {
         selectStatut.value = tab.id_statut;
         selectStatut.selected = "selected";
-        selectStatut.innerHTML = 
+        selectStatut.innerHTML =
     }
 </script>
-@endsection 
+@endsection
 @endif
-   
+
 
 <div class="contenu1 text-center mt-3">
     @yield('contenu1')
