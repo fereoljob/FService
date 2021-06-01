@@ -31,8 +31,7 @@
             <div class="Licences col-md-12">
                 <div class="row text-center">
                     <div class="row">
-                        <form action="#" class="form-inline lefiltre">
-                            <div class="form-group troiscol">
+                            <div class="col-md-3 troiscol">
                                 <label for="categorie"><span class="filtre"> Catégorie :</span></label>
                                 <select class="btn btn-secondary" name="categorie" id="categorie">
                                     @foreach($categories as $id=> $categorie )
@@ -41,26 +40,30 @@
                                 </select>
                             </div>
 
-                            <div class="form-group troiscol">
-                                <label for="niveau"><span class="filtre"> Niveau d'Etudes :</span></label>
+                            <div class="col-md-3 troiscol">
+                                <label for="niveau"><span class="filtre"> Niveau :</span></label>
                                 <select class="btn btn-secondary" name="niveau" id="niveau">
                                 </select>
                             </div>
 
-                            <div class="form-group troiscol">
+                            <div class="col-md-3 troiscol">
                                 <label for="Semestres"><span class="filtre"> Semestres :</span></label>
                                 <select class="btn btn-secondary" name="Semestres" id="semestre">
                                 </select>
                             </div>
 
-                            <div class="form-group troiscol">
+                            <div class="col-md-3 troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue" id="affichage">
                                     <option value="Global ">Général</option>
                                     <option value="Personnalisé">Personnalisé</option>
                                 </select>
                             </div>
-                        </form>
+                    </div>
+                    <div class="valModAff" style="display:none">
+                        <button class="btn btn-primary" id="confirmerVal" >Confirmer modification</button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-danger" id="AnnulerVal">Annuler</button>
                     </div>
                 </div>
             </div>

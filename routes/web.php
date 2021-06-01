@@ -96,4 +96,5 @@ Route::post('ModificationPart',[ControleurAdmin::class,'ModificationPart'])->mid
 Route::get('/Categorie', [ControleurConnexion::class, 'Categorie']);
 Route::get('/niveauEtude', [ControleurConnexion::class, 'niveauEtude']);
 Route::get('/Semestre', [ControleurConnexion::class,'Semestre']);
+Route::get('/EnregistrerAff',[ControleurConnexion::class,'EnregistrerAff']);
 

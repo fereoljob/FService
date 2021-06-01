@@ -11,10 +11,21 @@ function edition(mats)
                 let inp = document.createElement("input");
                 inp.type = "Number";
                 inp.style.width = "70px";
-                inp.step = "0.25";
-                inp.min = "0.25";
+                inp.step = "0.001";
+                inp.min = "0.001";
                 inp.name = editables[key].attributes["id"].value;
                 inp.id = "editable2";
+                let id = (editables[key].attributes["id"].value).split('-');
+                if(id[3]==0)
+                {
+                    editables[key].replaceChild(inp,editables[key].childNodes[0]);
+                }
+                else
+                {
+                    let p = document.createElement("p");
+                    p.innerHTML = "<span> Verrouillé </span>";
+                    editables[key].appendChild(p);
+                }
                 editables[key].replaceChild(inp,editables[key].childNodes[0]);
                 editables[key].style.borderColor = "blue";
                 editables[key].style.boxShadow= "2px 2px 2px 2px  rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
@@ -30,11 +41,20 @@ function edition(mats)
                     let inp = document.createElement("input");
                     inp.type = "Number";
                     inp.style.width = "70px";
-                    inp.step = "0.25";
-                    inp.min = "0.25";
+                    inp.step = "0.001";
+                    inp.min = "0.001";
                     inp.name = editables[key].attributes["id"].value;
                     inp.id = "editable2";
+                    if(id[3]==0)
+                {
                     editables[key].replaceChild(inp,editables[key].childNodes[0]);
+                }
+                else
+                {
+                    let p = document.createElement("p");
+                    p.innerHTML = "<span> Verrouillé </span>";
+                    editables[key].appendChild(p);
+                }
                     editables[key].style.borderColor = "blue";
                     editables[key].style.boxShadow= "2px 2px 2px 2px  rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)";
                     editables[key].style.outline = "0 none";
@@ -50,8 +70,9 @@ function edition(mats)
                             let inp = document.createElement("input");
                             inp.type = "Number";
                             inp.style.width = "70px";
-                            inp.step = "0.25";
-                            inp.min = "0.25";
+                            inp.step = "0.001";
+
+                            inp.min = "0.001";
                             inp.name = editables[key2].attributes["id"].value;
                             inp.id = "editable2";
                             editables[key2].replaceChild(inp,editables[key2].childNodes[0]);
@@ -64,6 +85,55 @@ function edition(mats)
             });
         }
     }
+}
+function ModAffectation(res,tabmodifer)
+{
+    let editables2 = document.querySelectorAll("#editable2");
+    $.each(editables2,function(key,value){
+        value.addEventListener('change',function(e){
+            let obj = {"name":e.target.name,"value":e.target.value};
+            tabmodifer[e.target.name] = obj;
+            let valider = document.querySelector(".valModAff");
+            valider.style.display = "inline";   
+        });
+    });
+    let valider = document.querySelector("#confirmerVal")
+    let Annuler = document.querySelector("#AnnulerVal");
+    Annuler.addEventListener('click',function(){
+        tabmodifer = [];
+        let lediv = document.querySelector(".valModAff");
+        lediv.style.display="none";
+        let editables2 = document.querySelectorAll("#editable2");
+        $.each(editables2,function(key,value){
+            editables2[key].value = "";
+        })
+        AffichageAffect(res);
+    });
+    valider.addEventListener('click',function()
+    {
+        let chaine = "";
+        for(let tab in tabmodifer)
+        {
+            chaine+=JSON.stringify(tabmodifer[tab])+" ";
+        }
+        $.ajax({
+            type:"GET",
+            url:"/EnregistrerAff/?tabmodifer="+chaine,
+            success: function(res){
+                if(res)
+                {
+                    alert("Modification reussie");
+                }
+                else
+                {
+                    alert("Echec de la modification");
+                }
+            }
+        });
+        let lediv = document.querySelector(".valModAff");
+        lediv.style.display="none";
+        AffichageAffect(res);
+    });
 }
 function traitementCat(res)
 {
@@ -110,7 +180,8 @@ function traitementCat(res)
     $.each(res.profs, function(key,value){
         let test = "";
         $.each(res.heures, function(key,value2){
-            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
+
+            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
     });
     $("#table_master").append(
     '<tr class="profs prof_2">' +
@@ -168,7 +239,7 @@ function traitementNiv(res)
     $.each(res.profs, function(key,value){
         let test = "";
         $.each(res.heures, function(key,value2){
-            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
+            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
             });
         $("#table_master").append(
             '<tr class="profs prof_2">' +
@@ -223,7 +294,7 @@ function traitementSem(res)
     $.each(res.profs, function(key,value){
         let test = "";
         $.each(res.heures, function(key,value2){
-            test += "<td   class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+" > </td>";
+            test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
             });
         $("#table_master").append(
             '<tr class="profs prof_3">' +
@@ -240,24 +311,30 @@ function AffichageAffect(res)
 {
     $.each(res.affectations,function(key,value){
         let lidmat = null;
+        let mat_verrouillee = null
         for(part of res.parties)
         {
             if(part.id_partie==value.id_partie)
             {
                 lidmat = part.id_matiere;
+                mat_verrouillee = part.mat_verrouille;
                 break;
             }
         }
-        let Checkid = value.id_professeur+"-"+lidmat+"-"+value.id_partie;
+        let Checkid = value.id_professeur+"-"+lidmat+"-"+value.id_partie+"-"+mat_verrouillee;
         let letd = document.getElementById(Checkid);
-        if(letd.childElementCount==0)
+        if(letd!=null)
         {
-            letd.innerText=value.nbre_groupe_prof;
+            if(letd.childElementCount==0)
+            {
+                letd.innerText=value.nbre_groupe_prof;
+            }
+            else
+            {
+                let leinput = document.getElementsByName(Checkid);
+                leinput[0].value = value.nbre_groupe_prof;
+            }
         }
-        else
-        {
-            let leinput = document.getElementsByName(Checkid);
-            leinput[0].value = value.nbre_groupe_prof;
-        }
+        
     });
 }
