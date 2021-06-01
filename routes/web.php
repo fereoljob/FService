@@ -72,4 +72,5 @@ Route::post('ModificationProf',[ControleurAdmin::class,'ModificationProf'])->mid
 Route::get('/Categorie', [ControleurConnexion::class, 'Categorie']);
 Route::get('/niveauEtude', [ControleurConnexion::class, 'niveauEtude']);
 Route::get('/Semestre', [ControleurConnexion::class,'Semestre']);
+Route::get('/EnregistrerAff',[ControleurConnexion::class,'EnregistrerAff']);
 

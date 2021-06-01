@@ -32,6 +32,7 @@
 @endphp
 
 <script type="text/javascript">
+    let tabmodifer = [];
     let lesSelect =  document.querySelector("#categorie").options;
     let laval = lesSelect[lesSelect.selectedIndex].value;
     $(document).ready(function(){
@@ -47,7 +48,7 @@
                         let mats = res.matieres;
                         edition(mats);
                         AffichageAffect(res);
-                       
+                        ModAffectation(res,tabmodifer);
                     }else{
                         $("#niveau").empty();
                     }
@@ -79,6 +80,7 @@
                         let mats = res.matieres;
                         edition(mats);
                         AffichageAffect(res);
+                        ModAffectation(res,tabmodifer);
                     }else{
                         $("#semestre").empty();
                     }
@@ -108,6 +110,7 @@
                         let mats = res.matieres;
                         edition(mats);
                         AffichageAffect(res);
+                        ModAffectation(res,tabmodifer);
                     }
                 }
             });}

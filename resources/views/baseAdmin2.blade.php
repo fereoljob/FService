@@ -31,7 +31,7 @@
                         <h3 class="mt-3 perso">Tables</h3>
                         <div class="uliste2 mt-4">
                             <div class="dropdown">
-                                <a href="#" data-toggle="dropdown">Status <i class="dropdown-toggle" ></i></a>
+                                <a href="#" data-toggle="dropdown">Statuts <i class="dropdown-toggle" ></i></a>
                                 <div class="dropdown-menu bg-dark">
                                     <a href="AjouStat" class="dropdown-item">Ajouter</a>
                                     <a href="SuppStat" class="dropdown-item">Supprimer</a>

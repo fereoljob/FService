@@ -169,7 +169,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")
         ->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")
         ->where("id_categorie", $request->id_categorie)
-        ->select("parties.id_partie","parties.id_matiere", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
+        ->select("parties.id_partie","parties.id_matiere","mat_verrouille", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
         ->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         $afffectations = DB::table("affectations")->get();
@@ -217,7 +217,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")
         ->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")
         ->where("niveau_etudes.id_niveau", $request->id_niveau)
-        ->select("parties.id_partie","parties.id_matiere", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
+        ->select("parties.id_partie","parties.id_matiere","mat_verrouille", "parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
         ->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         $afffectations = DB::table("affectations")->get();
@@ -266,7 +266,7 @@ class ControleurConnexion extends Controller
         ->join("parties", "parties.id_matiere", "=", "matieres.id_matiere")
         ->join("type_enseignements", "type_enseignements.id_type_enseignement", "=", "parties.type_enseignement")
         ->where('semestres.id_semestre', $request->id_semestre)
-        ->select("parties.id_partie", "parties.id_matiere","parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
+        ->select("parties.id_partie", "parties.id_matiere","mat_verrouille","parties.nbre_groupe", "parties.nbre_heure", db::raw('(type_enseignements.coefficient * parties.nbre_heure) as mult'))
         ->orderBy('parties.id_partie')->get();
         $profs = DB::table("professeurs")->get();
         $afffectations = DB::table("affectations")->get();
@@ -280,6 +280,34 @@ class ControleurConnexion extends Controller
             'affectations'=>$afffectations,
             'profs' =>$profs
         ]);
+    }
+    function EnregistrerAff(Request $requete)
+    {
+        $tab = $requete->tabmodifer;
+        $tableau = explode(" ",$tab);
+        $donnees = [];
+        foreach($tableau as $key=>$value)
+        {
+            $objetMod = json_decode($value);
+            $info = $objetMod->name;
+            $infotab = explode("-",$info);
+            $verifAff = DB::table("affectations")->where("affectations.id_professeur",$infotab[0])
+            ->where("affectations.id_partie",$infotab[2])
+            ->exists();
+            $succesModtab = [];
+            if($verifAff)
+            {
+                $succesMod = DB::table("affectations")->where("affectations.id_professeur",$infotab[0])
+                ->where("affectations.id_partie",$infotab[2])->update(["nbre_groupe_prof"=>$objetMod->value]);
+                $succesModtab[]=$succesMod;
+            }
+            else
+            {
+                $succesMod = DB::table("affectations")->insert(["id_partie"=>$infotab[2],"id_professeur"=>$infotab[0],"nbre_groupe_prof"=>$objetMod->value]);
+                $succesModtab[]=$succesMod;
+            }
+        }
+        return response()->json($succesModtab);   
     }
 
 }
