@@ -16,7 +16,6 @@ class ChangeTypeEnseignementsTable extends Migration
     {
         Schema::table('type_enseignements', function (Blueprint $table) { 
         });
-        DB::statement('ALTER TABLE type_enseignements ADD CONSTRAINT chk_type_en CHECK (nom_type_enseignement in ("C/TD","C","TD","TP","Responsable_matière"));');
     }
 
     /**
