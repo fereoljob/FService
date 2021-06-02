@@ -22,6 +22,7 @@
                 <div class="card-header "><h3>Connexion</h3></div>
                 <div class="card-body">
                 <form method="post" action="{{ route('Connex.verif') }}">
+                    @csrf
                     <div class="resultats" >
                         @if(Session::get('Echec'))
                             <div class="alert alert-danger">
