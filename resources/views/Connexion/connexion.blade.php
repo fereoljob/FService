@@ -44,21 +44,10 @@
                                 <span class="text-danger">@error('password') {{ $message }} @enderror</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="souvenir_de_moi" >
-                                    Se souvenir
-                                </label>
-                            </div>
-                        </div>
                         <div class="soumis">
                             <input type="submit" class="btn btn-primary" name="envoyer" value="Se connecter" />
                         </div> 
                     </form>
-                    <div >
-                    <a class="soumis" href="mot_de_passe_oublie.php">Mot de passe oublié ?</a>
-                    </div>
                 </div>
             </div>
         </div>
