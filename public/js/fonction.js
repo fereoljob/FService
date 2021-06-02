@@ -1,3 +1,4 @@
+
 //permet de rendre éditable la ligne du prof connecté et les colonnes des matières dont il est responsable
 function edition(mats)
 {
@@ -86,6 +87,7 @@ function edition(mats)
         }
     }
 }
+//permet de valider ou annuler une modification
 function ModAffectation(res,tabmodifer)
 {
     let editables2 = document.querySelectorAll("#editable2");
@@ -137,6 +139,7 @@ function ModAffectation(res,tabmodifer)
         lediv.style.display="none";
     });
 }
+//Affichage filtrée selon categorie
 function traitementCat(res)
 {
     $("#niveau").empty();
@@ -195,7 +198,19 @@ function traitementCat(res)
     '</tr>'
     )
     });
+    traitementvar();
 }
+function traitementvar()
+{
+        let valeurs_cal = document.querySelectorAll("td[id$='service']");
+        $.each(valeurs_cal, function(key,value){
+            let lidprof = (value.attributes["id"].value).split('-');
+            let tdchargeprof = document.getElementById(lidprof[0]+"-charge");
+            
+        });
+
+}
+//Affichage filtré selon niveau d'etude
 function traitementNiv(res)
 {
     $("#semestre").empty();
@@ -253,7 +268,9 @@ function traitementNiv(res)
             '</tr>'
         )
     });
+    traitementvar();
 }
+//affichage filtrée selon semestre
 function traitementSem(res)
 {
     $("#niv").empty();
@@ -308,7 +325,9 @@ function traitementSem(res)
             '</tr>'
         )
     });
+    traitementvar();
 }
+//Remplissage des affecations precedentes de la feuille de services
 function AffichageAffect(res)
 {
     $.each(res.affectations,function(key,value){
