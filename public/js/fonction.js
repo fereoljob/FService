@@ -216,7 +216,10 @@ function traitementvar()
                         $.each(res.infos,function(key,value){
                             charge+=value.nbre_heure*value.coefficient*value.nbre_groupe_prof;
                         });
-                        tdchargeprof.innerText = charge;
+                        let arrondii = charge*100;
+                        arrondii = Math.round(arrondii);
+                        arrondii = arrondii/100;
+                        tdchargeprof.innerText = arrondii;
                         let tddiffprof = document.getElementById(lidprof[0]+"-difference");
                         let tddidval = charge-value.innerText
                         let arrondi = tddidval*100;
@@ -228,7 +231,7 @@ function traitementvar()
                         }
                         else
                         {
-                            tddiffprof.innerHTML="<span style='color:red' >-"+arrondi+"</span>";
+                            tddiffprof.innerHTML="<span style='color:red' >"+arrondi+"</span>";
                         }
                     }
                     else
