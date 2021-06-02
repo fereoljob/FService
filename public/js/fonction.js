@@ -11,8 +11,8 @@ function edition(mats)
                 let inp = document.createElement("input");
                 inp.type = "Number";
                 inp.style.width = "70px";
-                inp.step = "0.001";
-                inp.min = "0.001";
+                inp.step = "0.01";
+                inp.min = "0.01";
                 inp.name = editables[key].attributes["id"].value;
                 inp.id = "editable2";
                 let id = (editables[key].attributes["id"].value).split('-');
@@ -41,8 +41,8 @@ function edition(mats)
                     let inp = document.createElement("input");
                     inp.type = "Number";
                     inp.style.width = "70px";
-                    inp.step = "0.001";
-                    inp.min = "0.001";
+                    inp.step = "0.01";
+                    inp.min = "0.01";
                     inp.name = editables[key].attributes["id"].value;
                     inp.id = "editable2";
                     if(id[3]==0)
@@ -70,9 +70,9 @@ function edition(mats)
                             let inp = document.createElement("input");
                             inp.type = "Number";
                             inp.style.width = "70px";
-                            inp.step = "0.001";
+                            inp.step = "0.01";
 
-                            inp.min = "0.001";
+                            inp.min = "0.01";
                             inp.name = editables[key2].attributes["id"].value;
                             inp.id = "editable2";
                             editables[key2].replaceChild(inp,editables[key2].childNodes[0]);
@@ -107,7 +107,7 @@ function ModAffectation(res,tabmodifer)
         $.each(editables2,function(key,value){
             editables2[key].value = "";
         })
-        AffichageAffect(res);
+        window.location.reload();
     });
     valider.addEventListener('click',function()
     {
@@ -123,6 +123,8 @@ function ModAffectation(res,tabmodifer)
                 if(res)
                 {
                     alert("Modification reussie");
+                    tabmodifer = [];
+                    window.location.reload();
                 }
                 else
                 {
@@ -130,9 +132,9 @@ function ModAffectation(res,tabmodifer)
                 }
             }
         });
+
         let lediv = document.querySelector(".valModAff");
         lediv.style.display="none";
-        AffichageAffect(res);
     });
 }
 function traitementCat(res)
