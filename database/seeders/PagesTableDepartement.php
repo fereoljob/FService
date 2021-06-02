@@ -17,8 +17,7 @@ class PagesTableDepartement extends Seeder
     {
         DB::table('departements')->insert([
             [
-                'nom_departement' => 'Informatique',
-                'responsable_departement'=>9
+                'nom_departement' => 'Informatique'
             ]
         ]);
     }
