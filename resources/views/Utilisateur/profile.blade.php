@@ -3,7 +3,7 @@
 <hr class="separation"/>
 <div class="generation  mt-5">
     <table  cellspacing="1" cellpadding="1" id="table_master" >
-        <tr id="niv"></tr>
+        <tr class="niv"></tr>
         <tr class="sem"></tr>
         <tr class="mat"></tr>
         <tr class="partie"></tr>
@@ -36,6 +36,39 @@
     let lesSelect =  document.querySelector("#categorie").options;
     let laval = lesSelect[lesSelect.selectedIndex].value;
     $(document).ready(function(){
+        $('#affichage').change(function(){
+        var affichageVal = $(this).val();
+        if(affichageVal){
+            if(leprof!=null)
+            {
+                if(affichageVal==2)
+                {
+                    let laligne = document.querySelectorAll("tr[id]")
+                    $.each(laligne,function(key,value){
+                        if(value.attributes["id"].value != leprof.id_professeur)
+                            value.style.display = "none";
+                    });
+                }
+                else
+                {
+                    let laligne = document.querySelectorAll("tr[id]")
+                    $.each(laligne,function(key,value){
+                        if(value.attributes["id"].value != leprof.id_professeur)
+                            value.style.display = "table-row";
+                    });
+                }
+            }
+            else
+            {
+                alert("Pas d'affichage personnalisé disponible en tant que membre administratif");
+            }
+            
+            
+        }else{
+            $("#niveau").empty();
+            $("#semestre").empty();
+        }
+    });
         $('#categorie').change(function(){
         var categorieID = $(this).val();
         if(categorieID){
@@ -49,6 +82,15 @@
                         edition(mats);
                         AffichageAffect(res);
                         ModAffectation(res,tabmodifer);
+                        let aff = $("#affichage").val();
+                        if(aff== 1)
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
+                        else
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
                     }else{
                         $("#niveau").empty();
                     }
@@ -81,6 +123,15 @@
                         edition(mats);
                         AffichageAffect(res);
                         ModAffectation(res,tabmodifer);
+                        let aff = $("#affichage").val();
+                        if(aff== 1)
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
+                        else
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
                     }else{
                         $("#semestre").empty();
                     }
@@ -111,6 +162,15 @@
                         edition(mats);
                         AffichageAffect(res);
                         ModAffectation(res,tabmodifer);
+                        let aff = $("#affichage").val();
+                        if(aff== 1)
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
+                        else
+                        {
+                            $("#affichage").trigger("change",[aff]);
+                        }
                     }
                 }
             });}

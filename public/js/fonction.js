@@ -47,9 +47,9 @@ function edition(mats)
                     inp.name = editables[key].attributes["id"].value;
                     inp.id = "editable2";
                     if(id[3]==0)
-                {
-                    editables[key].replaceChild(inp,editables[key].childNodes[0]);
-                }
+                    {
+                        editables[key].replaceChild(inp,editables[key].childNodes[0]);
+                    }
                 else
                 {
                     let p = document.createElement("p");
@@ -143,7 +143,7 @@ function ModAffectation(res,tabmodifer)
 function traitementCat(res)
 {
     $("#niveau").empty();
-    $("#niv").empty();
+    $(".niv").empty();
     $(".sem").empty();
     $(".mat").empty();
     $(".partie").empty();
@@ -152,7 +152,7 @@ function traitementCat(res)
     $(".edt").empty();
     $(".details").empty();
     $(".profs").remove();
-    $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
+    $(".niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
     $("#niveau").append('<option value="tous" selected="selected" >Tous</option>');
     $.each(res.categories, function(key,value){
         $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
@@ -166,7 +166,7 @@ function traitementCat(res)
     $(".details").append('<td> Charge </td>');
     $.each(res.niveau_etudes,function(key,value){
         $("#niveau").append('<option value="'+ value.id_niveau +'">'+value.nom_niveau+'</option>');
-        $("#niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
+        $(".niv").append('<th colspan="'+value.val+'">'+value.nom_niveau+'</th>');
     });
      $.each(res.semestres,function(key,value){
         $(".sem").append('<td colspan="'+value.val1+'">'+value.nom_semestre+'</td>');
@@ -189,7 +189,7 @@ function traitementCat(res)
             test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
     });
     $("#table_master").append(
-    '<tr class="profs prof_2">' +
+    '<tr class="profs prof_2" id='+value.id_professeur+'>' +
     '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
     '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
     '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
@@ -206,6 +206,38 @@ function traitementvar()
         $.each(valeurs_cal, function(key,value){
             let lidprof = (value.attributes["id"].value).split('-');
             let tdchargeprof = document.getElementById(lidprof[0]+"-charge");
+            $.ajax({
+                type:"GET",
+                url:"/infosprofs/?id_prof="+lidprof[0],
+                success:function(res){
+                    if(res)
+                    {
+                        let charge=0;
+                        $.each(res.infos,function(key,value){
+                            charge+=value.nbre_heure*value.coefficient*value.nbre_groupe_prof;
+                        });
+                        tdchargeprof.innerText = charge;
+                        let tddiffprof = document.getElementById(lidprof[0]+"-difference");
+                        let tddidval = charge-value.innerText
+                        let arrondi = tddidval*100;
+                        arrondi = Math.round(arrondi);
+                        arrondi = arrondi/100;
+                        if(arrondi>=0)
+                        {
+                            tddiffprof.innerHTML = "<span style='color:blue' >+"+arrondi+"</span>";
+                        }
+                        else
+                        {
+                            tddiffprof.innerHTML="<span style='color:red' >-"+arrondi+"</span>";
+                        }
+                    }
+                    else
+                    {
+                        console.log("mince! une erreur s'est produite");
+                    }
+                    
+                }
+            })
             
         });
 
@@ -214,7 +246,7 @@ function traitementvar()
 function traitementNiv(res)
 {
     $("#semestre").empty();
-    $("#niv").empty();
+    $(".niv").empty();
     $(".sem").empty();
     $(".mat").empty();
     $(".partie").empty();
@@ -223,7 +255,7 @@ function traitementNiv(res)
     $(".edt").empty();
     $(".details").empty();
     $(".profs").remove();
-    $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
+    $(".niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
     $("#semestre").append('<option value="tous" selected="selected" >Tous</option>');
     $.each(res.categories, function(key,value){
         $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
@@ -236,7 +268,7 @@ function traitementNiv(res)
     $(".details").append('<td> Difference </td>');
     $(".details").append('<td> Charge </td>');
     $.each(res.niveau_etudes,function(key,value){
-        $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
+        $(".niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
     });
     $.each(res.semestres, function(key,value){
         $("#semestre").append('<option value="'+ value.id_semestre+'">'+ value.nom_semestre+'</option>');
@@ -259,7 +291,7 @@ function traitementNiv(res)
             test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
             });
         $("#table_master").append(
-            '<tr class="profs prof_2">' +
+            '<tr class="profs prof_2" id='+value.id_professeur+'>' +
             '<td>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
             '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
             '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +
@@ -273,7 +305,7 @@ function traitementNiv(res)
 //affichage filtrée selon semestre
 function traitementSem(res)
 {
-    $("#niv").empty();
+    $(".niv").empty();
     $(".sem").empty();
     $(".mat").empty();
     $(".partie").empty();
@@ -282,7 +314,7 @@ function traitementSem(res)
     $(".edt").empty();
     $(".profs").remove();
     $(".details").empty();
-    $("#niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
+    $(".niv").append('<th rowspan="4" colspan = "4" > Scolarité </th>');
     $.each(res.categories, function(key,value){
         $(".heures").append('<td rowspan = "3" colspan="2">'+value.nom_categorie +'</td>');
     });
@@ -294,7 +326,7 @@ function traitementSem(res)
     $(".details").append('<td> Difference </td>');
     $(".details").append('<td> Charge </td>');
     $.each(res.niveau_etudes,function(key,value){
-        $("#niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
+        $(".niv").append('<th colspan="'+value.val+'">'+ value.nom_niveau + '</th>');
     });
     $.each(res.semestres, function(key,value){
         $(".sem").append('<td colspan="'+value.val1+'">'+value.nom_semestre+'</td>');
@@ -316,7 +348,7 @@ function traitementSem(res)
             test += "<td  class='editable' id="+value.id_professeur+"-"+value2.id_matiere+"-"+value2.id_partie+"-"+value2.mat_verrouille+" > </td>";
             });
         $("#table_master").append(
-            '<tr class="profs prof_3">' +
+            '<tr class="profs prof_3" id='+value.id_professeur+'>' +
             '<td id='+value.id_professeur+'>'+ value.nom_professeur + ' ' + value.prenom_professeur +'</td>' +
             '<td  class="valeurs_cal" id='+value.id_professeur+'-'+'service'+'>' + value.service + '</td>' +
             '<td class="valeurs_cal" id='+value.id_professeur+'-'+'difference'+'></td>' +

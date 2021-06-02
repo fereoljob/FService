@@ -307,7 +307,16 @@ class ControleurConnexion extends Controller
                 $succesModtab[]=$succesMod;
             }
         }
-        return response()->json($succesModtab);   
+        return response()->json($succesModtab);  
+    }
+    function infosprofs(Request $requete)
+    {
+        $infos = DB::table("affectations")->join("parties","affectations.id_partie","=","parties.id_partie")
+        ->join("type_enseignements","parties.type_enseignement","=","type_enseignements.id_type_enseignement")
+        ->where("affectations.id_professeur",$requete->id_prof)->get();
+        return response()->json([
+            "infos"=>$infos
+        ]);
     }
 
 }

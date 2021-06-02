@@ -55,8 +55,8 @@
                             <div class="col-md-3 troiscol">
                                 <label for="vue"><span class="filtre"> Affichage :</span></label>
                                 <select class="btn btn-secondary" name="vue" id="affichage">
-                                    <option value="Global ">Général</option>
-                                    <option value="Personnalisé">Personnalisé</option>
+                                    <option value="1">Général</option>
+                                    <option value="2">Personnalisé</option>
                                 </select>
                             </div>
                     </div>
