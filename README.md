@@ -1,12 +1,6 @@
 Pour déployer le projet pour la première fois, on a besoin d'installer certains pré-requis.
 
---mariadb
---php
-
-Pour déployer le projet pour la première fois, on a besoin d'installer certains pré-requis.
-
---mariadb
---php
+--mariadb && php
 
 Si vous n'avez pas ces pré-requis sur votre machine, voici les différentes étapes pour leur installation
 
